@@ -44,6 +44,12 @@ public class Application extends JFrame {
 	 */
 	private Point positionWidgetP;
 	
+	/**
+	 * Constructeur de Application.
+	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à 
+	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
+	 * On ajoute les widgets de couleur et pinceau.</p>
+	 */
 	public Application () {
 		super("Application Dessin - A.G.N");
 		

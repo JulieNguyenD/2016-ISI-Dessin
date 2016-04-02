@@ -60,6 +60,8 @@ public class WidgetOutils extends CShape {
 	
 	private Forme forme;
 	
+	private ChoixPinceau choix;
+	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -94,7 +96,10 @@ public class WidgetOutils extends CShape {
 		forme.addFormeStateMachine(forme);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
-		drag.addChild(outils);
+		drag.addChild(outils);		
+		
+		choix = new ChoixPinceau(canvas, new Point2D.Double(position.getX(), position.getY()));
+		choix.setParent(drag);
 		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);

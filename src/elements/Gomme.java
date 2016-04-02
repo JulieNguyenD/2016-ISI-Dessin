@@ -82,13 +82,13 @@ public class Gomme extends CImage {
 	public void addGommeStateMachine(CShape image) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON3, ">> press") {
+				Transition t1 = new Press (BUTTON1, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON3, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
 					public void action() {
 						image.scaleBy(2.0);
 					}					

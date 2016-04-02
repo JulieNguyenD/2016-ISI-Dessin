@@ -109,7 +109,7 @@ public class Pot extends CImage {
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, ">> press") {
 					public void action() {
-						
+
 					}					
 				};
 				
@@ -123,7 +123,6 @@ public class Pot extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
-							
 					}
 				};
 				
@@ -137,7 +136,8 @@ public class Pot extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-							
+						image.scaleBy(0.50);
+
 					}
 				};
 				
@@ -151,13 +151,12 @@ public class Pot extends CImage {
 			State fin = new State() {
 				Transition t7 = new Move (">> press") {
 					public void action() {
-							
+						
 					}
 				};
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
-						
 					}
 				};
 			};

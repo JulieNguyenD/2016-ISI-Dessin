@@ -1,7 +1,8 @@
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
-import javax.swing.JComponent;
-
+import elements.Pinceau;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
@@ -50,7 +51,9 @@ public class WidgetPinceau extends CShape {
 	 * <b>forme</b> : CImage de l'outils forme</p>
 	 * @see WidgetPinceau#WidgetPinceau(Canvas, Point)
 	 */
-	private CImage pinceau, pot, gomme, forme;
+	private CImage pot, gomme, forme;
+	
+	private Pinceau pinceau;
 	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
@@ -63,25 +66,32 @@ public class WidgetPinceau extends CShape {
 	 * <p>On instancie le canvas. On positionne les CRectangles et on ajoute les CImages</p>
 	 * 
 	 * @param c : canvas sur lequel on dessinne. 
-	 * @param position : position à laquelle on place le coin supérieur gauche du rectangle.
+	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
 	public WidgetPinceau(Canvas c, Point position) {
 		this.canvas = c;
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
-		canvas.addShape(drag);
 		outils = new CRectangle(position.getX()-padding, position.getY()-padding, 80+2*padding, 4*80+2*padding);
+
+		canvas.addShape(drag);
 		canvas.addShape(outils);
 		
-//		pinceau = new CImage("images/pinceau2.PNG", new Point((double)position.getX(), (double)position.getY()));
-//		pot = new CImage(position.getX(), position.getY()+80, "images/pot.PNG");
-//		gomme = new CImage(position.getX(), position.getY()+2*80, "images/gomme.PNG");
-//		forme = new CImage(position.getX(), position.getY()+3*80, "images/forme.PNG");
+		pinceau = new Pinceau("images/pinceau2.PNG", new Point2D.Double(position.getX(), position.getY()), canvas);
+		pinceau.addPinceauStateMachine(pinceau);
 		
-		canvas.newImage(position.getX(), position.getY(), "images/pinceau2.PNG");
-		canvas.newImage(position.getX(), position.getY()+80, "images/pot.PNG");
-		canvas.newImage(position.getX(), position.getY()+2*80, "images/gomme.PNG");
-		canvas.newImage(position.getX(), position.getY()+3*80, "images/forme.PNG");
+		pot = new CImage("images/pot.PNG", new Point2D.Double(position.getX(), position.getY()+80));
+		gomme = new CImage("images/gomme.PNG", new Point2D.Double(position.getX(), position.getY()+2*80));
+		forme = new CImage("images/forme.PNG", new Point2D.Double(position.getX(), position.getY()+3*80));
+
+		canvas.addShape(pot);
+		canvas.addShape(gomme);
+		canvas.addShape(forme);
 		
+		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
+		drag.addChild(outils);
+		
+		drag.addTag("draggable");
+		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 		
 	}
 

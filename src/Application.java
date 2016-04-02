@@ -29,7 +29,7 @@ import fr.lri.swingstates.sm.transitions.Release;
  * <p>
  * 
  * @see Canvas
- * @see WidgetPinceau
+ * @see WidgetOutils
  * @see Point
  * 
  * @author ANDRIANIRINA Tojo
@@ -47,7 +47,7 @@ public class Application extends JFrame {
 	 * Le widget contenant les outils de dessin : pinceau, gomme, pot et formes.
 	 * @see Application#Application()
 	 */
-	private WidgetPinceau widgetpinceau;
+	private WidgetOutils widgetpinceau;
 	
 	/**
 	 * Le point de positionnement du Widget Pinceau.
@@ -74,7 +74,7 @@ public class Application extends JFrame {
 		canvas = new Canvas(minsize.width, minsize.height);		
 		getContentPane().add(canvas);
 		
-		widgetpinceau = new WidgetPinceau(canvas, positionWidgetP);
+		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);
 		
 		addDragger(canvas);

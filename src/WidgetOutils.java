@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
-import elements.Pinceau;
+import elements.*;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
@@ -27,11 +27,11 @@ import fr.lri.swingstates.canvas.Canvas;
  * @author GABRIEL Damien
  * @author NGUYEN Julie
  */
-public class WidgetPinceau extends CShape {
+public class WidgetOutils extends CShape {
 	
 	/**
 	 * Le canvas pour ajouter les composants dessus.
-	 * @see WidgetPinceau#WidgetPinceau(Canvas, Point)
+	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
 	 */
 	private Canvas canvas;
 	
@@ -39,7 +39,7 @@ public class WidgetPinceau extends CShape {
 	 * Les CRectangle. 
 	 * <p><b>drag</b> : CRectangle au-dessus de outils. Permet de faire bouger l'ensemble.<br/>
 	 * <b>outils</b> :  CRectangle contenant les CImages des outils, alignés verticalement.</p>
-	 * @see WidgetPinceau#WidgetPinceau(Canvas, Point)
+	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
 	 */
 	private CRectangle drag, outils;
 	
@@ -49,15 +49,20 @@ public class WidgetPinceau extends CShape {
 	 * <b>pot</b> : CImage de l'outils pot<br/>
 	 * <b>gomme</b> : CImage de l'outils gomme<br/>
 	 * <b>forme</b> : CImage de l'outils forme</p>
-	 * @see WidgetPinceau#WidgetPinceau(Canvas, Point)
+	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
 	 */
-	private CImage pot, gomme, forme;
 	
 	private Pinceau pinceau;
 	
+	private Pot pot;
+	
+	private Gomme gomme;
+	
+	private Forme forme;
+	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
-	 * @see WidgetPinceau#outils
+	 * @see WidgetOutils#outils
 	 */
 	private int padding = 10;
 
@@ -68,7 +73,7 @@ public class WidgetPinceau extends CShape {
 	 * @param c : canvas sur lequel on dessinne. 
 	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
-	public WidgetPinceau(Canvas c, Point position) {
+	public WidgetOutils(Canvas c, Point position) {
 		this.canvas = c;
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
 		outils = new CRectangle(position.getX()-padding, position.getY()-padding, 80+2*padding, 4*80+2*padding);
@@ -79,13 +84,14 @@ public class WidgetPinceau extends CShape {
 		pinceau = new Pinceau("images/pinceau2.PNG", new Point2D.Double(position.getX(), position.getY()), canvas);
 		pinceau.addPinceauStateMachine(pinceau);
 		
-		pot = new CImage("images/pot.PNG", new Point2D.Double(position.getX(), position.getY()+80));
-		gomme = new CImage("images/gomme.PNG", new Point2D.Double(position.getX(), position.getY()+2*80));
-		forme = new CImage("images/forme.PNG", new Point2D.Double(position.getX(), position.getY()+3*80));
-
-		canvas.addShape(pot);
-		canvas.addShape(gomme);
-		canvas.addShape(forme);
+		pot = new Pot("images/pot.PNG", new Point2D.Double(position.getX(), position.getY()+80), canvas);
+		pot.addPotStateMachine(pot);
+		
+		gomme = new Gomme("images/gomme.PNG", new Point2D.Double(position.getX(), position.getY()+2*80), canvas);
+		gomme.addGommeStateMachine(gomme);
+		
+		forme = new Forme("images/forme.PNG", new Point2D.Double(position.getX(), position.getY()+3*80), canvas);
+		forme.addFormeStateMachine(forme);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);

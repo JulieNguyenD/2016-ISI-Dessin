@@ -7,19 +7,20 @@ import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.PressOnShape;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.sm.*;
+import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.sm.State;
+import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 
 /**
- * <b>CImage pour le pinceau</b>
- * <p>Le pinceau a sa propre CStateMachine. 
- * Lorsque l'on crosse le pinceau, sa fonction est activée 
- * et une boîte apparaît pour choisir la taille et la couleur.</p>
+ * <b>CImage pour le pot</b>
+ * <p>Le pot a sa propre CStateMachine. 
+ * Lorsque l'on crosse le pot, sa fonction est activée 
+ * et une boîte apparaît pour choisir la couleur.</p>
  * 
  * @see CImage
  * 
@@ -27,21 +28,16 @@ import fr.lri.swingstates.sm.transitions.Release;
  * @author GABRIEL Damien
  * @author NGUYEN Julie
  */
-public class Pinceau extends CImage {
+public class Pot extends CImage {
 	
 	/**
-	 * La couleur du pinceau. 
+	 * La couleur du pot. 
 	 * @see Color
 	 */
-	private Color couleurPinceau;
-	
+	private Color couleurPot;
+		
 	/**
-	 * La taille du pinceau.
-	 */
-	private int taille;
-	
-	/**
-	 * Booléen indiquant si le pinceau est actif.
+	 * Booléen indiquant si le pot est actif.
 	 */
 	private boolean estActif;
 	
@@ -52,24 +48,23 @@ public class Pinceau extends CImage {
 	private Canvas canvas;
 	
 	/**
-	 * La StateMachine du pinceau. Elle permet le Crossing.
+	 * La StateMachine du Pot. Elle permet le Crossing.
 	 * @see CStateMachine
 	 */
 	private CStateMachine sm;
 
 	/**
-	 * Constructeur de Pinceau.
-	 * <p>A la création d'un Pinceau, la couleur de base est noir.
-	 * La taille du trait est de 1 et le pinceau n'est pas actif.<br/>
-	 * On instancie le canvas et on attache le pinceau au Canvas.</p> 
+	 * Constructeur de Pot.
+	 * <p>A la création d'un Pot, la couleur de base est blanc.
+	 * Le pot n'est pas actif.<br/>
+	 * On instancie le canvas et on attache le pot au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
 	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
 	 */
-	public Pinceau(String path, Point2D position, Canvas canvas) {
+	public Pot(String path, Point2D position, Canvas canvas) {
 		super(path, position);
-		this.couleurPinceau = Color.BLACK;
-		this.taille = 1;
+		this.couleurPot = Color.WHITE;
 		this.estActif = false;
 		this.canvas = canvas;
 		
@@ -77,60 +72,44 @@ public class Pinceau extends CImage {
 	}
 	
 	/**
-	 * Getter de couleurPinceau : retourne la couleur du pinceau. 
+	 * Getter de couleurPot : retourne la couleur du pot. 
 	 * @see Color
-	 * @return la couleur du Pinceau
+	 * @return la couleur du Pot
 	 */
-	public Color getCouleurPinceau() {
-		return couleurPinceau;
+	public Color getCouleurPot() {
+		return couleurPot;
 	}
 
 	/**
-	 * Met à jour la couleur du Pinceau avec la nouvelle couleur. 
-	 * @param couleurPinceau : la nouvelle couleur du Pinceau
+	 * Met à jour la couleur du pot avec la nouvelle couleur. 
+	 * @param couleurPot : la nouvelle couleur du pot
 	 */
-	public void setCouleurPinceau(Color couleurPinceau) {
-		this.couleurPinceau = couleurPinceau;
+	public void setCouleurPot(Color couleurPot) {
+		this.couleurPot = couleurPot;
 	}
-
+	
 	/**
-	 * Retourne la taille du Pinceau
-	 * @return la taille du Pinceau
-	 */
-	public int getTaille() {
-		return taille;
-	}
-
-	/**
-	 * Met à jour la taille du Pinceau avec la nouvelle taille.
-	 * @param taille : la nouvelle taille du Pinceau
-	 */
-	public void setTaille(int taille) {
-		this.taille = taille;
-	}
-
-	/**
-	 * Retourne si le pinceau est actif ou non.
-	 * @return true si le pinceau est actif, false sinon.
+	 * Retourne si le Pot est actif ou non.
+	 * @return true si le Pot est actif, false sinon.
 	 */
 	public boolean isEstActif() {
 		return estActif;
 	}
 
 	/**
-	 * Met à jour l'état du Pinceau. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du pinceau, false ou true.
+	 * Met à jour l'état du Pot. S'il est actif, on met à true ; sinon false.
+	 * @param estActif : le nouveau état du Pot, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
 	}
 	
-	public void addPinceauStateMachine(CShape image) {
+	public void addPotStateMachine(CShape image) {
 		sm = new CStateMachine() {
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, ">> press") {
 					public void action() {
-
+						
 					}					
 				};
 				
@@ -144,6 +123,7 @@ public class Pinceau extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+							
 					}
 				};
 				
@@ -157,8 +137,7 @@ public class Pinceau extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
-
+							
 					}
 				};
 				
@@ -172,12 +151,13 @@ public class Pinceau extends CImage {
 			State fin = new State() {
 				Transition t7 = new Move (">> press") {
 					public void action() {
-						
+							
 					}
 				};
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						
 					}
 				};
 			};
@@ -185,6 +165,5 @@ public class Pinceau extends CImage {
 		
 		sm.attachTo(image);
 	}
-	
-	
+
 }

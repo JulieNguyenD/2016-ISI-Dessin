@@ -108,16 +108,16 @@ public class WidgetOutils extends CShape {
 		position_image_gomme = new Point2D.Double(position.getX(), position.getY()+2*80);
 		position_image_forme = new Point2D.Double(position.getX(), position.getY()+3*80);
 		
-		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
+		pinceau = new Pinceau("images/pinceau2.PNG", position_image_pinceau, canvas);
 		pinceau.addPinceauStateMachine(pinceau);
 		
-		pot = new Pot("images/pot.png", position_image_pot, canvas);
+		pot = new Pot("images/pot.PNG", position_image_pot, canvas);
 		pot.addPotStateMachine(pot);
 		
-		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);
+		gomme = new Gomme("images/gomme.PNG", position_image_gomme, canvas);
 		gomme.addGommeStateMachine(gomme);
 		
-		forme = new Forme("images/forme.png", position_image_forme, canvas);
+		forme = new Forme("images/forme.PNG", position_image_forme, canvas);
 		forme.addFormeStateMachine(forme);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);

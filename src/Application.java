@@ -18,8 +18,8 @@ import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetOutils;
 
 /**
- * <b>Fenêtre de l'application.</b>
- * <p>C'est une JFrame qui affiche en plein écran le canvas avec ses composants.
+ * <b>Fenï¿½tre de l'application.</b>
+ * <p>C'est une JFrame qui affiche en plein ï¿½cran le canvas avec ses composants.
  * Elle a :
  * <ul>
  * <li>Un unique Canvas dans lequel on dessine.</li>
@@ -40,7 +40,7 @@ import widgets.WidgetOutils;
 @SuppressWarnings("serial")
 public class Application extends JFrame {
 	/**
-	 * Le Canvas de la fenêtre. On dessine dessus et les CElements sont placés dessus.
+	 * Le Canvas de la fenï¿½tre. On dessine dessus et les CElements sont placï¿½s dessus.
 	 * @see Application#Application()
 	 */
 	private Canvas canvas;
@@ -59,8 +59,8 @@ public class Application extends JFrame {
 		
 	/**
 	 * Constructeur de Application.
-	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à 
-	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
+	 * <p>A la construction d'un objet Application, on met le titre de la fenï¿½tre ï¿½ 
+	 * "Application Dessin - A.G.N" et on affiche la fenï¿½tre en plein ï¿½cran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
 	public Application () {
@@ -89,8 +89,8 @@ public class Application extends JFrame {
 	}
 	
 	/**
-	 * Créé un CStateMachine pour les tag "draggable" et l'attache au canvas.
-	 * <p>Les CElements avec un tag "draggable" peuvent être bougé sur le canvas.</p>
+	 * Crï¿½ï¿½ un CStateMachine pour les tag "draggable" et l'attache au canvas.
+	 * <p>Les CElements avec un tag "draggable" peuvent ï¿½tre bougï¿½ sur le canvas.</p>
 	 *
 	 * @param canvas : canvas sur lequel on attache le CStateMachine
 	 */

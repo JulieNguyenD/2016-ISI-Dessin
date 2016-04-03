@@ -6,7 +6,7 @@ import fr.lri.swingstates.sm.JStateMachine;
 
 /**
  * <b>Lancement de l'application.</b>
- * <p>Fonction main qui fait une nouvelle fenêtre Application</p>
+ * <p>Fonction main qui fait une nouvelle fenÃªtre Application</p>
  *  
  * @see Application
  *  
@@ -22,7 +22,7 @@ public class Lancement {
 	
 	/**
 	 * <b>Affiche la CStateMachine sm.</b>
-	 * <p>Ouvre une nouvelle fenêtre avec l'état de la CStateMachine sm.</p>
+	 * <p>Ouvre une nouvelle fenï¿½tre avec l'Ã©tat de la CStateMachine sm.</p>
 	 * 
 	 * @see CStateMachine
 	 * 
@@ -37,7 +37,7 @@ public class Lancement {
 	
 	/**
 	 * <b>Affiche la JStateMachine sm</b>
-	 * <p>Ouvre une nouvelle fenêtre avec l'état de la JStateMachine sm.</p>
+	 * <p>Ouvre une nouvelle fenï¿½tre avec l'Ã©tat de la JStateMachine sm.</p>
 	 * 
 	 * @see JStateMachine
 	 * 

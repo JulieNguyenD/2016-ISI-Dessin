@@ -50,7 +50,7 @@ public class Application extends JFrame {
 	 * @see Application#Application()
 	 */
 	private WidgetOutils widgetpinceau;
-	
+
 	/**
 	 * Le point de positionnement du Widget Pinceau.
 	 * @see Application#Application()
@@ -65,22 +65,32 @@ public class Application extends JFrame {
 	 */
 	public Application () {
 		super("Application Dessin - A.G.N");
-		
+
 		Dimension minsize = new Dimension(600,600);
 		//this.setPreferredSize(minsize);
 		this.setMinimumSize(minsize);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
-		
+
 		positionWidgetP = new Point(400, 100);
-		
-		canvas = new Canvas(minsize.width, minsize.height);		
+
+		canvas = new Canvas(minsize.width, minsize.height);	
+		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
 		
+		// Ajout un marquage pour la trace
+		CrossingTrace ct = new CrossingTrace(canvas) ;
+		ct.attachTo(canvas);
+		canvas.setVisible(true);
+		canvas.setOpaque(false);
+		
+		this.setGlassPane(canvas);
+		this.getGlassPane().setVisible(true);
+
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);
-		
+
 		addDragger(canvas);
-		
+
 		pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,8 +138,7 @@ public class Application extends JFrame {
 				};
 			};
 		};
-		
-		
+
 	}
 
 }

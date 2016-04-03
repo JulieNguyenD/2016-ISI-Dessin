@@ -16,7 +16,6 @@ public class Couleur_Widget extends CRectangle {
 	private Canvas canvas;
 	private ArrayList <Couleur> couleurList;
 	private int padding = 10;
-	private int size_carre = 50;
 	private Point2D position_init;
 
 	public Couleur_Widget (Canvas canvas, Point2D position){

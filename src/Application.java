@@ -18,8 +18,8 @@ import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetOutils;
 
 /**
- * <b>Fen�tre de l'application.</b>
- * <p>C'est une JFrame qui affiche en plein �cran le canvas avec ses composants.
+ * <b>Fenêtre de l'application.</b>
+ * <p>C'est une JFrame qui affiche en plein écran le canvas avec ses composants.
  * Elle a :
  * <ul>
  * <li>Un unique Canvas dans lequel on dessine.</li>
@@ -40,7 +40,7 @@ import widgets.WidgetOutils;
 @SuppressWarnings("serial")
 public class Application extends JFrame {
 	/**
-	 * Le Canvas de la fen�tre. On dessine dessus et les CElements sont plac�s dessus.
+	 * Le Canvas de la fenêtre. On dessine dessus et les CElements sont placés dessus.
 	 * @see Application#Application()
 	 */
 	private Canvas canvas;
@@ -50,7 +50,7 @@ public class Application extends JFrame {
 	 * @see Application#Application()
 	 */
 	private WidgetOutils widgetpinceau;
-	
+
 	/**
 	 * Le point de positionnement du Widget Pinceau.
 	 * @see Application#Application()
@@ -59,28 +59,38 @@ public class Application extends JFrame {
 		
 	/**
 	 * Constructeur de Application.
-	 * <p>A la construction d'un objet Application, on met le titre de la fen�tre � 
-	 * "Application Dessin - A.G.N" et on affiche la fen�tre en plein �cran. 
+	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à
+	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
 	public Application () {
 		super("Application Dessin - A.G.N");
-		
+
 		Dimension minsize = new Dimension(600,600);
 		//this.setPreferredSize(minsize);
 		this.setMinimumSize(minsize);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
-		
+
 		positionWidgetP = new Point(400, 100);
-		
-		canvas = new Canvas(minsize.width, minsize.height);		
+
+		canvas = new Canvas(minsize.width, minsize.height);	
+		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
 		
+		// Ajout un marquage pour la trace
+		CrossingTrace ct = new CrossingTrace(canvas) ;
+		ct.attachTo(canvas);
+		canvas.setVisible(true);
+		canvas.setOpaque(false);
+		
+		this.setGlassPane(canvas);
+		this.getGlassPane().setVisible(true);
+
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);
-		
+
 		addDragger(canvas);
-		
+
 		pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,8 +99,8 @@ public class Application extends JFrame {
 	}
 	
 	/**
-	 * Cr�� un CStateMachine pour les tag "draggable" et l'attache au canvas.
-	 * <p>Les CElements avec un tag "draggable" peuvent �tre boug� sur le canvas.</p>
+	 * Créé un CStateMachine pour les tag "draggable" et l'attache au canvas.
+	 * <p>Les CElements avec un tag "draggable" peuvent être bougé sur le canvas.</p>
 	 *
 	 * @param canvas : canvas sur lequel on attache le CStateMachine
 	 */
@@ -128,8 +138,7 @@ public class Application extends JFrame {
 				};
 			};
 		};
-		
-		
+
 	}
 
 }

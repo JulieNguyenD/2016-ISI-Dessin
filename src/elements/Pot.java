@@ -1,4 +1,5 @@
 package elements;
+//addition de commentaire ligne 2 fichier elements/Pot.java
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -19,8 +20,8 @@ import fr.lri.swingstates.sm.transitions.Release;
 /**
  * <b>CImage pour le pot</b>
  * <p>Le pot a sa propre CStateMachine. 
- * Lorsque l'on crosse le pot, sa fonction est activée 
- * et une boîte apparaît pour choisir la couleur.</p>
+ * Lorsque l'on crosse le pot, sa fonction est activï¿½e 
+ * et une boï¿½te apparaï¿½t pour choisir la couleur.</p>
  * 
  * @see CImage
  * 
@@ -37,7 +38,7 @@ public class Pot extends CImage {
 	private Color couleurPot;
 		
 	/**
-	 * Booléen indiquant si le pot est actif.
+	 * Boolï¿½en indiquant si le pot est actif.
 	 */
 	private boolean estActif;
 	
@@ -55,12 +56,12 @@ public class Pot extends CImage {
 
 	/**
 	 * Constructeur de Pot.
-	 * <p>A la création d'un Pot, la couleur de base est blanc.
+	 * <p>A la crï¿½ation d'un Pot, la couleur de base est blanc.
 	 * Le pot n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le pot au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dï¿½part de l'image (ici le coin supï¿½rieur gauche de l'image)
 	 */
 	public Pot(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -81,7 +82,7 @@ public class Pot extends CImage {
 	}
 
 	/**
-	 * Met à jour la couleur du pot avec la nouvelle couleur. 
+	 * Met ï¿½ jour la couleur du pot avec la nouvelle couleur. 
 	 * @param couleurPot : la nouvelle couleur du pot
 	 */
 	public void setCouleurPot(Color couleurPot) {
@@ -97,8 +98,8 @@ public class Pot extends CImage {
 	}
 
 	/**
-	 * Met à jour l'état du Pot. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du Pot, false ou true.
+	 * Met ï¿½ jour l'ï¿½tat du Pot. S'il est actif, on met ï¿½ true ; sinon false.
+	 * @param estActif : le nouveau ï¿½tat du Pot, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;

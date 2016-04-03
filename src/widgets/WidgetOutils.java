@@ -13,7 +13,7 @@ import widgets.widget_sous_barre.ChoixPot;
 
 /**
  * <b>CShape qui sert de widget pour les outils</b>
- * <p>CShape qui contient les éléments de manipulation du canvas. Il possède :
+ * <p>CShape qui contient les ï¿½lï¿½ments de manipulation du canvas. Il possï¿½de :
  * <ul>
  * <li>Un Canvas pour ajouter les CElements dessus.</li>
  * <li>Deux CRectangle : l'un pour faire le drag, l'autre pour mettre les outils dedans.</li>
@@ -47,7 +47,7 @@ public class WidgetOutils extends CShape {
 	/**
 	 * Les CRectangle. 
 	 * <p><b>drag</b> : CRectangle au-dessus de outils. Permet de faire bouger l'ensemble.<br/>
-	 * <b>outils</b> :  CRectangle contenant les CImages des outils, alignés verticalement.</p>
+	 * <b>outils</b> :  CRectangle contenant les CImages des outils, alignï¿½s verticalement.</p>
 	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
 	 */
 	private CRectangle drag, outils;
@@ -93,7 +93,7 @@ public class WidgetOutils extends CShape {
 	 * <p>On instancie le canvas. On positionne les CRectangles et on ajoute les CImages</p>
 	 * 
 	 * @param c : canvas sur lequel on dessinne. 
-	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
+	 * @param position : position ï¿½ laquelle on place le coin supï¿½rieur gauche de la premiï¿½re image.
 	 */
 	public WidgetOutils(Canvas c, Point position) {
 		this.canvas = c;
@@ -108,16 +108,16 @@ public class WidgetOutils extends CShape {
 		position_image_gomme = new Point2D.Double(position.getX(), position.getY()+2*80);
 		position_image_forme = new Point2D.Double(position.getX(), position.getY()+3*80);
 		
-		pinceau = new Pinceau("images/pinceau2.PNG", position_image_pinceau, canvas);
+		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
 		pinceau.addPinceauStateMachine(pinceau);
 		
-		pot = new Pot("images/pot.PNG", position_image_pot, canvas);
+		pot = new Pot("images/pot.png", position_image_pot, canvas);
 		pot.addPotStateMachine(pot);
 		
-		gomme = new Gomme("images/gomme.PNG", position_image_gomme, canvas);
+		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);
 		gomme.addGommeStateMachine(gomme);
 		
-		forme = new Forme("images/forme.PNG", position_image_forme, canvas);
+		forme = new Forme("images/forme.png", position_image_forme, canvas);
 		forme.addFormeStateMachine(forme);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);

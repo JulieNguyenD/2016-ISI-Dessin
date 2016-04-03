@@ -18,7 +18,7 @@ import fr.lri.swingstates.sm.transitions.Release;
 public class Forme extends CImage {
 	
 	/**
-	 * Booléen indiquant si la forme est actif.
+	 * BoolÃ©en indiquant si la forme est actif.
 	 */
 	private boolean estActif;
 	
@@ -36,12 +36,12 @@ public class Forme extends CImage {
 
 	/**
 	 * Constructeur de Forme.
-	 * <p>A la création d'une Forme.
+	 * <p>A la crÃ©ation d'une Forme.
 	 * Le forme n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le forme au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Forme(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -60,8 +60,8 @@ public class Forme extends CImage {
 	}
 
 	/**
-	 * Met à jour l'état du Forme. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du Forme, false ou true.
+	 * Met Ã  jour l'Ã©tat du Forme. S'il est actif, on met Ã  true ; sinon false.
+	 * @param estActif : le nouveau Ã©tat du Forme, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;

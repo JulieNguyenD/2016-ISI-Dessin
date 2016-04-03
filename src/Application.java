@@ -81,7 +81,7 @@ public class Application extends JFrame {
 		CrossingTrace ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
-		canvas.setOpaque(false);
+		canvas.setOpaque(true);
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);

@@ -13,7 +13,7 @@ import widgets.widget_sous_barre.ChoixPot;
 
 /**
  * <b>CShape qui sert de widget pour les outils</b>
- * <p>CShape qui contient les éléments de manipulation du canvas. Il possède :
+ * <p>CShape qui contient les �l�ments de manipulation du canvas. Il poss�de :
  * <ul>
  * <li>Un Canvas pour ajouter les CElements dessus.</li>
  * <li>Deux CRectangle : l'un pour faire le drag, l'autre pour mettre les outils dedans.</li>
@@ -93,7 +93,7 @@ public class WidgetOutils extends CShape {
 	 * <p>On instancie le canvas. On positionne les CRectangles et on ajoute les CImages</p>
 	 * 
 	 * @param c : canvas sur lequel on dessinne. 
-	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
+	 * @param position : position � laquelle on place le coin sup�rieur gauche de la premi�re image.
 	 */
 	public WidgetOutils(Canvas c, Point position) {
 		this.canvas = c;

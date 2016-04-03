@@ -3,9 +3,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import elements.BarCouleur;
+import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.CText;
@@ -63,6 +66,9 @@ public class Application extends JFrame {
 	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
+	
+	private Point positionWidgetCT;
+	
 	public Application () {
 		super("Application Dessin - A.G.N");
 
@@ -72,6 +78,7 @@ public class Application extends JFrame {
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 
 		positionWidgetP = new Point(400, 100);
+		positionWidgetCT = new Point (100, 100);
 
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
@@ -82,6 +89,14 @@ public class Application extends JFrame {
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
 		canvas.setOpaque(true);
+		
+		// Test BarCouleur 
+		try {
+			BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);								
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);

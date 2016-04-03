@@ -22,7 +22,7 @@ public class Lancement {
 	
 	/**
 	 * <b>Affiche la CStateMachine sm.</b>
-	 * <p>Ouvre une nouvelle fen�tre avec l'état de la CStateMachine sm.</p>
+	 * <p>Ouvre une nouvelle fenêtre avec l'état de la CStateMachine sm.</p>
 	 * 
 	 * @see CStateMachine
 	 * 
@@ -37,7 +37,7 @@ public class Lancement {
 	
 	/**
 	 * <b>Affiche la JStateMachine sm</b>
-	 * <p>Ouvre une nouvelle fen�tre avec l'état de la JStateMachine sm.</p>
+	 * <p>Ouvre une nouvelle fenêtre avec l'état de la JStateMachine sm.</p>
 	 * 
 	 * @see JStateMachine
 	 * 

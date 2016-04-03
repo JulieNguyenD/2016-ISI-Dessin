@@ -18,8 +18,8 @@ import fr.lri.swingstates.sm.transitions.Release;
 /**
  * <b>CImage pour le pinceau</b>
  * <p>Le pinceau a sa propre CStateMachine. 
- * Lorsque l'on crosse le pinceau, sa fonction est activée 
- * et une boîte apparaît pour choisir la taille et la couleur.</p>
+ * Lorsque l'on crosse le pinceau, sa fonction est activÃ©e 
+ * et une boÃ®te apparaÃ®t pour choisir la taille et la couleur.</p>
  * 
  * @see CImage
  * 
@@ -41,7 +41,7 @@ public class Pinceau extends CImage {
 	private int taille;
 	
 	/**
-	 * Booléen indiquant si le pinceau est actif.
+	 * BoolÃ©en indiquant si le pinceau est actif.
 	 */
 	private boolean estActif;
 	
@@ -59,12 +59,12 @@ public class Pinceau extends CImage {
 
 	/**
 	 * Constructeur de Pinceau.
-	 * <p>A la création d'un Pinceau, la couleur de base est noir.
+	 * <p>A la crÃ©ation d'un Pinceau, la couleur de base est noir.
 	 * La taille du trait est de 1 et le pinceau n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le pinceau au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Pinceau(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -86,7 +86,7 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour la couleur du Pinceau avec la nouvelle couleur. 
+	 * Met Ã  jour la couleur du Pinceau avec la nouvelle couleur. 
 	 * @param couleurPinceau : la nouvelle couleur du Pinceau
 	 */
 	public void setCouleurPinceau(Color couleurPinceau) {
@@ -102,7 +102,7 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour la taille du Pinceau avec la nouvelle taille.
+	 * Met Ã  jour la taille du Pinceau avec la nouvelle taille.
 	 * @param taille : la nouvelle taille du Pinceau
 	 */
 	public void setTaille(int taille) {
@@ -118,8 +118,8 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour l'état du Pinceau. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du pinceau, false ou true.
+	 * Met Ã  jour l'Ã©tat du Pinceau. S'il est actif, on met Ã  true ; sinon false.
+	 * @param estActif : le nouvel Ã©tat du pinceau, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;

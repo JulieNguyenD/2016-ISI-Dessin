@@ -1,4 +1,5 @@
 package elements;
+//addition de commentaire ligne 2 fichier elements/Pot.java
 
 import java.awt.Color;
 import java.awt.geom.Point2D;

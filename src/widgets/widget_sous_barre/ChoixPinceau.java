@@ -19,8 +19,7 @@ public class ChoixPinceau extends CRectangle {
 		position_widget = new Point2D.Double(position.getX()-70*2-10*2, position.getY());
 		
 		this.canvas = canvas;		
-		this.addTo(canvas);
-		
+		this.addTo(canvas);		
 		
 		this.setStroke(new BasicStroke(1));
 		
@@ -29,7 +28,7 @@ public class ChoixPinceau extends CRectangle {
 		choixPinceauTaille.translateBy(70, 0);
 		
 		choixPinceauCouleur.setParent(this);
-		// choixPinceauTaille.setParent(this);
+		choixPinceauTaille.setParent(this);
 		
 		// this.belowAll();
 		

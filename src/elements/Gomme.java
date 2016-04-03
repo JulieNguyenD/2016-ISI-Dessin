@@ -18,8 +18,8 @@ import fr.lri.swingstates.sm.transitions.Release;
 /**
  * <b>CImage pour la gomme</b>
  * <p>La gomme a sa propre CStateMachine. 
- * Lorsque l'on crosse la gomme, sa fonction est activée 
- * et une boîte apparaît pour choisir sa fonction.</p>
+ * Lorsque l'on crosse la gomme, sa fonction est activÃ©e 
+ * et une boÃ®te apparaÃ®t pour choisir sa fonction.</p>
  * 
  * @see CImage
  * 
@@ -30,7 +30,7 @@ import fr.lri.swingstates.sm.transitions.Release;
 public class Gomme extends CImage {
 	
 	/**
-	 * Booléen indiquant si la gomme est actif.
+	 * BoolÃ©en indiquant si la gomme est actif.
 	 */
 	private boolean estActif;
 	
@@ -48,12 +48,12 @@ public class Gomme extends CImage {
 
 	/**
 	 * Constructeur de Gomme.
-	 * <p>A la création d'une Gomme.
+	 * <p>A la crÃ©ation d'une Gomme.
 	 * Le gomme n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le gomme au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Gomme(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -64,16 +64,16 @@ public class Gomme extends CImage {
 	}
 	
 	/**
-	 * Retourne si le Gomme est actif ou non.
-	 * @return true si le Gomme est actif, false sinon.
+	 * Retourne si la Gomme est actif ou non.
+	 * @return true si la Gomme est actif, false sinon.
 	 */
 	public boolean isEstActif() {
 		return estActif;
 	}
 
 	/**
-	 * Met à jour l'état du Gomme. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du Gomme, false ou true.
+	 * Met Ã  jour l'Ã©tat du Gomme. S'il est actif, on met ï¿½ true ; sinon false.
+	 * @param estActif : le nouvel Ã©tat de la Gomme, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;

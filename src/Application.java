@@ -15,6 +15,7 @@ import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.WidgetOutils;
 
 /**
  * <b>Fenêtre de l'application.</b>
@@ -22,7 +23,7 @@ import fr.lri.swingstates.sm.transitions.Release;
  * Elle a :
  * <ul>
  * <li>Un unique Canvas dans lequel on dessine.</li>
- * <li>Un WidgetPinceau qui sont les outils de dessin.</li>
+ * <li>Un WidgetOutils qui sont les outils de dessin.</li>
  * <li>Un WidgetCouleur qui est l'outils pour choisir la couleur et la taille du pinceau</li>
  * <li>Deux Points pour donner la position des deux widgets</li>
  * </ul>
@@ -36,6 +37,7 @@ import fr.lri.swingstates.sm.transitions.Release;
  * @author GABRIEL Damien
  * @author NGUYEN Julie
  */
+@SuppressWarnings("serial")
 public class Application extends JFrame {
 	/**
 	 * Le Canvas de la fenêtre. On dessine dessus et les CElements sont placés dessus.
@@ -54,7 +56,7 @@ public class Application extends JFrame {
 	 * @see Application#Application()
 	 */
 	private Point positionWidgetP;
-	
+		
 	/**
 	 * Constructeur de Application.
 	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à 
@@ -93,7 +95,6 @@ public class Application extends JFrame {
 	 * @param canvas : canvas sur lequel on attache le CStateMachine
 	 */
 	public static void addDragger(Canvas canvas) {
-
 
 		// Create the state machine and attach it to the canvas
 		CStateMachine dragger = new CStateMachine(canvas) {

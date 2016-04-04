@@ -26,10 +26,10 @@ public class Forme_Widget extends CRectangle {
 		// this.addTo(canvas);
 		
 		formeList = new ArrayList<Annexe_forme>();		
-		formeList.add(new Annexe_forme ("images/forme_carre.PNG", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_ellipse.PNG", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_triangle.PNG", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_ligne.PNG", pos, canvas));
+		formeList.add(new Annexe_forme ("images/forme_carre.png", pos, canvas));
+		formeList.add(new Annexe_forme ("images/forme_ellipse.png", pos, canvas));
+		formeList.add(new Annexe_forme ("images/forme_triangle.png", pos, canvas));
+		formeList.add(new Annexe_forme ("images/forme_ligne.png", pos, canvas));
 				
 		for (int i = 0; i < formeList.size(); i++){
 			formeList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));

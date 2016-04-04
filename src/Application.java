@@ -125,8 +125,8 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);		
 				
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
-		bc.addTag("BarColor");
+//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+//		bc.addTag("BarColor");
 		
 		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetOutils);
@@ -134,11 +134,11 @@ public class Application extends JFrame {
 		// Test menu radial
 		// TODO : Apparait au coordo de la souris
 		// mais avec le parent
-		// QuitMenu_remake qm = new QuitMenu_remake(canvas);
-		// QuitMenu qm = new QuitMenu(canvas);
+		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
+//		 QuitMenu qm = new QuitMenu(canvas);
 		
-//		this.setGlassPane(canvas);
-//		this.getGlassPane().setVisible(true);
+		this.setGlassPane(canvas);
+		this.getGlassPane().setVisible(true);
 		
 		addDragger(canvas);
 		

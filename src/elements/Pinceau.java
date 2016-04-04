@@ -4,14 +4,19 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import javax.swing.JFrame;
+
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
+import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.*;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Move;
@@ -202,7 +207,7 @@ public class Pinceau extends CImage {
 	}
 	
 	
-	public static CStateMachine addPinceauStateMachineDrawing(Canvas canvas, Color couleur, int taille) {
+	public CStateMachine createPinceauStateMachineDrawing(Canvas canvas, Color couleur, int taille) {
 		smd = new CStateMachine() {
 			State start = new State() {
 				Transition press = new Press(BUTTON1, ">> draw") {
@@ -230,9 +235,62 @@ public class Pinceau extends CImage {
 				};
 			};
 		};		
-		smd.attachTo(canvas);
+		
+		// Commencement du nouveu SM===============================
+		/*smd = new CStateMachine (){
+			public State out = new State() {				
+				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
+				Transition pressOut = new Press (">> disarmed") {
+					public void action() {
+						//Canvas canvas = (Canvas) getEvent().getSource();
+						line = canvas.newPolyLine(getPoint());
+						line.setStroke(new BasicStroke(taille));
+						line.setOutlinePaint(couleur);
+						line.setFilled(false);
+					}
+				};
+			};
+
+			public State over = new State() {				
+				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
+				Transition arm = new Press(BUTTON1,">> armed") {};
+			};
+
+			public State armed = new State() {
+				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
+				Transition act = new Release(BUTTON1, ">> over") {};				
+			};
+
+			public State disarmed = new State() {
+				Transition draw = new Drag (BUTTON1){
+					public void action() {
+						line.lineTo(getPoint());
+					}
+				};
+				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action() {
+						line.lineTo(getPoint());
+					}
+				};
+
+			};						
+		};*/
+		
+		// Fin du nouveau SM===============================
+		
+		
+		//smd.attachTo(canvas);
+		//showStateMachine(smd);
 		
 		return smd;
+	}
+	
+	public static void showStateMachine(CStateMachine sm) {
+		JFrame viz = new JFrame();
+		viz.getContentPane().add(new StateMachineVisualization(sm));
+		viz.pack();
+		viz.setVisible(true);
 	}
 	
 	

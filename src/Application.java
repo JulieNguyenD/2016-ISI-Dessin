@@ -94,19 +94,13 @@ public class Application extends JFrame {
 		CrossingTrace ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
-		canvas.setOpaque(true);
+		canvas.setOpaque(true);		
 		
-		
-
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);
-		bc.addTag("images");
-		
-		System.out.println("Tous les tags ====" + bc.getTags());
-		//bc.addBarCouleurStateMachine();
-				
-
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);
+		
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetpinceau);
+		bc.addTag("BarColor");
 
 		addDragger(canvas);
 		

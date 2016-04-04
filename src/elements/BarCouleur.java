@@ -25,6 +25,7 @@ import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.WidgetOutils;
 
 public class BarCouleur extends CImage{
 	
@@ -36,12 +37,13 @@ public class BarCouleur extends CImage{
 	private CStateMachine smd;
 	BufferedImage biScaled;
 	BufferedImage bi;
-	int newX;
-	int newY;
+	private WidgetOutils widgetPinceau;
 
-	public BarCouleur(String path, Point2D position, Canvas canvas) throws IOException {
+	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
 		super(path, position);
-		this.addTag("images");
+		//this.addTag("BarColor");
+		//this.addTag("NonDrawable");
+		this.widgetPinceau = widgetPinceau;
 		
 		this.scaleBy(0.2);
 		
@@ -66,7 +68,7 @@ public class BarCouleur extends CImage{
 					setFillPaint(Color.white);
 				}
 				
-				Transition toOver = new EnterOnTag("images", ">> over") {
+				Transition toOver = new EnterOnTag("BarColor", ">> over") {
 					public void action (){
 						System.out.println("entrée reussi dans le tag============================");
 					}
@@ -81,7 +83,7 @@ public class BarCouleur extends CImage{
 					setFillPaint(Color.gray);
 				}				
 				
-				Transition leave = new LeaveOnTag("images",">> out") {};
+				Transition leave = new LeaveOnTag("BarColor",">> out") {};
 				Transition arm = new Press(BUTTON1,">> armed") {
 					public void action (){						
 					}
@@ -94,7 +96,7 @@ public class BarCouleur extends CImage{
 					setFillPaint(Color.blue);
 				}
 
-				Transition disarm = new LeaveOnTag("images", ">> disarmed") {
+				Transition disarm = new LeaveOnTag("BarColor", ">> disarmed") {
 					public void action (){
 						int x = (int) (getPoint().getX() - position.getX());
 						int y = (int) (getPoint().getY() - position.getY());
@@ -114,9 +116,9 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
-						int red = color.getRed();
-						int green = color.getGreen();
-						int blue = color.getBlue();
+						//sm.setActive(false);																	
+						//smd = Pinceau.addPinceauStateMachineDrawing(canvas, color, 1);
+						//showStateMachine(smd);
 					}
 				};
 				Transition act = new Release(BUTTON1, ">> over") {};
@@ -124,14 +126,28 @@ public class BarCouleur extends CImage{
 			};
 
 			public State disarmed = new State() {
-				Transition rearm = new EnterOnTag("images", ">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {};
+				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action (){
+						System.out.println("test de relachement ++++++++++++++++++++");
+						Pinceau pinceau = widgetPinceau.getPinceau();
+						CStateMachine smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, color, 1);
+						smPinceau.setActive(true);
+						//smPinceau.attachTo(canvas);
+						widgetPinceau.setSMPinceau(smPinceau);												
+						(widgetPinceau.getSMPinceau()).setActive(true);
+						//sm.setActive(false);
+						//widgetPinceau.getSMPinceau().attachTo(canvas);
+						System.out.println("test FIN relachement ++++++++++++++++++++");
+						
+					}
+				};
 
 			};
 		};
 		
 		sm.attachTo(this);
-		showStateMachine(sm);
+		//showStateMachine(sm);
 		
 	}
 		

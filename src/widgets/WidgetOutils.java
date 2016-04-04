@@ -7,6 +7,7 @@ import elements.*;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
+import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import widgets.widget_sous_barre.ChoixPinceau;
 import widgets.widget_sous_barre.ChoixPot;
@@ -80,6 +81,8 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixPinceau choixPinceau;
 	
+	private CStateMachine smPinceau;
+	
 	private ChoixPot choixPot;
 	
 	/**
@@ -110,6 +113,9 @@ public class WidgetOutils extends CShape {
 		
 		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
 		pinceau.addPinceauStateMachine(pinceau);
+		smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, Color.red, 1);
+		smPinceau.attachTo(canvas);
+		smPinceau.setActive(false);
 		
 		pot = new Pot("images/pot.png", position_image_pot, canvas);
 		pot.addPotStateMachine(pot);
@@ -132,6 +138,18 @@ public class WidgetOutils extends CShape {
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 		
+	}
+	
+	public Pinceau getPinceau(){
+		return this.pinceau;
+	}
+	
+	public CStateMachine getSMPinceau(){
+		return smPinceau;
+	}
+	
+	public void setSMPinceau (CStateMachine smPinceau){
+		this.smPinceau = smPinceau;
 	}
 
 }

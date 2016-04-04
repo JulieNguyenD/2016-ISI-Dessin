@@ -3,12 +3,16 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
+import javax.swing.JFrame;
+
 import elements.*;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
+import fr.lri.swingstates.debug.StateMachineVisualization;
+import fr.lri.swingstates.sm.JStateMachine;
 import widgets.widget_sous_barre.ChoixFormes;
 import widgets.widget_sous_barre.ChoixGomme;
 import widgets.widget_sous_barre.ChoixPinceau;
@@ -83,7 +87,7 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixPinceau choixPinceau;
 	
-	private CStateMachine smPinceau;
+	public CStateMachine smPinceau;
 	
 	private ChoixPot choixPot;
 	
@@ -121,7 +125,8 @@ public class WidgetOutils extends CShape {
 		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
 		pinceau.addPinceauStateMachine(pinceau);
 		smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, Color.red, 1);
-		smPinceau.attachTo(canvas);
+		smPinceau.attachTo(canvas);		
+		//showStateMachine(smPinceau);
 		smPinceau.setActive(false);
 		
 		pot = new Pot("images/pot.png", position_image_pot, canvas);
@@ -164,5 +169,12 @@ public class WidgetOutils extends CShape {
 	public void setSMPinceau (CStateMachine smPinceau){
 		this.smPinceau = smPinceau;
 	}
+	
+	public void showStateMachine(CStateMachine sm) {
+        JFrame viz = new JFrame();
+        viz.getContentPane().add(new StateMachineVisualization(sm));
+        viz.pack();
+        viz.setVisible(true);
+    }
 
 }

@@ -25,6 +25,7 @@ import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Application;
 import widgets.WidgetOutils;
 
 public class BarCouleur extends CImage{
@@ -75,14 +76,10 @@ public class BarCouleur extends CImage{
 				};
 				
 				
-				Transition pressOut = new Press (">> disarmed") {};
+				//Transition pressOut = new Press (">> disarmed") {};
 			};
 
-			public State over = new State() {
-				public void enter() {					
-					setFillPaint(Color.gray);
-				}				
-				
+			public State over = new State() {								
 				Transition leave = new LeaveOnTag("BarColor",">> out") {};
 				Transition arm = new Press(BUTTON1,">> armed") {
 					public void action (){						
@@ -96,7 +93,7 @@ public class BarCouleur extends CImage{
 					setFillPaint(Color.blue);
 				}
 
-				Transition disarm = new LeaveOnTag("BarColor", ">> disarmed") {
+				Transition disarm = new LeaveOnTag("BarColor", ">> out") {
 					public void action (){
 						int x = (int) (getPoint().getX() - position.getX());
 						int y = (int) (getPoint().getY() - position.getY());
@@ -116,6 +113,23 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
+						sm.setActive(false);
+						sm.detach(canvas);
+						
+						widgetPinceau.smPinceau.detach(canvas);
+						Pinceau pinceau = widgetPinceau.getPinceau();
+						CStateMachine csm = pinceau.createPinceauStateMachineDrawing(canvas, color, 1);
+						Application.ct.setActive (false);
+						//Application.ct.detach(canvas);
+						csm.setActive(true);
+						csm.attachTo(canvas);
+						//widgetPinceau.smPinceau = sm;//pinceau.createPinceauStateMachineDrawing(canvas, color, 1);
+						//widgetPinceau.smPinceau.setActive(true);
+						
+						//widgetPinceau.smPinceau.attachTo(canvas);
+						
+						System.out.println("Activation SM APRES = "+ widgetPinceau.smPinceau.isActive());
+						
 						//sm.setActive(false);																	
 						//smd = Pinceau.addPinceauStateMachineDrawing(canvas, color, 1);
 						//showStateMachine(smd);
@@ -125,8 +139,12 @@ public class BarCouleur extends CImage{
 				
 			};
 
-			public State disarmed = new State() {
-				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
+			/*public State disarmed = new State() {
+				Transition rearm = new EnterOnTag("BarColor", ">> armed") {
+					public void action (){
+						//sm.setActive(true);
+					}
+				};
 				Transition cancel = new Release(BUTTON1, ">> out") {
 					public void action (){
 						System.out.println("test de relachement ++++++++++++++++++++");
@@ -136,17 +154,29 @@ public class BarCouleur extends CImage{
 						//smPinceau.attachTo(canvas);
 						widgetPinceau.setSMPinceau(smPinceau);												
 						(widgetPinceau.getSMPinceau()).setActive(true);
-						//sm.setActive(false);
+						showStateMachine(widgetPinceau.getSMPinceau());
+						sm.setActive(false);
 						//widgetPinceau.getSMPinceau().attachTo(canvas);
+						System.out.println("Activation SM pinceau = "+ widgetPinceau.getSMPinceau().isActive());
+						
+						
+						
+						System.out.println("Activation SM AVANT = "+ widgetPinceau.smPinceau.isActive());
+						
+						widgetPinceau.smPinceau.setActive(true);
+						
+						System.out.println("Activation SM APRES = "+ widgetPinceau.smPinceau.isActive());
+						
 						System.out.println("test FIN relachement ++++++++++++++++++++");
 						
 					}
 				};
 
-			};
+			};*/
 		};
 		
 		sm.attachTo(this);
+		//sm.setActive(false);
 		//showStateMachine(sm);
 		
 	}

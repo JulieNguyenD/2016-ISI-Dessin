@@ -1,9 +1,11 @@
 package elements;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import fr.lri.swingstates.canvas.CImage;
+import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
@@ -11,6 +13,7 @@ import fr.lri.swingstates.canvas.transitions.PressOnShape;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
 import fr.lri.swingstates.sm.*;
+import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
@@ -56,6 +59,18 @@ public class Pinceau extends CImage {
 	 * @see CStateMachine
 	 */
 	private CStateMachine sm;
+	
+	/**
+	 * La StateMachine du dessin avec le pinceau. Elle permet de dessiner avec le pinceau.
+	 * @see CStateMachine
+	 */
+	private static CStateMachine smd;	
+	
+	/**
+	 * La trace de dessin avec le pinceau.
+	 * @see CPolyline
+	 */
+	private static CPolyLine line;
 
 	/**
 	 * Constructeur de Pinceau.
@@ -123,7 +138,7 @@ public class Pinceau extends CImage {
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
-	}
+	}	
 	
 	public void addPinceauStateMachine(CShape image) {
 		sm = new CStateMachine() {
@@ -184,6 +199,40 @@ public class Pinceau extends CImage {
 		};
 		
 		sm.attachTo(image);
+	}
+	
+	
+	public static CStateMachine addPinceauStateMachineDrawing(Canvas canvas, Color couleur, int taille) {
+		smd = new CStateMachine() {
+			State start = new State() {
+				Transition press = new Press(BUTTON1, ">> draw") {
+					public void action() {
+						//Canvas canvas = (Canvas) getEvent().getSource();
+						line = canvas.newPolyLine(getPoint());
+						line.setStroke(new BasicStroke(taille));
+						line.setOutlinePaint(couleur);
+						//line.setFilled(false);
+					}
+				};
+			};
+			
+			State draw = new State() {
+				Transition draw = new Drag(BUTTON1) {
+					public void action() {
+						line.lineTo(getPoint());
+					}
+				};
+				Transition stop = new Release(BUTTON1, ">> start") {
+					public void action() {
+						line.lineTo(getPoint());
+						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));
+					}
+				};
+			};
+		};		
+		smd.attachTo(canvas);
+		
+		return smd;
 	}
 	
 	

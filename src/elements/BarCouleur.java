@@ -71,9 +71,6 @@ public class BarCouleur extends CImage{
 						
 						color = new Color(bi.getRGB(x, y));
 						
-						//CRectangle rc = new CRectangle (600, 100, 50,50);
-						//rc.addTo(canvas);
-						
 						
 						rectangleTest.setFillPaint(color);
 						

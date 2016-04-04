@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import elements.Annexe_forme;
+import elements.Taille;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.Canvas;
 
@@ -28,6 +29,12 @@ public class Gomme_Widget extends CRectangle {
 		for (int i = 0; i < gommeList.size(); i++){
 			gommeList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			gommeList.get(i).setParent(this);
+		}
+	}
+	
+	public void montrer(boolean b) {
+		for (Annexe_forme a : gommeList) {
+			a.montrer(b);
 		}
 	}
 

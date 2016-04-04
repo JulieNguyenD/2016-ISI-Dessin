@@ -3,6 +3,7 @@ package widgets.widget_sous_barre;
 import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 
+import elements.Couleur;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.Canvas;
 
@@ -29,7 +30,14 @@ public class ChoixFormes extends CRectangle {
 		
 		choixCouleurContour.setParent(this);
 		choixForme.setParent(this);
+		
+		this.montrer(false);			
+	}
 	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.choixCouleurContour.montrer(b);
+		this.choixForme.montrer(b);
 	}
 
 }

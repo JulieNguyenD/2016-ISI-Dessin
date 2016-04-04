@@ -3,24 +3,19 @@ package elements;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
-import javax.swing.JFrame;
-
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CSegment;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 
-public class Couleur extends CRectangle{
+public class Couleur extends CRectangle {
 	private Color couleur;
 	private CRectangle rectangle;
-	private CSegment segment;
 	private CStateMachine sm;
 
 	public Couleur (final Color color, Canvas canvas){
@@ -77,8 +72,7 @@ public class Couleur extends CRectangle{
 				public void enter() {
 					setFillPaint(Color.white);
 					// Faire ici les grandes actions
-					// il y a un choix de couleur quelque part qui se fait
-					
+					// il y a un choix de couleur quelque part qui se fait					
 				}
 
 				Transition rearm = new EnterOnShape(">> armed") {};
@@ -88,21 +82,16 @@ public class Couleur extends CRectangle{
 		};
 		
 		sm.attachTo(this);
-		
-		//showStateMachine (sm);
-		
 
 	}
 	
 	public Color getColor() {
-		return this.couleur;
-		
+		return this.couleur;		
 	}
 	
-	public static void showStateMachine(CStateMachine sm) {
-		JFrame viz = new JFrame();
-		viz.getContentPane().add(new StateMachineVisualization(sm));
-		viz.pack();
-		viz.setVisible(true);
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.rectangle.setDrawable(b);
 	}
+
 }

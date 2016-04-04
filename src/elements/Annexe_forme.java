@@ -92,5 +92,9 @@ public class Annexe_forme extends CImage {
 	public void setForme(String forme) {
 		this.forme = forme;
 	}
+	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+	}
 
 }

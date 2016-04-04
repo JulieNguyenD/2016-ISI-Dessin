@@ -3,6 +3,7 @@ package widgets.widget_sous_barre;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import elements.Annexe_forme;
 import elements.Taille;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.Canvas;
@@ -29,8 +30,13 @@ public class Taille_Widget extends CRectangle {
 		for (int i = 0; i < tailleList.size(); i++){
 			tailleList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			tailleList.get(i).setParent(this);
-		}	
-		
+		}			
+	}
+	
+	public void montrer(boolean b) {
+		for (Taille t : tailleList) {
+			t.montrer(b);
+		}
 	}
 	
 }

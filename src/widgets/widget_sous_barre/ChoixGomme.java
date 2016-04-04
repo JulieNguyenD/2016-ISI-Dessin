@@ -28,8 +28,14 @@ public class ChoixGomme extends CRectangle {
 		
 		gommeWidget = new Gomme_Widget(canvas, position_widget);
 		
-		gommeWidget.setParent(this);
+		gommeWidget.setParent(this);	
 		
+		this.montrer(false);
+	}
+	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.gommeWidget.montrer(b);
 	}
 
 }

@@ -38,5 +38,11 @@ public class Couleur_Widget extends CRectangle {
 		}
 				
 	}
+	
+	public void montrer(boolean b) {
+		for(Couleur i : couleurList) {
+			i.montrer(b);
+		}
+	}
 		
 }

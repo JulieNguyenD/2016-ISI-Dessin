@@ -32,5 +32,11 @@ public class Forme_Widget extends CRectangle {
 			formeList.get(i).setParent(this);
 		}
 	}
+	
+	public void montrer(boolean b) {
+		for (Annexe_forme a : formeList) {
+			a.montrer(b);
+		}
+	}
 
 }

@@ -29,11 +29,18 @@ public class ChoixPinceau extends CRectangle {
 		
 		choixPinceauCouleur.setParent(this);
 		choixPinceauTaille.setParent(this);
-				
+		
+		this.montrer(false);			
 	}
 	
 	public CRectangle getChoixPinceauTaille() {
 		return choixPinceauTaille;
+	}
+	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.choixPinceauCouleur.montrer(b);
+		this.choixPinceauTaille.montrer(b);
 	}
 
 }

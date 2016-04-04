@@ -6,7 +6,6 @@ import java.awt.Color;
 import javax.swing.JFrame;
 
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CSegment;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;

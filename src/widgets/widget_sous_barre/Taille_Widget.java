@@ -1,15 +1,10 @@
 package widgets.widget_sous_barre;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
-import elements.Couleur;
 import elements.Taille;
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.Canvas;
 
 public class Taille_Widget extends CRectangle {
@@ -37,18 +32,5 @@ public class Taille_Widget extends CRectangle {
 		}	
 		
 	}
-	
-	/*
-	static public void main (String[] args){
-		JFrame frame = new JFrame();
-		Canvas canvas = new Canvas(450, 200);
-		frame.getContentPane().add(canvas);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		new Taille_Widget(canvas);
-		
-	}
-	*/
 	
 }

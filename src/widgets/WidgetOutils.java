@@ -145,7 +145,6 @@ public class WidgetOutils extends CShape {
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 		
-		// this.hidden.above(choixPinceau).above(choixPot).above(choixFormes);
 	}
 
 }

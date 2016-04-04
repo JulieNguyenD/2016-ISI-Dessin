@@ -29,9 +29,7 @@ public class ChoixPinceau extends CRectangle {
 		
 		choixPinceauCouleur.setParent(this);
 		choixPinceauTaille.setParent(this);
-		
-		// this.belowAll();
-		
+				
 	}
 	
 	public CRectangle getChoixPinceauTaille() {

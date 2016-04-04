@@ -45,6 +45,7 @@ class CrossingTrace extends CStateMachine {
 
     /**
      * c : Canvas sur lequel on dessine le PolyLine.
+     * @see CrossingTrace#CrossingTrace(Canvas)
      */
     private Canvas c;
 

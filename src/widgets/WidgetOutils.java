@@ -8,6 +8,7 @@ import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.Canvas;
+import widgets.widget_sous_barre.ChoixFormes;
 import widgets.widget_sous_barre.ChoixPinceau;
 import widgets.widget_sous_barre.ChoixPot;
 
@@ -82,6 +83,8 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixPot choixPot;
 	
+	private ChoixFormes choixFormes;
+	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -128,6 +131,9 @@ public class WidgetOutils extends CShape {
 		
 		choixPot = new ChoixPot(canvas, position_image_pot);
 		choixPot.setParent(drag);
+		
+		choixFormes = new ChoixFormes(canvas, position_image_forme);
+		choixFormes.setParent(drag);
 		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);

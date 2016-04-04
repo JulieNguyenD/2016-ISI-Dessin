@@ -13,6 +13,7 @@ import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 
 public class Couleur_Widget extends CRectangle {
+	
 	private Canvas canvas;
 	private ArrayList <Couleur> couleurList;
 	private int padding = 10;

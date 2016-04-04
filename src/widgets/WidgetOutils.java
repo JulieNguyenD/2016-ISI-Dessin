@@ -9,6 +9,7 @@ import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.Canvas;
 import widgets.widget_sous_barre.ChoixFormes;
+import widgets.widget_sous_barre.ChoixGomme;
 import widgets.widget_sous_barre.ChoixPinceau;
 import widgets.widget_sous_barre.ChoixPot;
 
@@ -85,6 +86,8 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixFormes choixFormes;
 	
+	private ChoixGomme choixGomme;
+	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -100,6 +103,7 @@ public class WidgetOutils extends CShape {
 	 */
 	public WidgetOutils(Canvas c, Point position) {
 		this.canvas = c;
+		
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
 		outils = new CRectangle(position.getX()-padding, position.getY()-padding, 80+2*padding, 4*80+2*padding);
 
@@ -131,6 +135,9 @@ public class WidgetOutils extends CShape {
 		
 		choixPot = new ChoixPot(canvas, position_image_pot);
 		choixPot.setParent(drag);
+		
+		choixGomme = new ChoixGomme(canvas, position_image_gomme);
+		choixGomme.setParent(drag);
 		
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		choixFormes.setParent(drag);

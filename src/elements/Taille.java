@@ -6,7 +6,6 @@ import java.awt.Color;
 import javax.swing.JFrame;
 
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CSegment;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
@@ -17,14 +16,14 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 
-public class Taille extends CRectangle{
+public class Taille extends CRectangle {
 	private CRectangle rectangle;
 	private CStateMachine sm;
 	private double tailleThis;
 
 	public Taille (final double taille, Canvas canvas){
 		super (0, 0, 50, 50);
-		CRectangle rectangle = canvas.newRectangle(5, 25, 40, taille);
+		rectangle = canvas.newRectangle(5, 25, 40, taille);
 		rectangle.rotateBy(95.0);	
 		
 		rectangle.setStroke(new BasicStroke(0));
@@ -87,10 +86,6 @@ public class Taille extends CRectangle{
 		};
 		
 		sm.attachTo(this);
-		
-		//showStateMachine (sm);
-		
-
 	}
 	
 	public double getColor() {
@@ -98,10 +93,8 @@ public class Taille extends CRectangle{
 		
 	}
 	
-	public static void showStateMachine(CStateMachine sm) {
-		JFrame viz = new JFrame();
-		viz.getContentPane().add(new StateMachineVisualization(sm));
-		viz.pack();
-		viz.setVisible(true);
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.rectangle.setDrawable(b);
 	}
 }

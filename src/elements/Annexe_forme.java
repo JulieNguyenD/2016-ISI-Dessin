@@ -25,10 +25,11 @@ public class Annexe_forme extends CImage {
 	
 	private CStateMachine sm;
 
-	public Annexe_forme(String chemin, Point2D position_depart, Canvas canvas) {
+	public Annexe_forme(String chemin, Point2D position_depart, Canvas canvas, String forme) {
 		super(chemin, position_depart);
 		// TODO Auto-generated constructor stub
 		this.canvas = canvas;
+		this.forme = forme;
 
 		this.addTo(canvas);
 		
@@ -58,8 +59,7 @@ public class Annexe_forme extends CImage {
 				}
 
 				Transition disarm = new LeaveOnShape(">> disarmed") {
-					public void action (){
-						forme = this.getClass().getSimpleName();
+					public void action (){						
 						System.out.println("test reussi ================" + forme);
 					}
 				};
@@ -83,6 +83,18 @@ public class Annexe_forme extends CImage {
 		
 		sm.attachTo(this);
 
+	}
+
+	public String getForme() {
+		return forme;
+	}
+
+	public void setForme(String forme) {
+		this.forme = forme;
+	}
+	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
 	}
 
 }

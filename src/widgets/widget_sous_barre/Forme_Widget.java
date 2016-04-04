@@ -1,11 +1,9 @@
 package widgets.widget_sous_barre;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import elements.Annexe_forme;
-import elements.Couleur;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.Canvas;
 
@@ -22,21 +20,27 @@ public class Forme_Widget extends CRectangle {
 		
 		position_init = new Point2D.Double(position.getX()+padding, position.getY()+padding);
 		Point2D pos = new Point2D.Double(0, 0);
-		
-		// this.addTo(canvas);
-		
+				
 		formeList = new ArrayList<Annexe_forme>();		
-		formeList.add(new Annexe_forme ("images/forme_carre.png", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_ellipse.png", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_triangle.png", pos, canvas));
-		formeList.add(new Annexe_forme ("images/forme_ligne.png", pos, canvas));
+
+
+
+		formeList.add(new Annexe_forme ("images/forme_carre.png", pos, canvas, "carré"));
+		formeList.add(new Annexe_forme ("images/forme_ellipse.png", pos, canvas, "ellipse"));
+		formeList.add(new Annexe_forme ("images/forme_triangle.png", pos, canvas, "triangle"));
+		formeList.add(new Annexe_forme ("images/forme_ligne.png", pos, canvas, "ligne"));
+
 				
 		for (int i = 0; i < formeList.size(); i++){
 			formeList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			formeList.get(i).setParent(this);
 		}
-		
-		// this.belowAll();
+	}
+	
+	public void montrer(boolean b) {
+		for (Annexe_forme a : formeList) {
+			a.montrer(b);
+		}
 	}
 
 }

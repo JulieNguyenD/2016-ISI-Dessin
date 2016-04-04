@@ -24,9 +24,7 @@ public class Couleur_Widget extends CRectangle {
 		this.canvas = canvas;	
 		
 		position_init = new Point2D.Double(position.getX()+padding, position.getY()+padding);
-		
-		// this.addTo(canvas);
-		
+				
 		couleurList = new ArrayList<Couleur>();		
 		couleurList.add(new Couleur (Color.red, canvas));
 		couleurList.add(new Couleur (Color.green, canvas));
@@ -38,20 +36,13 @@ public class Couleur_Widget extends CRectangle {
 			couleurList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			couleurList.get(i).setParent(this);
 		}
-		
-		// this.belowAll();
+				
 	}
 	
-//	static public void main (String[] args){
-//		JFrame frame = new JFrame();
-//		Canvas canvas = new Canvas(450, 200);
-//		frame.getContentPane().add(canvas);
-//		frame.pack();
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setVisible(true);
-//		new Couleur_Widget(canvas);
-//		
-//	}
-	
-	
+	public void montrer(boolean b) {
+		for(Couleur i : couleurList) {
+			i.montrer(b);
+		}
+	}
+		
 }

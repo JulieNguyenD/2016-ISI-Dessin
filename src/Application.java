@@ -90,7 +90,7 @@ public class Application extends JFrame {
 		canvas.addShape(widgetpinceau);
 
 		addDragger(canvas);
-
+		
 		pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

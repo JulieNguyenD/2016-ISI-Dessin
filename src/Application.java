@@ -122,11 +122,11 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);		
 				
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
-		bc.addTag("BarColor");
-
 		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetOutils);
+		
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+		bc.addTag("BarColor");
 
 		addDragger(canvas);
 		

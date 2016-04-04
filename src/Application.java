@@ -1,20 +1,13 @@
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Point;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
-import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
-import fr.lri.swingstates.canvas.CText;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.sm.State;
@@ -53,11 +46,11 @@ public class Application extends JFrame {
 	 */
 	private Canvas canvas;
 	
-	/**
-	 * Le CRectangle blanc qui "remplace" le canvas. On cache les éléments en dessous.
-	 * @see Application#Application()
-	 */
-	private CRectangle hidden;
+//	/**
+//	 * Le CRectangle blanc qui "remplace" le canvas. On cache les éléments en dessous.
+//	 * @see Application#Application()
+//	 */
+//	private CRectangle hidden;
 	
 	/**
 	 * Le widget contenant les outils de dessin : pinceau, gomme, pot et formes.
@@ -106,12 +99,12 @@ public class Application extends JFrame {
 		
 		
 		
-		hidden = new CRectangle(0, 0, 500, 500);
-		hidden.setStroke(new BasicStroke(0));
-		hidden.setFillPaint(Color.WHITE);
-		canvas.addShape(hidden);
-		
-		hidden.belowAll();
+//		hidden = new CRectangle(0, 0, 500, 500);
+//		hidden.setStroke(new BasicStroke(0));
+//		hidden.setFillPaint(Color.WHITE);
+//		canvas.addShape(hidden);
+//		
+//		hidden.belowAll();
 		
 				
 		// Ajout un marquage pour la trace
@@ -130,7 +123,7 @@ public class Application extends JFrame {
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);
 
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP, hidden);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetOutils);
 
 		addDragger(canvas);

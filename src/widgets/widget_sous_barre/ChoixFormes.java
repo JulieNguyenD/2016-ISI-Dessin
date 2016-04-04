@@ -9,18 +9,16 @@ import fr.lri.swingstates.canvas.Canvas;
 public class ChoixFormes extends CRectangle {
 	
 	private Canvas canvas;
-	private CRectangle hidden;
 	private Couleur_Widget choixCouleurContour;
 	private Forme_Widget choixForme;
 	private Point2D position_widget;
 	
-	public ChoixFormes(Canvas canvas, Point2D position, CRectangle hidden) {
+	public ChoixFormes(Canvas canvas, Point2D position) {
 		super(position.getX()-70*2-10*2, position.getY(), 70*2, 290);
 		
 		position_widget = new Point2D.Double(position.getX()-70*2-10*2, position.getY());
 
 		this.canvas = canvas;	
-		this.hidden = hidden;
 		this.addTo(canvas);		
 		
 		this.setStroke(new BasicStroke(1));
@@ -31,11 +29,7 @@ public class ChoixFormes extends CRectangle {
 		
 		choixCouleurContour.setParent(this);
 		choixForme.setParent(this);
-		
-		this.setParent(hidden);
-		this.below(hidden);
-		
-
+	
 	}
 
 }

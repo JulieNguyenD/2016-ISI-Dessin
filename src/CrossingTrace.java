@@ -17,8 +17,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-/*
- * TODO : Javadoc (UTF-8 !!)
+/**
+ * <b>Machine permettant d'afficher la trace du curseur sur le GlassPane<b>
+ * 
+ * @see CStateMachine
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ * (depuis un fichier de Arnaud PROUZEAU)
  */
 
 class CrossingTrace extends CStateMachine {

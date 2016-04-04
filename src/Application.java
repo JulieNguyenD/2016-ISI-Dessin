@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
+import elements.QuitMenu;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
@@ -97,6 +98,11 @@ public class Application extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// Test menu radial
+		// TODO : Apparait au coordo de la souris
+		// mais avec le parent
+		QuitMenu qm = new QuitMenu(canvas);
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);

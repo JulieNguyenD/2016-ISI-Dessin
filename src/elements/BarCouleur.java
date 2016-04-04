@@ -42,10 +42,6 @@ public class BarCouleur extends CImage{
 	public BarCouleur(String path, Point2D position, Canvas canvas) throws IOException {
 		super(path, position);
 		this.addTag("images");
-		//this.getTags();
-		
-		
-		//System.out.println("Tous les tags ====" + this.getTags());
 		
 		this.scaleBy(0.2);
 		
@@ -53,24 +49,14 @@ public class BarCouleur extends CImage{
 		int heightOriginal = bi.getHeight();
 		int widthOriginal = bi.getWidth();	
 		
-		//System.out.println("heightOriginal = " + heightOriginal);
-		//System.out.println("widthOriginal = " + widthOriginal);
-		
 		biScaled = scale (bi, 0.2);
 		int heightScaled = biScaled.getHeight();
-        int widthScaled = biScaled.getWidth();
+        int widthScaled = biScaled.getWidth();        
         
-        //System.out.println("heightScaled = "+ heightScaled);
-		//System.out.println("widthScaled = " + widthScaled);
-        
-        newY  = (int) (position.getY() + (heightOriginal /2 - heightScaled /2) );
-        newX  = (int) (position.getX() + (widthOriginal /2 - widthScaled /2) );
-        
+        this.translateBy(- (widthOriginal / 2 - widthScaled /2), - (heightOriginal / 2 - heightScaled /2) );
                 
-        
-        
         this.addTo(canvas);
-        rectangleTest = new CRectangle (100, 100, 50,50);
+        rectangleTest = new CRectangle (100, 400, 50,50);
         rectangleTest.addTo(canvas);
 		
 							
@@ -110,12 +96,9 @@ public class BarCouleur extends CImage{
 
 				Transition disarm = new LeaveOnTag("images", ">> disarmed") {
 					public void action (){
-						//int x = (int) (getPoint().getX() - position.getX());
-						//int y = (int) (getPoint().getY() - position.getY());
-						
-						int x = (int) (getPoint().getX() - newX);
-						int y = (int) (getPoint().getY() - newY);
-						
+						int x = (int) (getPoint().getX() - position.getX());
+						int y = (int) (getPoint().getY() - position.getY());
+																	
 						if (y >= heightScaled){
 				        	y = heightScaled - 1 ;
 				        } else if (y <= 0){
@@ -128,34 +111,12 @@ public class BarCouleur extends CImage{
 				        	x = 1;
 				        }
 						
-						//System.out.println("Name class = "+this.getClass().getName()+ "=============================");
-						
-						
-						System.out.println("widthOriginal = " + widthOriginal);
-						System.out.println("heightOriginal = " + heightOriginal);
-						System.out.println("widthScaled = " + widthScaled);				        
-				        System.out.println("heightScaled = "+ heightScaled);						
-						System.out.println("******************************************");
-						
-						System.out.println("POINT COURANT X = " + getPoint().getX());
-						System.out.println("POINT COURANT Y = " + getPoint().getY());
-						System.out.println("POSITION IMAGE X = " + newX);
-						System.out.println("POSITION IMAGE Y = " + newY);
-						System.out.println("VALEUR FINAL X = " + x);
-						System.out.println("VALEUR FINAL Y = " + y);
-						System.out.println("******************************************");
-						
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
-						
-						//smd = Pinceau.addPinceauStateMachineDrawing (canvas, color, 1);
 						
 						int red = color.getRed();
 						int green = color.getGreen();
 						int blue = color.getBlue();
-						// System.out.println("red = " + red + "green = " + green + "blue = "+ blue);
-						
-						// System.out.println("test reussi =========================");
 					}
 				};
 				Transition act = new Release(BUTTON1, ">> over") {};
@@ -163,13 +124,6 @@ public class BarCouleur extends CImage{
 			};
 
 			public State disarmed = new State() {
-				/*public void enter() {
-					setFillPaint(Color.white);
-					// Faire ici les grandes actions
-					// il y a un choix de couleur quelque part qui se fait
-					
-				}*/
-
 				Transition rearm = new EnterOnTag("images", ">> armed") {};
 				Transition cancel = new Release(BUTTON1, ">> out") {};
 

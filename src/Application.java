@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import elements.BarCouleur;
 import elements.QuitMenu;
+import elements.QuitMenu_remake;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
@@ -76,7 +77,7 @@ public class Application extends JFrame {
 		Dimension minsize = new Dimension(600,600);
 		//this.setPreferredSize(minsize);
 		this.setMinimumSize(minsize);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		//this.setExtendedState(this.MAXIMIZED_BOTH);
 
 		positionWidgetP = new Point(400, 100);
 		positionWidgetCT = new Point (100, 100);
@@ -91,6 +92,7 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);
 		
+		/*
 		// Test BarCouleur 
 		try {
 			BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);								
@@ -98,17 +100,21 @@ public class Application extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		
 		// Test menu radial
 		// TODO : Apparait au coordo de la souris
 		// mais avec le parent
+		// QuitMenu_remake qm = new QuitMenu_remake(canvas);
 		QuitMenu qm = new QuitMenu(canvas);
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);
 
+		/*
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);
+		*/
 
 		addDragger(canvas);
 		

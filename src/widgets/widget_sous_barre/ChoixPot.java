@@ -22,7 +22,13 @@ public class ChoixPot extends CRectangle {
 		choixPinceauCouleur = new Couleur_Widget(canvas, position_widget);
 
 		choixPinceauCouleur.setParent(this);
-
+		
+		this.montrer(false);			
+	}
+	
+	public void montrer(boolean b) {
+		this.setDrawable(b);
+		this.choixPinceauCouleur.montrer(b);
 	}
 
 }

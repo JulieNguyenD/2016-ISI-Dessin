@@ -1,9 +1,9 @@
 package elements;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.geom.Point2D;
 
-import fr.lri.swingstates.canvas.CRectangle;
+import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
@@ -13,26 +13,26 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 
-public class Couleur extends CRectangle {
-	private Color couleur;
-	private CRectangle rectangle;
+public class Annexe_forme extends CImage {
+	
+	private String forme;
+	
+	/**
+	 * Le canvas sur lequel on ajoute la CStateMachine
+	 * @see Canvas
+	 */
+	private Canvas canvas;
+	
 	private CStateMachine sm;
 
-	public Couleur (final Color color, Canvas canvas){
-		super (0, 0, 50, 50);
-		rectangle = canvas.newRectangle(5, 25, 40, 5);
-		rectangle.rotateBy(95.0);	
+	public Annexe_forme(String chemin, Point2D position_depart, Canvas canvas, String forme) {
+		super(chemin, position_depart);
+		// TODO Auto-generated constructor stub
+		this.canvas = canvas;
+		this.forme = forme;
+
+		this.addTo(canvas);
 		
-		rectangle.setStroke(new BasicStroke(0));
-		rectangle.setFillPaint(color);
-		rectangle.setPickable(false);
-		this.setFillPaint(Color.WHITE);		
-		
-		rectangle.setParent(this);
-		this.addTo(canvas);	
-		
-		this.below(rectangle);		
-				
 		sm = new CStateMachine (){
 			public State out = new State() {
 				public void enter() {					
@@ -59,9 +59,8 @@ public class Couleur extends CRectangle {
 				}
 
 				Transition disarm = new LeaveOnShape(">> disarmed") {
-					public void action (){
-						couleur = color;
-						System.out.println("test reussi =========================");
+					public void action (){						
+						System.out.println("test reussi ================" + forme);
 					}
 				};
 				Transition act = new Release(BUTTON1, ">> over") {};
@@ -72,7 +71,8 @@ public class Couleur extends CRectangle {
 				public void enter() {
 					setFillPaint(Color.white);
 					// Faire ici les grandes actions
-					// il y a un choix de couleur quelque part qui se fait					
+					// il y a un choix de couleur quelque part qui se fait
+					
 				}
 
 				Transition rearm = new EnterOnShape(">> armed") {};
@@ -84,14 +84,17 @@ public class Couleur extends CRectangle {
 		sm.attachTo(this);
 
 	}
-	
-	public Color getColor() {
-		return this.couleur;		
+
+	public String getForme() {
+		return forme;
+	}
+
+	public void setForme(String forme) {
+		this.forme = forme;
 	}
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
-		this.rectangle.setDrawable(b);
 	}
 
 }

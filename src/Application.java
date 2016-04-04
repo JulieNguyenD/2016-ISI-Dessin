@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -8,16 +6,15 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
-import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
-import fr.lri.swingstates.canvas.CText;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.WidgetCouleurTaille;
 import widgets.WidgetOutils;
 
 /**
@@ -26,27 +23,34 @@ import widgets.WidgetOutils;
  * Elle a :
  * <ul>
  * <li>Un unique Canvas dans lequel on dessine.</li>
+ * <li>Un CRectangle de la taille du canvas pour pouvoir cacher les outils dessous</li>
  * <li>Un WidgetOutils qui sont les outils de dessin.</li>
- * <li>Un WidgetCouleur qui est l'outils pour choisir la couleur et la taille du pinceau</li>
+ * <li>Un WidgetCouleurTaille qui est l'outils pour choisir la couleur du pinceau</li>
  * <li>Deux Points pour donner la position des deux widgets</li>
  * </ul>
  * <p>
  * 
  * @see Canvas
  * @see WidgetOutils
+ * @see WidgetCouleurTaille
  * @see Point
  * 
  * @author ANDRIANIRINA Tojo
  * @author GABRIEL Damien
  * @author NGUYEN Julie
  */
-@SuppressWarnings("serial")
 public class Application extends JFrame {
 	/**
 	 * Le Canvas de la fenêtre. On dessine dessus et les CElements sont placés dessus.
 	 * @see Application#Application()
 	 */
 	private Canvas canvas;
+	
+//	/**
+//	 * Le CRectangle blanc qui "remplace" le canvas. On cache les éléments en dessous.
+//	 * @see Application#Application()
+//	 */
+//	private CRectangle hidden;
 	
 	/**
 	 * Le Canvas de crossing.
@@ -58,13 +62,25 @@ public class Application extends JFrame {
 	 * Le widget contenant les outils de dessin : pinceau, gomme, pot et formes.
 	 * @see Application#Application()
 	 */
-	private WidgetOutils widgetpinceau;
+	private WidgetOutils widgetOutils;
+	
+	/**
+	 * Le widget contenant l'outils du pinceau, spécifiquement : la couleur et la taille personnalisés. 
+	 * @see Application#Application()
+	 */
+	private WidgetCouleurTaille widgetcouleurtaille;
 
 	/**
 	 * Le point de positionnement du Widget Pinceau.
 	 * @see Application#Application()
 	 */
 	private Point positionWidgetP;
+	
+	/**
+	 * Le point de positionnement du Widget CouleurTaille.
+	 * @see Application#Application()
+	 */
+	private Point positionWidgetCT;
 		
 	/**
 	 * Constructeur de Application.
@@ -72,10 +88,10 @@ public class Application extends JFrame {
 	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
-	
-	private Point positionWidgetCT;
+
 	
 	public Application () throws IOException {
+
 		super("Application Dessin - A.G.N");
 
 		Dimension minsize = new Dimension(600,600);
@@ -90,17 +106,27 @@ public class Application extends JFrame {
 		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
 		
+		
+		
+//		hidden = new CRectangle(0, 0, 500, 500);
+//		hidden.setStroke(new BasicStroke(0));
+//		hidden.setFillPaint(Color.WHITE);
+//		canvas.addShape(hidden);
+//		
+//		hidden.belowAll();
+		
+				
 		// Ajout un marquage pour la trace
 		CrossingTrace ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
 		canvas.setOpaque(true);		
-		
-		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
-		canvas.addShape(widgetpinceau);
-		
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetpinceau);
+				
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
 		bc.addTag("BarColor");
+
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
+		canvas.addShape(widgetOutils);
 
 		addDragger(canvas);
 		

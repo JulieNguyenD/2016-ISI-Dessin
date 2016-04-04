@@ -19,7 +19,6 @@ import java.awt.geom.Point2D;
  * @see Point2D
  * @see CPolyLine
  * 
- * 
  * @author ANDRIANIRINA Tojo
  * @author GABRIEL Damien
  * @author NGUYEN Julie

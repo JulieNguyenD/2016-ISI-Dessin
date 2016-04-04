@@ -1,11 +1,9 @@
 package widgets.widget_sous_barre;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import elements.Annexe_forme;
-import elements.Couleur;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.Canvas;
 
@@ -22,9 +20,7 @@ public class Forme_Widget extends CRectangle {
 		
 		position_init = new Point2D.Double(position.getX()+padding, position.getY()+padding);
 		Point2D pos = new Point2D.Double(0, 0);
-		
-		// this.addTo(canvas);
-		
+				
 		formeList = new ArrayList<Annexe_forme>();		
 		formeList.add(new Annexe_forme ("images/forme_carre.PNG", pos, canvas, "carré"));
 		formeList.add(new Annexe_forme ("images/forme_ellipse.PNG", pos, canvas, "ellipse"));
@@ -35,8 +31,6 @@ public class Forme_Widget extends CRectangle {
 			formeList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			formeList.get(i).setParent(this);
 		}
-		
-		// this.belowAll();
 	}
 
 }

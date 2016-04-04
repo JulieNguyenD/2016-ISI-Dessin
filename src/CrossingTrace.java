@@ -17,20 +17,48 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-/*
- * TODO : Javadoc (UTF-8 !!)
+/**
+ * <b>Classe CrossingTrace qui permet de faire la trace sur l'écran</b>
+ * <p>Quand on appuie sur le click gauche, affiche la trace sur l'écran.<br/>
+ * Quand on release, la trace s'efface.</p>
+ * 
+ * @see CStateMachine
+ * @see Point2D
+ * @see CPolyLine
+ * 
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
  */
-
 class CrossingTrace extends CStateMachine {
 
+	/**
+	 * pInit : Point de départ de la PolyLine
+	 */
     private Point2D pInit = new Point2D.Double(0, 0);
 
+    /**
+     * line : CPolyLine que l'on dessine pour faire la trace.
+     */
     private CPolyLine line;
 
+    /**
+     * c : Canvas sur lequel on dessine le PolyLine.
+     */
     private Canvas c;
 
+    /**
+     * Etats de la CStateMachine.
+     */
     State waiting, onPress;
 
+    /**
+     * Constructeur de la stateMachine CrossingTrace.
+     * <p>A la création d'un CrossingTrace, on attribut son Canvas c à ca et <br/>
+     * à chaque onPress évènement, on dessine le PolyLine line jusqu'au relâchement de la souris.</p>
+     * @param ca : canvas sur lequel on dessine.
+     */
     CrossingTrace(Canvas ca) {
         this.c = ca;
 
@@ -40,7 +68,7 @@ class CrossingTrace extends CStateMachine {
                     fireEvent(new VirtualEvent("pressEvent"));
                     pInit.setLocation(getPoint());
                     line = c.newPolyLine(getPoint());
-                    line.setDrawable(true);
+                    //line.setDrawable(true);
                     line.setFilled(false);
                 }
             };
@@ -55,7 +83,8 @@ class CrossingTrace extends CStateMachine {
             Transition release = new Release(BUTTON1, ">> waiting"){
                 public void action(){
                     fireEvent(new VirtualEvent("releaseEvent"));
-                    line.setDrawable(false);
+                    //line.setDrawable(false);
+                    line.remove();
                 }
             };
         };

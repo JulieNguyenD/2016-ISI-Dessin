@@ -38,8 +38,7 @@ public class Couleur_Widget extends CRectangle {
 			couleurList.get(i).translateBy (position_init.getX(), position_init.getY()+(55 * i));
 			couleurList.get(i).setParent(this);
 		}
-		
-		// this.belowAll();
+				
 	}
 	
 //	static public void main (String[] args){

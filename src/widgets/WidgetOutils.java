@@ -79,6 +79,8 @@ public class WidgetOutils extends CShape {
 	
 	private Point2D position_image_pinceau, position_image_pot, position_image_gomme, position_image_forme;
 	
+	private CRectangle hidden;
+	
 	private ChoixPinceau choixPinceau;
 	
 	private ChoixPot choixPot;
@@ -98,8 +100,10 @@ public class WidgetOutils extends CShape {
 	 * @param c : canvas sur lequel on dessinne. 
 	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
-	public WidgetOutils(Canvas c, Point position) {
+	public WidgetOutils(Canvas c, Point position, CRectangle hidden) {
 		this.canvas = c;
+		this.hidden = hidden;
+		
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
 		outils = new CRectangle(position.getX()-padding, position.getY()-padding, 80+2*padding, 4*80+2*padding);
 
@@ -131,13 +135,16 @@ public class WidgetOutils extends CShape {
 		
 		choixPot = new ChoixPot(canvas, position_image_pot);
 		choixPot.setParent(drag);
+		// choixPot.below(hidden);
 		
-		choixFormes = new ChoixFormes(canvas, position_image_forme);
+		choixFormes = new ChoixFormes(canvas, position_image_forme, hidden);
 		choixFormes.setParent(drag);
+		// choixFormes.below(hidden);
 		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 		
+		// this.hidden.above(choixPinceau).above(choixPot).above(choixFormes);
 	}
 
 }

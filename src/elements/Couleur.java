@@ -35,14 +35,13 @@ public class Couleur extends CRectangle{
 		rectangle.setStroke(new BasicStroke(0));
 		rectangle.setFillPaint(color);
 		rectangle.setPickable(false);
-		this.setFillPaint(Color.WHITE);
-		
+		this.setFillPaint(Color.WHITE);		
 		
 		rectangle.setParent(this);
-		this.addTo(canvas);		
+		this.addTo(canvas);	
 		
-		this.below(rectangle);				
-		
+		this.below(rectangle);		
+				
 		sm = new CStateMachine (){
 			public State out = new State() {
 				public void enter() {					

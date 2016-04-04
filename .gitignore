@@ -1,8 +1,6 @@
 *.class
 *.classpath
 .project
-<<<<<<< HEAD
 /bin/
-=======
 .settings
->>>>>>> 0fe057d6ce4cd69e9ce72f5c12c8737401dde753
+

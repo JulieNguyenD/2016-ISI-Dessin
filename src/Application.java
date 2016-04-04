@@ -75,7 +75,7 @@ public class Application extends JFrame {
 	
 	private Point positionWidgetCT;
 	
-	public Application () {
+	public Application () throws IOException {
 		super("Application Dessin - A.G.N");
 
 		Dimension minsize = new Dimension(600,600);
@@ -91,29 +91,19 @@ public class Application extends JFrame {
 		getContentPane().add(canvas);
 		
 		// Ajout un marquage pour la trace
-		/*canvas_trace = new Canvas(minsize.width, minsize.height);	
-		//canvas_trace.setAntialiased(true);
-		//getContentPane().add(canvas_trace);				
-		CrossingTrace ct = new CrossingTrace(canvas_trace) ;
-		ct.attachTo(canvas_trace);
-		canvas_trace.setVisible(true);
-		canvas_trace.setOpaque(false);	
-		Lancement.showStateMachine(ct);
-		this.setGlassPane(canvas_trace);
-		this.getGlassPane().setVisible(true);					
-		*/
+		CrossingTrace ct = new CrossingTrace(canvas) ;
+		ct.attachTo(canvas);
+		canvas.setVisible(true);
+		canvas.setOpaque(true);
 		
-		// Test BarCouleur 
-		try {
-			BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);
-			bc.addTag("images");
-			System.out.println("Tous les tags ====" + bc.getTags());
-			//bc.addBarCouleurStateMachine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);
+		bc.addTag("images");
+		
+		System.out.println("Tous les tags ====" + bc.getTags());
+		//bc.addBarCouleurStateMachine();
+				
 
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);

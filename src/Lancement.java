@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 import fr.lri.swingstates.canvas.CStateMachine;
@@ -16,7 +18,7 @@ import fr.lri.swingstates.sm.JStateMachine;
  */
 public class Lancement {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new Application();
 	}
 	

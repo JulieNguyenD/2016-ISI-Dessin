@@ -177,105 +177,10 @@ public class BarCouleur extends CImage{
 		};
 		
 		sm.attachTo(this);
-		//showStateMachine(sm);
-		
-		//sm.attachTo(this);
-	}
-	
-	/*public void addBarCouleurStateMachine (){
-		sm = new CStateMachine (){
-			public State out = new State() {
-				public void enter() {					
-					setFillPaint(Color.white);
-				}
-				
-				Transition toOver = new EnterOnTag("images", ">> over") {
-					public void action (){
-						System.out.println("entrée reussi dans le tag============================");
-					}
-				};
-				
-				
-				Transition pressOut = new Press (">> disarmed") {};
-			};
-
-			public State over = new State() {
-				public void enter() {					
-					setFillPaint(Color.gray);
-				}				
-				
-				Transition leave = new LeaveOnTag("images",">> out") {};
-				Transition arm = new Press(BUTTON1,">> armed") {
-					public void action (){						
-					}
-				};
-
-			};
-
-			public State armed = new State() {
-				public void enter() {
-					setFillPaint(Color.blue);
-				}
-
-				Transition disarm = new LeaveOnTag("images", ">> disarmed") {
-					public void action (){
-						//int x = (int) (getPoint().getX() - position.getX());
-						//int y = (int) (getPoint().getY() - position.getY());
-						
-						int x = (int) (getPoint().getX() - newX);
-						int y = (int) (getPoint().getY() - newY);
-						
-						System.out.println("Name class = "+this.getClass().getName()+ "=============================");
-						
-						
-						System.out.println("widthOriginal = " + widthOriginal);
-						System.out.println("heightOriginal = " + heightOriginal);
-						System.out.println("widthScaled = " + widthScaled);				        
-				        System.out.println("heightScaled = "+ heightScaled);						
-						System.out.println("******************************************");
-						
-						System.out.println("POINT COURANT X = " + getPoint().getX());
-						System.out.println("POINT COURANT Y = " + getPoint().getY());
-						System.out.println("POSITION IMAGE X = " + newX);
-						System.out.println("POSITION IMAGE Y = " + newY);
-						System.out.println("VALEUR FINAL X = " + x);
-						System.out.println("VALEUR FINAL Y = " + y);
-						System.out.println("******************************************");
-						
-						color = new Color(biScaled.getRGB(x, y));											
-						rectangleTest.setFillPaint(color);
-						
-						//smd = Pinceau.addPinceauStateMachineDrawing (canvas, color, 1);
-						
-						int red = color.getRed();
-						int green = color.getGreen();
-						int blue = color.getBlue();
-						// System.out.println("red = " + red + "green = " + green + "blue = "+ blue);
-						
-						// System.out.println("test reussi =========================");
-					}
-				};
-				Transition act = new Release(BUTTON1, ">> over") {};
-				
-			};
-
-			public State disarmed = new State() {
-				public void enter() {
-					setFillPaint(Color.white);
-					// Faire ici les grandes actions
-					// il y a un choix de couleur quelque part qui se fait
-					
-				}
-
-				Transition rearm = new EnterOnTag("images", ">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {};
-
-			};
-		};
-		
-		sm.attachTo(this);
 		showStateMachine(sm);
-	}*/
+		
+	}
+		
 	
 	public Color getColor (){
 		return this.color;

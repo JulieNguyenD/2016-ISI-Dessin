@@ -49,6 +49,12 @@ public class Application extends JFrame {
 	private Canvas canvas;
 	
 	/**
+	 * Le Canvas de crossing.
+	 * @see Application#Application()
+	 */
+	private Canvas canvas_trace;
+	
+	/**
 	 * Le widget contenant les outils de dessin : pinceau, gomme, pot et formes.
 	 * @see Application#Application()
 	 */
@@ -85,21 +91,29 @@ public class Application extends JFrame {
 		getContentPane().add(canvas);
 		
 		// Ajout un marquage pour la trace
-		CrossingTrace ct = new CrossingTrace(canvas) ;
-		ct.attachTo(canvas);
-		canvas.setVisible(true);
-		canvas.setOpaque(true);
+		/*canvas_trace = new Canvas(minsize.width, minsize.height);	
+		//canvas_trace.setAntialiased(true);
+		//getContentPane().add(canvas_trace);				
+		CrossingTrace ct = new CrossingTrace(canvas_trace) ;
+		ct.attachTo(canvas_trace);
+		canvas_trace.setVisible(true);
+		canvas_trace.setOpaque(false);	
+		Lancement.showStateMachine(ct);
+		this.setGlassPane(canvas_trace);
+		this.getGlassPane().setVisible(true);					
+		*/
 		
 		// Test BarCouleur 
 		try {
-			BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);								
+			BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas);
+			bc.addTag("images");
+			System.out.println("Tous les tags ====" + bc.getTags());
+			//bc.addBarCouleurStateMachine();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		this.setGlassPane(canvas);
-		this.getGlassPane().setVisible(true);
 
 		widgetpinceau = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetpinceau);

@@ -211,7 +211,7 @@ public class Pinceau extends CImage {
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(taille));
 						line.setOutlinePaint(couleur);
-						//line.setFilled(false);
+						line.setFilled(false);
 					}
 				};
 			};

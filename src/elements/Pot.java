@@ -1,5 +1,4 @@
 package elements;
-//addition de commentaire ligne 2 fichier elements/Pot.java
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -16,12 +15,13 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.widget_sous_barre.ChoixPot;
 
 /**
  * <b>CImage pour le pot</b>
  * <p>Le pot a sa propre CStateMachine. 
- * Lorsque l'on crosse le pot, sa fonction est activ�e 
- * et une bo�te appara�t pour choisir la couleur.</p>
+ * Lorsque l'on crosse le pot, sa fonction est activée 
+ * et une boîte apparaît pour choisir la couleur.</p>
  * 
  * @see CImage
  * 
@@ -38,7 +38,7 @@ public class Pot extends CImage {
 	private Color couleurPot;
 		
 	/**
-	 * Bool�en indiquant si le pot est actif.
+	 * Booléen indiquant si le pot est actif.
 	 */
 	private boolean estActif;
 	
@@ -56,12 +56,12 @@ public class Pot extends CImage {
 
 	/**
 	 * Constructeur de Pot.
-	 * <p>A la cr�ation d'un Pot, la couleur de base est blanc.
+	 * <p>A la création d'un Pot, la couleur de base est blanc.
 	 * Le pot n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le pot au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de d�part de l'image (ici le coin sup�rieur gauche de l'image)
+	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
 	 */
 	public Pot(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -82,7 +82,7 @@ public class Pot extends CImage {
 	}
 
 	/**
-	 * Met � jour la couleur du pot avec la nouvelle couleur. 
+	 * Met à jour la couleur du pot avec la nouvelle couleur. 
 	 * @param couleurPot : la nouvelle couleur du pot
 	 */
 	public void setCouleurPot(Color couleurPot) {
@@ -98,25 +98,26 @@ public class Pot extends CImage {
 	}
 
 	/**
-	 * Met � jour l'�tat du Pot. S'il est actif, on met � true ; sinon false.
-	 * @param estActif : le nouveau �tat du Pot, false ou true.
+	 * Met à jour l'état du Pot. S'il est actif, on met à true ; sinon false.
+	 * @param estActif : le nouvel état du Pot, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
 	}
 	
-	public void addPotStateMachine(CShape image) {
+	public void addPotStateMachine(Pot pot, ChoixPot widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pot.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -124,12 +125,14 @@ public class Pot extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pot.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -137,14 +140,16 @@ public class Pot extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						pot.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
+						pot.scaleBy(0.50);
+						widget.montrer(false);
 					}
 				};
 			};
@@ -158,12 +163,13 @@ public class Pot extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(pot);
 	}
 
 }

@@ -1,41 +1,37 @@
 package elements;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.geom.Point2D;
 
-import javax.swing.JFrame;
-
-import fr.lri.swingstates.canvas.CRectangle;
+import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 
-public class Taille extends CRectangle {
-	private CRectangle rectangle;
+public class Annexe_forme extends CImage {
+	
+	private String forme;
+	
+	/**
+	 * Le canvas sur lequel on ajoute la CStateMachine
+	 * @see Canvas
+	 */
+	private Canvas canvas;
+	
 	private CStateMachine sm;
-	private double tailleThis;
 
-	public Taille (final double taille, Canvas canvas){
-		super (0, 0, 50, 50);
-		rectangle = canvas.newRectangle(5, 25, 40, taille);
-		rectangle.rotateBy(95.0);	
-		
-		rectangle.setStroke(new BasicStroke(0));
-		rectangle.setFillPaint(Color.BLACK);
-		rectangle.setPickable(false);
-		this.setFillPaint(Color.WHITE);
-				
-		rectangle.setParent(this);
-		rectangle.setPickable(false);
-		this.addTo(canvas);		
-		
-		this.below(rectangle);				
+	public Annexe_forme(String chemin, Point2D position_depart, Canvas canvas, String forme) {
+		super(chemin, position_depart);
+		// TODO Auto-generated constructor stub
+		this.canvas = canvas;
+		this.forme = forme;
+
+		this.addTo(canvas);
 		
 		sm = new CStateMachine (){
 			public State out = new State() {
@@ -63,9 +59,8 @@ public class Taille extends CRectangle {
 				}
 
 				Transition disarm = new LeaveOnShape(">> disarmed") {
-					public void action (){
-						tailleThis = taille;
-						System.out.println("test reussi =========================");
+					public void action (){						
+						System.out.println("test reussi ================" + forme);
 					}
 				};
 				Transition act = new Release(BUTTON1, ">> over") {};
@@ -87,16 +82,20 @@ public class Taille extends CRectangle {
 		};
 		
 		sm.attachTo(this);
+
 	}
-	
-	public double getTaille() {
-		return this.tailleThis;
-		
+
+	public String getForme() {
+		return forme;
+	}
+
+	public void setForme(String forme) {
+		this.forme = forme;
 	}
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
 		this.setPickable(b);
-		this.rectangle.setDrawable(b);
 	}
+
 }

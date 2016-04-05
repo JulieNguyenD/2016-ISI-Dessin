@@ -1,25 +1,36 @@
 package elements;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import javax.swing.JFrame;
+
 import fr.lri.swingstates.canvas.CImage;
+import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
+import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.*;
+import fr.lri.swingstates.sm.transitions.Drag;
+import fr.lri.swingstates.sm.transitions.Event;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Lancement;
+import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
  * <b>CImage pour le pinceau</b>
  * <p>Le pinceau a sa propre CStateMachine. 
- * Lorsque l'on crosse le pinceau, sa fonction est activée 
- * et une boîte apparaît pour choisir la taille et la couleur.</p>
+ * Lorsque l'on crosse le pinceau, sa fonction est activÃ©e 
+ * et une boÃ®te apparaÃ®t pour choisir la taille et la couleur.</p>
  * 
  * @see CImage
  * 
@@ -41,7 +52,7 @@ public class Pinceau extends CImage {
 	private int taille;
 	
 	/**
-	 * Booléen indiquant si le pinceau est actif.
+	 * BoolÃ©en indiquant si le pinceau est actif.
 	 */
 	private boolean estActif;
 	
@@ -56,15 +67,27 @@ public class Pinceau extends CImage {
 	 * @see CStateMachine
 	 */
 	private CStateMachine sm;
+	
+	/**
+	 * La StateMachine du dessin avec le pinceau. Elle permet de dessiner avec le pinceau.
+	 * @see CStateMachine
+	 */
+	private static CStateMachine smd;	
+	
+	/**
+	 * La trace de dessin avec le pinceau.
+	 * @see CPolyline
+	 */
+	private static CPolyLine line;
 
 	/**
 	 * Constructeur de Pinceau.
-	 * <p>A la création d'un Pinceau, la couleur de base est noir.
+	 * <p>A la crÃ©ation d'un Pinceau, la couleur de base est noir.
 	 * La taille du trait est de 1 et le pinceau n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le pinceau au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Pinceau(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -86,7 +109,7 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour la couleur du Pinceau avec la nouvelle couleur. 
+	 * Met Ã  jour la couleur du Pinceau avec la nouvelle couleur. 
 	 * @param couleurPinceau : la nouvelle couleur du Pinceau
 	 */
 	public void setCouleurPinceau(Color couleurPinceau) {
@@ -102,7 +125,7 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour la taille du Pinceau avec la nouvelle taille.
+	 * Met Ã  jour la taille du Pinceau avec la nouvelle taille.
 	 * @param taille : la nouvelle taille du Pinceau
 	 */
 	public void setTaille(int taille) {
@@ -118,25 +141,26 @@ public class Pinceau extends CImage {
 	}
 
 	/**
-	 * Met à jour l'état du Pinceau. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du pinceau, false ou true.
+	 * Met Ã  jour l'Ã©tat du Pinceau. S'il est actif, on met Ã  true ; sinon false.
+	 * @param estActif : le nouvel Ã©tat du pinceau, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
-	}
+	}	
 	
-	public void addPinceauStateMachine(CShape image) {
+	public void addPinceauStateMachine(Pinceau pinceau, ChoixPinceau widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pinceau.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -144,12 +168,14 @@ public class Pinceau extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pinceau.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -157,14 +183,18 @@ public class Pinceau extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						pinceau.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
+						pinceau.scaleBy(0.50);
+						pinceau.setEstActif(true);
+						boolean b = pinceau.isEstActif();
+						System.out.println("Le pinceau est : " + b);
 					}
 				};
 			};
@@ -178,13 +208,68 @@ public class Pinceau extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(pinceau);
 	}
 	
 	
+
+
+	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {		
+
+		smd = new CStateMachine (){
+			public State out = new State() {				
+				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
+				Transition pressOut = new Press (BUTTON1,">> disarmed") {
+					public void action() {
+						line = canvas.newPolyLine(getPoint());
+						line.setStroke(new BasicStroke(pinceau.getTaille()));
+						line.setOutlinePaint(pinceau.getCouleurPinceau());
+						line.setFilled(false);
+						line.setPickable(false);
+					}
+				};
+			};
+
+			public State over = new State() {				
+				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
+				Transition arm = new Press(BUTTON1, ">> armed") {};
+			};
+
+			public State armed = new State() {
+				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
+				Transition act = new Release(BUTTON1, ">> over") {};				
+			};
+
+			public State disarmed = new State() {
+				Transition draw = new Drag (BUTTON1){
+					public void action() {
+						line.lineTo(getPoint());
+					}
+				};
+				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {
+					public void action() {
+						line.remove();
+					}
+				};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action() {
+						line.lineTo(getPoint());
+					}
+				};
+
+			};						
+
+		};		
+
+//		smd.attachTo(this);
+//		Lancement.showStateMachine(smd);
+		
+		return smd;
+	}			
 }

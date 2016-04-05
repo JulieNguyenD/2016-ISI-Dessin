@@ -14,12 +14,13 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.widget_sous_barre.ChoixGomme;
 
 /**
  * <b>CImage pour la gomme</b>
  * <p>La gomme a sa propre CStateMachine. 
- * Lorsque l'on crosse la gomme, sa fonction est activée 
- * et une boîte apparaît pour choisir sa fonction.</p>
+ * Lorsque l'on crosse la gomme, sa fonction est activÃ©e 
+ * et une boÃ®te apparaÃ®t pour choisir sa fonction.</p>
  * 
  * @see CImage
  * 
@@ -30,7 +31,7 @@ import fr.lri.swingstates.sm.transitions.Release;
 public class Gomme extends CImage {
 	
 	/**
-	 * Booléen indiquant si la gomme est actif.
+	 * BoolÃ©en indiquant si la gomme est actif.
 	 */
 	private boolean estActif;
 	
@@ -48,12 +49,12 @@ public class Gomme extends CImage {
 
 	/**
 	 * Constructeur de Gomme.
-	 * <p>A la création d'une Gomme.
+	 * <p>A la crÃ©ation d'une Gomme.
 	 * Le gomme n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le gomme au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Gomme(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -64,33 +65,34 @@ public class Gomme extends CImage {
 	}
 	
 	/**
-	 * Retourne si le Gomme est actif ou non.
-	 * @return true si le Gomme est actif, false sinon.
+	 * Retourne si la Gomme est actif ou non.
+	 * @return true si la Gomme est actif, false sinon.
 	 */
 	public boolean isEstActif() {
 		return estActif;
 	}
 
 	/**
-	 * Met à jour l'état du Gomme. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du Gomme, false ou true.
+	 * Met Ã  jour l'Ã©tat du Gomme. S'il est actif, on met ï¿½ true ; sinon false.
+	 * @param estActif : le nouvel Ã©tat de la Gomme, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
 	}
 	
-	public void addGommeStateMachine(CShape image) {
+	public void addGommeStateMachine(Gomme gomme, ChoixGomme widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						gomme.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -98,12 +100,14 @@ public class Gomme extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						gomme.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -111,14 +115,15 @@ public class Gomme extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						gomme.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
+						gomme.scaleBy(0.50);
 					}
 				};
 			};
@@ -132,12 +137,13 @@ public class Gomme extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(gomme);
 	}
 
 }

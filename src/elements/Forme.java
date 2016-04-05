@@ -14,11 +14,12 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.widget_sous_barre.ChoixFormes;
 
 public class Forme extends CImage {
 	
 	/**
-	 * Booléen indiquant si la forme est actif.
+	 * BoolÃ©en indiquant si la forme est actif.
 	 */
 	private boolean estActif;
 	
@@ -36,12 +37,12 @@ public class Forme extends CImage {
 
 	/**
 	 * Constructeur de Forme.
-	 * <p>A la création d'une Forme.
+	 * <p>A la crÃ©ation d'une Forme.
 	 * Le forme n'est pas actif.<br/>
 	 * On instancie le canvas et on attache le forme au Canvas.</p> 
 	 * 
 	 * @param path : Le chemin vers l'image.
-	 * @param position : La position de départ de l'image (ici le coin supérieur gauche de l'image)
+	 * @param position : La position de dÃ©part de l'image (ici le coin supÃ©rieur gauche de l'image)
 	 */
 	public Forme(String path, Point2D position, Canvas canvas) {
 		super(path, position);
@@ -60,25 +61,26 @@ public class Forme extends CImage {
 	}
 
 	/**
-	 * Met à jour l'état du Forme. S'il est actif, on met à true ; sinon false.
-	 * @param estActif : le nouveau état du Forme, false ou true.
+	 * Met Ã  jour l'Ã©tat du Forme. S'il est actif, on met Ã  true ; sinon false.
+	 * @param estActif : le nouveau Ã©tat du Forme, false ou true.
 	 */
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
 	}
 	
-	public void addFormeStateMachine(CShape image) {
+	public void addFormeStateMachine(CShape image, ChoixFormes widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						//image.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -86,12 +88,14 @@ public class Forme extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						// image.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -99,14 +103,16 @@ public class Forme extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						// image.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
+						// image.scaleBy(0.50);
+						widget.montrer(false);
 					}
 				};
 			};

@@ -43,8 +43,6 @@ public class WidgetCouleurTaille extends CShape{
 		
 		barCouleur.addTag("BarColor");
 		barTaille.addTag("BarTaille");
-//		barCouleur.addTag("NonDrawable");
-//		barTaille.addTag("NonDrawable");
 		drag.addTag("NonDrawable");
 		outils.addTag("NonDrawable");
 

@@ -130,12 +130,14 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);		
 		
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pot, gomme, forme);
+		canvas.addShape(widgetOutils);
+		
+
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
 		bc.addTag("BarColor");
 		bc.addTag("NonDrawable");
 		
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
-		canvas.addShape(widgetOutils);
 		
 		// Test menu radial
 		// TODO : Apparait au coordo de la souris

@@ -14,6 +14,7 @@ import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.sm.JStateMachine;
+import main.Lancement;
 import widgets.widget_sous_barre.ChoixFormes;
 import widgets.widget_sous_barre.ChoixGomme;
 import widgets.widget_sous_barre.ChoixPinceau;
@@ -72,6 +73,8 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixGomme choixGomme;
 	
+	private Pinceau pinceau;
+		
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -85,7 +88,7 @@ public class WidgetOutils extends CShape {
 	 * @param c : canvas sur lequel on dessinne. 
 	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
-	public WidgetOutils(Canvas c, Point position, Pinceau pinceau, Pot pot, Gomme gomme, Forme forme) {
+	public WidgetOutils(Canvas c, Point position, Pot pot, Gomme gomme, Forme forme) {
 		this.canvas = c;
 		
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
@@ -104,6 +107,11 @@ public class WidgetOutils extends CShape {
 		pot = new Pot("images/pot.png", position_image_pot, canvas);		
 		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		forme = new Forme("images/forme.png", position_image_forme, canvas);
+		
+		smPinceau = pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
+		smPinceau.attachTo(canvas);
+		smPinceau.setActive(true);
+		Lancement.showStateMachine(smPinceau);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);		
@@ -124,6 +132,10 @@ public class WidgetOutils extends CShape {
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 				
+	}
+	
+	public Pinceau getPinceau() {
+		return this.pinceau;
 	}
 	
 	public CStateMachine getSMPinceau(){

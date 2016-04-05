@@ -1,6 +1,7 @@
 package elements;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
@@ -60,7 +61,7 @@ public class BarCouleur extends CImage{
 	}
 	
 	
-	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
+	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau, Pinceau pinceau) throws IOException {
 		super(path, position);
 		//this.addTag("BarColor");
 		//this.addTag("NonDrawable");
@@ -132,8 +133,11 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 																		
-						//widgetPinceau.getPinceau().setCouleurPinceau(color);
-						widgetPinceau.smPinceau.setActive(true);
+						System.out.println("Hello");
+						widgetPinceau.getPinceau().setCouleurPinceau(color);
+						// pinceau.setCouleurPinceau(color);
+						System.out.println("world");
+						// widgetPinceau.smPinceau.setActive(true);
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};
@@ -142,7 +146,7 @@ public class BarCouleur extends CImage{
 
 			public State disarmed = new State() {
 				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {
+				Transition cancel = new Release(BUTTON3	, ">> out") {
 					public void action (){
 				
 					}
@@ -153,8 +157,7 @@ public class BarCouleur extends CImage{
 		
 		sm.attachTo(this);		
 	}
-		
-	
+
 	public Color getColor (){
 		return this.color;
 	}	

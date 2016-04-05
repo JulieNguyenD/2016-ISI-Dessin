@@ -229,6 +229,7 @@ public class Pinceau extends CImage {
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(taille));
 						line.setOutlinePaint(pinceau.getCouleurPinceau());
+						System.out.println ("Couleur du pinceau +++++++++++++++++++++++++++++++++++=" + pinceau.getCouleurPinceau());
 						line.setFilled(false);
 						line.setPickable(false);
 					}
@@ -266,6 +267,7 @@ public class Pinceau extends CImage {
 			};						
 		};		
 
+		//smd.attachTo(this);
 		//showStateMachine(smd);
 		
 		return smd;

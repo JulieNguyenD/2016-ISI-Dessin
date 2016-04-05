@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -7,6 +8,13 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
+import elements.Forme;
+import elements.Gomme;
+import elements.Pinceau;
+import elements.Pot;
+import elements.QuitMenu;
+import elements.QuitMenu_remake;
+import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
@@ -90,7 +98,15 @@ public class Application extends JFrame {
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
 
-	public static CrossingTrace ct;
+	public CrossingTrace ct;
+	
+	private Pinceau pinceau;
+	
+	private Pot pot;
+	
+	private Gomme gomme;
+	
+	private Forme forme;
 	
 	public Application () throws IOException {
 
@@ -99,7 +115,7 @@ public class Application extends JFrame {
 		Dimension minsize = new Dimension(600,600);
 		//this.setPreferredSize(minsize);
 		this.setMinimumSize(minsize);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		//this.setExtendedState(this.MAXIMIZED_BOTH);
 
 		positionWidgetP = new Point(400, 100);
 		positionWidgetCT = new Point (100, 100);
@@ -107,30 +123,29 @@ public class Application extends JFrame {
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
-		
-		
-		
-//		hidden = new CRectangle(0, 0, 500, 500);
-//		hidden.setStroke(new BasicStroke(0));
-//		hidden.setFillPaint(Color.WHITE);
-//		canvas.addShape(hidden);
-//		
-//		hidden.belowAll();
-		
 				
 		// Ajout un marquage pour la trace
 		ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
 		canvas.setOpaque(true);		
-				
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
-		canvas.addShape(widgetOutils);
 		
 		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
 		bc.addTag("BarColor");
 		bc.addTag("NonDrawable");
-
+		
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
+		canvas.addShape(widgetOutils);
+		
+		// Test menu radial
+		// TODO : Apparait au coordo de la souris
+		// mais avec le parent
+		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
+//		 QuitMenu qm = new QuitMenu(canvas);
+		
+		this.setGlassPane(canvas);
+		this.getGlassPane().setVisible(true);
+		
 		addDragger(canvas);
 		
 		pack();

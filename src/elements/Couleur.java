@@ -29,6 +29,7 @@ public class Couleur extends CRectangle {
 		this.setFillPaint(Color.WHITE);		
 		
 		rectangle.setParent(this);
+		rectangle.setPickable(false);
 		this.addTo(canvas);	
 		
 		this.below(rectangle);		
@@ -91,6 +92,7 @@ public class Couleur extends CRectangle {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 		this.rectangle.setDrawable(b);
 	}
 

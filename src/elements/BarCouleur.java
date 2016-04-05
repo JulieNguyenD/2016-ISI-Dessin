@@ -132,13 +132,23 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 																		
-						widgetPinceau.getPinceau().setCouleurPinceau(color);
+						//widgetPinceau.getPinceau().setCouleurPinceau(color);
 						widgetPinceau.smPinceau.setActive(true);
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};
+		
+			};
+
+			public State disarmed = new State() {
+				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action (){
 				
-			};			
+					}
+				};
+
+			};
 		};
 		
 		sm.attachTo(this);		

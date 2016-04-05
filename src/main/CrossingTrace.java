@@ -1,4 +1,5 @@
 package main;
+
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
@@ -19,7 +20,6 @@ import java.awt.geom.Point2D;
  * @see CStateMachine
  * @see Point2D
  * @see CPolyLine
- * 
  * 
  * @author ANDRIANIRINA Tojo
  * @author GABRIEL Damien

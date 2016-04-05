@@ -185,6 +185,9 @@ public class Pinceau extends CImage {
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
 						image.scaleBy(0.50);
+						((Pinceau) image).setEstActif(true);
+						boolean b = ((Pinceau) image).isEstActif();
+						System.out.println("Le pinceau est : " + b);
 					}
 				};
 			};

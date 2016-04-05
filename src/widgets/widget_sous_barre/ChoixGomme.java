@@ -35,6 +35,7 @@ public class ChoixGomme extends CRectangle {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 		this.gommeWidget.montrer(b);
 	}
 

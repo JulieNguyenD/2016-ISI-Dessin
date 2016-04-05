@@ -95,6 +95,7 @@ public class Annexe_forme extends CImage {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 	}
 
 }

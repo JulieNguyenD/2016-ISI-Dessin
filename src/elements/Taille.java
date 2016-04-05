@@ -32,6 +32,7 @@ public class Taille extends CRectangle {
 		this.setFillPaint(Color.WHITE);
 				
 		rectangle.setParent(this);
+		rectangle.setPickable(false);
 		this.addTo(canvas);		
 		
 		this.below(rectangle);				
@@ -95,6 +96,7 @@ public class Taille extends CRectangle {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 		this.rectangle.setDrawable(b);
 	}
 }

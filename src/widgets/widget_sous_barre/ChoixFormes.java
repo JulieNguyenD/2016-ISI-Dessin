@@ -36,6 +36,7 @@ public class ChoixFormes extends CRectangle {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 		this.choixCouleurContour.montrer(b);
 		this.choixForme.montrer(b);
 	}

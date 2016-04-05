@@ -39,6 +39,7 @@ public class ChoixPinceau extends CRectangle {
 	
 	public void montrer(boolean b) {
 		this.setDrawable(b);
+		this.setPickable(b);
 		this.choixPinceauCouleur.montrer(b);
 		this.choixPinceauTaille.montrer(b);
 	}

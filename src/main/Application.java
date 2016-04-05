@@ -8,6 +8,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
+import elements.Forme;
+import elements.Gomme;
+import elements.Pinceau;
+import elements.Pot;
 import elements.QuitMenu;
 import elements.QuitMenu_remake;
 import fr.lri.swingstates.canvas.CRectangle;
@@ -93,7 +97,14 @@ public class Application extends JFrame {
 	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
-
+	
+	private Pinceau pinceau;
+	
+	private Pot pot;
+	
+	private Gomme gomme;
+	
+	private Forme forme;
 	
 	public Application () throws IOException {
 
@@ -110,16 +121,6 @@ public class Application extends JFrame {
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
-		
-		
-		
-//		hidden = new CRectangle(0, 0, 500, 500);
-//		hidden.setStroke(new BasicStroke(0));
-//		hidden.setFillPaint(Color.WHITE);
-//		canvas.addShape(hidden);
-//		
-//		hidden.belowAll();
-		
 				
 		// Ajout un marquage pour la trace
 		CrossingTrace ct = new CrossingTrace(canvas) ;
@@ -130,7 +131,7 @@ public class Application extends JFrame {
 //		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
 //		bc.addTag("BarColor");
 		
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
 		canvas.addShape(widgetOutils);
 		
 		// Test menu radial

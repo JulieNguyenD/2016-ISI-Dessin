@@ -129,16 +129,16 @@ public class BarCouleur extends CImage{
 				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
 				Transition cancel = new Release(BUTTON1, ">> out") {
 					public void action (){
-						System.out.println("test de relachement ++++++++++++++++++++");
-						Pinceau pinceau = widgetPinceau.getPinceau();
-						CStateMachine smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, color, 1);
-						smPinceau.setActive(true);
-						//smPinceau.attachTo(canvas);
-						widgetPinceau.setSMPinceau(smPinceau);												
-						(widgetPinceau.getSMPinceau()).setActive(true);
-						//sm.setActive(false);
-						//widgetPinceau.getSMPinceau().attachTo(canvas);
-						System.out.println("test FIN relachement ++++++++++++++++++++");
+//						System.out.println("test de relachement ++++++++++++++++++++");
+//						Pinceau pinceau = widgetPinceau.getPinceau();
+//						CStateMachine smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, color, 1);
+//						smPinceau.setActive(true);
+//						//smPinceau.attachTo(canvas);
+//						widgetPinceau.setSMPinceau(smPinceau);												
+//						(widgetPinceau.getSMPinceau()).setActive(true);
+//						//sm.setActive(false);
+//						//widgetPinceau.getSMPinceau().attachTo(canvas);
+//						System.out.println("test FIN relachement ++++++++++++++++++++");
 						
 					}
 				};

@@ -96,7 +96,6 @@ public class Forme extends CImage {
 					public void action() {
 						// image.scaleBy(2.0);
 						widget.montrer(true);
-						System.out.println(image.getMinX());
 					}
 				};
 			};

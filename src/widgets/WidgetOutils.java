@@ -56,30 +56,6 @@ public class WidgetOutils extends CShape {
 	 */
 	private CRectangle drag, outils;
 	
-	/**
-	 * Les CImages des outils - <b>pinceau</b> : CImage de l'outils pinceau.
-	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
-	 */	
-	private Pinceau pinceau;
-	
-	/**
-	 * Les CImages des outils - <b>pot</b> : CImage de l'outils pot.
-	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
-	 */	
-	private Pot pot;
-	
-	/**
-	 * Les CImages des outils - <b>gomme</b> : CImage de l'outils gomme.
-	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
-	 */
-	private Gomme gomme;
-	
-	/**
-	 * Les CImages des outils - <b>forme</b> : CImage de l'outils forme.
-	 * @see WidgetOutils#WidgetPinceau(Canvas, Point)
-	 */
-	private Forme forme;
-	
 	private Point2D position_image_pinceau, position_image_pot, position_image_gomme, position_image_forme;
 	
 	private ChoixPinceau choixPinceau;
@@ -105,7 +81,7 @@ public class WidgetOutils extends CShape {
 	 * @param c : canvas sur lequel on dessinne. 
 	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
-	public WidgetOutils(Canvas c, Point position) {
+	public WidgetOutils(Canvas c, Point position, Pinceau pinceau, Pot pot, Gomme gomme, Forme forme) {
 		this.canvas = c;
 		
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
@@ -119,50 +95,30 @@ public class WidgetOutils extends CShape {
 		position_image_gomme = new Point2D.Double(position.getX(), position.getY()+2*80);
 		position_image_forme = new Point2D.Double(position.getX(), position.getY()+3*80);
 		
-		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
-		// smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, Color.red, 1);
-		// smPinceau.attachTo(canvas);
-		//smPinceau.setActive(false);
-		
-		pot = new Pot("images/pot.png", position_image_pot, canvas);
-		
-		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);
-		
+		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);		
+		pot = new Pot("images/pot.png", position_image_pot, canvas);		
+		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);		
 		
-		choixPinceau = new ChoixPinceau(canvas, position_image_pinceau);
-		choixPinceau.setParent(drag);
-		
-		choixPot = new ChoixPot(canvas, position_image_pot);
-		choixPot.setParent(drag);
-		
-		choixGomme = new ChoixGomme(canvas, position_image_gomme);
-		choixGomme.setParent(drag);
-		
+		choixPinceau = new ChoixPinceau(canvas, position_image_pinceau);		
+		choixPot = new ChoixPot(canvas, position_image_pot);		
+		choixGomme = new ChoixGomme(canvas, position_image_gomme);		
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
-		choixFormes.setParent(drag);
 		
+		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);
 		
 		// Ajout des statesMachines sur les formes.
-		forme.addFormeStateMachine(forme, choixFormes);
 		pinceau.addPinceauStateMachine(pinceau, choixPinceau);
-		gomme.addGommeStateMachine(gomme, choixGomme);
 		pot.addPotStateMachine(pot, choixPot);
-
-
-
-
+		gomme.addGommeStateMachine(gomme, choixGomme);
+		forme.addFormeStateMachine(forme, choixFormes);
 		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 				
-	}
-	
-	public Pinceau getPinceau(){
-		return this.pinceau;
 	}
 	
 	public CStateMachine getSMPinceau(){

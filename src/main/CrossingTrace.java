@@ -3,7 +3,6 @@ package main;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.events.VirtualEvent;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;

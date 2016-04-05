@@ -84,23 +84,7 @@ public class Application extends JFrame {
 	 * Le point de positionnement du Widget CouleurTaille.
 	 * @see Application#Application()
 	 */
-	private Point positionWidgetCT;	
-	
-//	/**
-//	 * Le point de positionnement du Widget CouleurTaille.
-//	 * @see Application#Application()
-//	 */
-//	private Point positionWidgetCT_taille;	
-	
-	
-	
-//	private Pinceau pinceau;
-//	
-//	private Pot pot;
-//	
-//	private Gomme gomme;
-//	
-//	private Forme forme;
+	private Point positionWidgetCT;		
 	
 	/**
 	 * Constructeur de Application.

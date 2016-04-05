@@ -120,16 +120,13 @@ public class WidgetOutils extends CShape {
 		position_image_forme = new Point2D.Double(position.getX(), position.getY()+3*80);
 		
 		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
-		pinceau.addPinceauStateMachine(pinceau);
 		// smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, Color.red, 1);
 		// smPinceau.attachTo(canvas);
 		//smPinceau.setActive(false);
 		
 		pot = new Pot("images/pot.png", position_image_pot, canvas);
-		pot.addPotStateMachine(pot);
 		
 		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);
-		gomme.addGommeStateMachine(gomme);
 		
 		forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
@@ -148,7 +145,15 @@ public class WidgetOutils extends CShape {
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		choixFormes.setParent(drag);
 		
+		
+		// Ajout des statesMachines sur les formes.
 		forme.addFormeStateMachine(forme, choixFormes);
+		pinceau.addPinceauStateMachine(pinceau, choixPinceau);
+		gomme.addGommeStateMachine(gomme, choixGomme);
+		pot.addPotStateMachine(pot, choixPot);
+
+
+
 
 		
 		drag.addTag("draggable");

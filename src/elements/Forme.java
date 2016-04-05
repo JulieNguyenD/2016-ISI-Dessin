@@ -113,7 +113,7 @@ public class Forme extends CImage {
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
 						// image.scaleBy(0.50);
-						// widget.montrer(false);
+						widget.montrer(false);
 					}
 				};
 			};

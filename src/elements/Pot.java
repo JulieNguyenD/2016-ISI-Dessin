@@ -15,6 +15,7 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.widget_sous_barre.ChoixPot;
 
 /**
  * <b>CImage pour le pot</b>
@@ -104,18 +105,19 @@ public class Pot extends CImage {
 		this.estActif = estActif;
 	}
 	
-	public void addPotStateMachine(CShape image) {
+	public void addPotStateMachine(Pot pot, ChoixPot widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pot.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -123,12 +125,14 @@ public class Pot extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pot.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -136,14 +140,16 @@ public class Pot extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						pot.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
+						pot.scaleBy(0.50);
+						widget.montrer(false);
 					}
 				};
 			};
@@ -157,12 +163,13 @@ public class Pot extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(pot);
 	}
 
 }

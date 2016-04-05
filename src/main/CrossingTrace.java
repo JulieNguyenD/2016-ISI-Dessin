@@ -1,3 +1,5 @@
+package main;
+
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;

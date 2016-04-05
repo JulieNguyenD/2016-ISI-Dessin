@@ -22,6 +22,7 @@ import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
  * <b>CImage pour le pinceau</b>
@@ -145,18 +146,19 @@ public class Pinceau extends CImage {
 		this.estActif = estActif;
 	}	
 	
-	public void addPinceauStateMachine(CShape image) {
+	public void addPinceauStateMachine(Pinceau pinceau, ChoixPinceau widget) {
 		sm = new CStateMachine() {
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON1, ">> press") {
+				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON1, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pinceau.scaleBy(2.0);
+						widget.montrer(true);
 					}					
 				};
 			};
@@ -164,12 +166,14 @@ public class Pinceau extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						image.scaleBy(2.0);
+						pinceau.scaleBy(2.0);
+						widget.montrer(true);
 					}
 				};
 			};
@@ -177,16 +181,17 @@ public class Pinceau extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						image.scaleBy(0.50);
+						pinceau.scaleBy(0.50);
+						widget.montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						image.scaleBy(0.50);
-						((Pinceau) image).setEstActif(true);
-						boolean b = ((Pinceau) image).isEstActif();
+						pinceau.scaleBy(0.50);
+						pinceau.setEstActif(true);
+						boolean b = pinceau.isEstActif();
 						System.out.println("Le pinceau est : " + b);
 					}
 				};
@@ -201,19 +206,20 @@ public class Pinceau extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						widget.montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(pinceau);
 	}
 	
 	
 	public CStateMachine createPinceauStateMachineDrawing(Canvas canvas, Color couleur, int taille) {
 		smd = new CStateMachine() {
 			State start = new State() {
-				Transition press = new Press(BUTTON1, ">> draw") {
+				Transition press = new Press(BUTTON3, CONTROL, ">> draw") {
 					public void action() {
 						//Canvas canvas = (Canvas) getEvent().getSource();
 						line = canvas.newPolyLine(getPoint());
@@ -230,7 +236,7 @@ public class Pinceau extends CImage {
 						line.lineTo(getPoint());
 					}
 				};
-				Transition stop = new Release(BUTTON1, ">> start") {
+				Transition stop = new Release(BUTTON3, CONTROL, ">> start") {
 					public void action() {
 						line.lineTo(getPoint());
 						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));
@@ -256,12 +262,12 @@ public class Pinceau extends CImage {
 
 			public State over = new State() {				
 				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
-				Transition arm = new Press(BUTTON1,">> armed") {};
+				Transition arm = new Press(BUTTON3, CONTROL">> armed") {};
 			};
 
 			public State armed = new State() {
 				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
-				Transition act = new Release(BUTTON1, ">> over") {};				
+				Transition act = new Release(BUTTON3, CONTROL ">> over") {};				
 			};
 
 			public State disarmed = new State() {
@@ -271,7 +277,7 @@ public class Pinceau extends CImage {
 					}
 				};
 				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {
+				Transition cancel = new Release(BUTTON3, CONTROL ">> out") {
 					public void action() {
 						line.lineTo(getPoint());
 					}

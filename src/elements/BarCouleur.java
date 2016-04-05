@@ -39,7 +39,8 @@ public class BarCouleur extends CImage{
 	BufferedImage bi;
 	private WidgetOutils widgetPinceau;
 
-	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau, Pinceau pinceau) throws IOException {
+//	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau, Pinceau pinceau) throws IOException {
+	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
 		super(path, position);
 		//this.addTag("BarColor");
 		//this.addTag("NonDrawable");
@@ -116,10 +117,9 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
-						//sm.setActive(false);
-						System.out.println("Hello");
-						widgetPinceau.getP().setCouleurPinceau(color);
-						System.out.println("World");
+						widgetPinceau.getPinceau().setCouleurPinceau(color);
+						//widgetPinceau.getP().setCouleurPinceau(color);
+						
 						//showStateMachine(smd);
 					}
 				};

@@ -68,6 +68,8 @@ public class WidgetOutils extends CShape {
 	
 	private ChoixGomme choixGomme;
 	
+	private Pinceau p;
+	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -100,6 +102,11 @@ public class WidgetOutils extends CShape {
 		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
+		p = pinceau;
+		
+		smPinceau = p.createPinceauStateMachineDrawing(pinceau, canvas);
+		smPinceau.attachTo(canvas);
+		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);		
 		
@@ -116,6 +123,8 @@ public class WidgetOutils extends CShape {
 		gomme.addGommeStateMachine(gomme, choixGomme);
 		forme.addFormeStateMachine(forme, choixFormes);
 		
+		pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
+		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);
 				
@@ -127,6 +136,10 @@ public class WidgetOutils extends CShape {
 	
 	public void setSMPinceau (CStateMachine smPinceau){
 		this.smPinceau = smPinceau;
+	}
+	
+	public Pinceau getP() {
+		return p;
 	}
 
 }

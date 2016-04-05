@@ -216,15 +216,15 @@ public class Pinceau extends CImage {
 	}
 	
 	
-	public CStateMachine createPinceauStateMachineDrawing(Canvas canvas, Color couleur, int taille) {
+	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {
 		smd = new CStateMachine() {
 			State start = new State() {
-				Transition press = new Press(BUTTON3, CONTROL, ">> draw") {
+				Transition press = new Press(BUTTON1, ">> draw") {
 					public void action() {
 						//Canvas canvas = (Canvas) getEvent().getSource();
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(taille));
-						line.setOutlinePaint(couleur);
+						line.setOutlinePaint(pinceau.getCouleurPinceau());
 						line.setFilled(false);
 					}
 				};
@@ -236,7 +236,7 @@ public class Pinceau extends CImage {
 						line.lineTo(getPoint());
 					}
 				};
-				Transition stop = new Release(BUTTON3, CONTROL, ">> start") {
+				Transition stop = new Release(BUTTON1, ">> start") {
 					public void action() {
 						line.lineTo(getPoint());
 						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));

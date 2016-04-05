@@ -39,7 +39,7 @@ public class BarCouleur extends CImage{
 	BufferedImage bi;
 	private WidgetOutils widgetPinceau;
 
-	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
+	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau, Pinceau pinceau) throws IOException {
 		super(path, position);
 		//this.addTag("BarColor");
 		//this.addTag("NonDrawable");
@@ -84,7 +84,7 @@ public class BarCouleur extends CImage{
 				}				
 				
 				Transition leave = new LeaveOnTag("BarColor",">> out") {};
-				Transition arm = new Press(BUTTON1,">> armed") {
+				Transition arm = new Press(BUTTON3,">> armed") {
 					public void action (){						
 					}
 				};
@@ -116,18 +116,20 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
-						//sm.setActive(false);																	
-						//smd = Pinceau.addPinceauStateMachineDrawing(canvas, color, 1);
+						//sm.setActive(false);
+						System.out.println("Hello");
+						widgetPinceau.getP().setCouleurPinceau(color);
+						System.out.println("World");
 						//showStateMachine(smd);
 					}
 				};
-				Transition act = new Release(BUTTON1, ">> over") {};
+				Transition act = new Release(BUTTON3, ">> over") {};
 				
 			};
 
 			public State disarmed = new State() {
 				Transition rearm = new EnterOnTag("BarColor", ">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {
+				Transition cancel = new Release(BUTTON3, ">> out") {
 					public void action (){
 //						System.out.println("test de relachement ++++++++++++++++++++");
 //						Pinceau pinceau = widgetPinceau.getPinceau();

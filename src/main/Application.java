@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
+import elements.BarTaille;
 import elements.Forme;
 import elements.Gomme;
 import elements.Pinceau;
@@ -55,12 +56,6 @@ public class Application extends JFrame {
 	 */
 	private Canvas canvas;
 	
-//	/**
-//	 * Le CRectangle blanc qui "remplace" le canvas. On cache les éléments en dessous.
-//	 * @see Application#Application()
-//	 */
-//	private CRectangle hidden;
-	
 	/**
 	 * Le Canvas de crossing.
 	 * @see Application#Application()
@@ -89,25 +84,30 @@ public class Application extends JFrame {
 	 * Le point de positionnement du Widget CouleurTaille.
 	 * @see Application#Application()
 	 */
-	private Point positionWidgetCT;
-		
+	private Point positionWidgetCT;	
+	
+//	/**
+//	 * Le point de positionnement du Widget CouleurTaille.
+//	 * @see Application#Application()
+//	 */
+//	private Point positionWidgetCT_taille;	
+	
+	
+	
+//	private Pinceau pinceau;
+//	
+//	private Pot pot;
+//	
+//	private Gomme gomme;
+//	
+//	private Forme forme;
+	
 	/**
 	 * Constructeur de Application.
 	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à
 	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
 	 * On ajoute les widgets de couleur et pinceau.</p>
 	 */
-
-	public CrossingTrace ct;
-	
-	private Pinceau pinceau;
-	
-	private Pot pot;
-	
-	private Gomme gomme;
-	
-	private Forme forme;
-	
 	public Application () throws IOException {
 
 		super("Application Dessin - A.G.N");
@@ -117,34 +117,41 @@ public class Application extends JFrame {
 		this.setMinimumSize(minsize);
 		//this.setExtendedState(this.MAXIMIZED_BOTH);
 
-		positionWidgetP = new Point(400, 100);
+		positionWidgetP = new Point(400, 50);
 		positionWidgetCT = new Point (100, 100);
+//		positionWidgetCT_taille = new Point (100, 300);
+		
 
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
 		getContentPane().add(canvas);
 				
 		// Ajout un marquage pour la trace
-		ct = new CrossingTrace(canvas) ;
+		CrossingTrace ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
 		canvas.setOpaque(true);				
 		
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
-		pinceau = widgetOutils.getP();
+//		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
+//		pinceau = widgetOutils.getP();
 		canvas.addShape(widgetOutils);
 		
-		widgetOutils.addTag("NonDrawable");
+		// widgetOutils.addTag("NonDrawable");
+//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
+//		BarTaille bt = new BarTaille ("images/tailleBar.png", positionWidgetCT_taille, canvas, widgetOutils);
 		
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
-		bc.addTag("BarColor");
-		bc.addTag("NonDrawable");
+//		bc.addTag("BarColor");
+//		bc.addTag("NonDrawable");
+//		bt.addTag("BarTaille");		
+//		bt.addTag("NonDrawable");		
+
+		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
+//		widgetcouleurtaille.addTag("NonDrawable");
 		
-		// Test menu radial
-		// TODO : Apparait au coordo de la souris
-		// mais avec le parent
-		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
-//		 QuitMenu qm = new QuitMenu(canvas);
+//		QuitMenu_remake qm = new QuitMenu_remake(canvas);
+//		QuitMenu qm = new QuitMenu(canvas);
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);

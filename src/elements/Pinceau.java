@@ -23,6 +23,7 @@ import fr.lri.swingstates.sm.transitions.Event;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Lancement;
 import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
@@ -218,17 +219,14 @@ public class Pinceau extends CImage {
 	
 	
 	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {		
-		// Commencement du nouveu SM===============================
 		smd = new CStateMachine (){
 			public State out = new State() {				
 				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
-				Transition pressOut = new Press (">> disarmed") {
+				Transition pressOut = new Press (BUTTON1,">> disarmed") {
 					public void action() {
-						//Canvas canvas = (Canvas) getEvent().getSource();
 						line = canvas.newPolyLine(getPoint());
-						line.setStroke(new BasicStroke(taille));
+						line.setStroke(new BasicStroke(pinceau.getTaille()));
 						line.setOutlinePaint(pinceau.getCouleurPinceau());
-						System.out.println ("Couleur du pinceau +++++++++++++++++++++++++++++++++++=" + pinceau.getCouleurPinceau());
 						line.setFilled(false);
 						line.setPickable(false);
 					}
@@ -266,8 +264,8 @@ public class Pinceau extends CImage {
 			};						
 		};		
 
-		//smd.attachTo(this);
-		//showStateMachine(smd);
+//		smd.attachTo(this);
+//		Lancement.showStateMachine(smd);
 		
 		return smd;
 	}			

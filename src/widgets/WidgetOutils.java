@@ -132,7 +132,6 @@ public class WidgetOutils extends CShape {
 		gomme.addGommeStateMachine(gomme);
 		
 		forme = new Forme("images/forme.png", position_image_forme, canvas);
-		forme.addFormeStateMachine(forme);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);		
@@ -148,7 +147,9 @@ public class WidgetOutils extends CShape {
 		
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		choixFormes.setParent(drag);
-		choixFormes.montrer(true);
+		
+		forme.addFormeStateMachine(forme, choixFormes);
+
 		
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);

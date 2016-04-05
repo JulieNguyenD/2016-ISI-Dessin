@@ -129,6 +129,7 @@ public class Application extends JFrame {
 		
 		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
 		bc.addTag("BarColor");
+		bc.addTag("NonDrawable");
 
 		addDragger(canvas);
 		

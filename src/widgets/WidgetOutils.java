@@ -124,10 +124,9 @@ public class WidgetOutils extends CShape {
 		
 		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);
 		pinceau.addPinceauStateMachine(pinceau);
-		smPinceau = pinceau.createPinceauStateMachineDrawing(canvas, Color.red, 1);
-		smPinceau.attachTo(canvas);		
-		//showStateMachine(smPinceau);
-		smPinceau.setActive(false);
+		smPinceau = pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
+		smPinceau.attachTo(canvas);				
+		showStateMachine(smPinceau);
 		
 		pot = new Pot("images/pot.png", position_image_pot, canvas);
 		pot.addPotStateMachine(pot);

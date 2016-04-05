@@ -128,16 +128,17 @@ public class Application extends JFrame {
 		ct = new CrossingTrace(canvas) ;
 		ct.attachTo(canvas);
 		canvas.setVisible(true);
-		canvas.setOpaque(true);		
+		canvas.setOpaque(true);				
 		
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pot, gomme, forme);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
+		pinceau = widgetOutils.getP();
 		canvas.addShape(widgetOutils);
 		
-
+		widgetOutils.addTag("NonDrawable");
+		
 		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
 		bc.addTag("BarColor");
 		bc.addTag("NonDrawable");
-		
 		
 		// Test menu radial
 		// TODO : Apparait au coordo de la souris

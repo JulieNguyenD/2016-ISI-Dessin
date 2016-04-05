@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 
-import elements.BarCouleur.ColorEvent;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CShape;
@@ -218,9 +217,9 @@ public class Pinceau extends CImage {
 	}
 	
 	
-	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {
+	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {		
+		// Commencement du nouveu SM===============================
 		smd = new CStateMachine (){
-
 			public State out = new State() {				
 				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
 				Transition pressOut = new Press (">> disarmed") {

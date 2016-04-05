@@ -44,23 +44,6 @@ public class BarCouleur extends CImage{
 	BufferedImage bi;
 	private WidgetOutils widgetPinceau;
 
-	// class of custom color events
-	public class ColorEvent extends EventObject {
-
-		Color color;
-		
-		public ColorEvent(StateMachine sm, Color c) {
-			super(c);
-			color = c;
-		}
-		
-		public Color getColor() {
-			return color;
-		}
-		
-	}
-	
-	
 	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau, Pinceau pinceau) throws IOException {
 		super(path, position);
 		//this.addTag("BarColor");
@@ -132,16 +115,15 @@ public class BarCouleur extends CImage{
 						
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
-																		
+						
+						//sm.setActive(false);
 						System.out.println("Hello");
-						widgetPinceau.getPinceau().setCouleurPinceau(color);
-						// pinceau.setCouleurPinceau(color);
-						System.out.println("world");
-						// widgetPinceau.smPinceau.setActive(true);
+						widgetPinceau.getP().setCouleurPinceau(color);
+						System.out.println("World");
+						//showStateMachine(smd);
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};
-		
 			};
 
 			public State disarmed = new State() {

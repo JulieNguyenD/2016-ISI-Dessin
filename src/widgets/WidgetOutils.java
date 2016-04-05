@@ -58,17 +58,25 @@ public class WidgetOutils extends CShape {
 	
 	private Point2D position_image_pinceau, position_image_pot, position_image_gomme, position_image_forme;
 	
-	private ChoixPinceau choixPinceau;
+	private Pinceau pinceau;
+
+	private Pot pot;
 	
-	private CStateMachine smPinceau;
+	private Gomme gomme;
 	
+	private Forme forme;
+	
+	private ChoixPinceau choixPinceau;	
+
 	private ChoixPot choixPot;
 	
 	private ChoixFormes choixFormes;
 	
 	private ChoixGomme choixGomme;
 	
-	private Pinceau p;
+	private CStateMachine smPinceau;
+	
+//	private Pinceau p;
 	
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
@@ -83,7 +91,8 @@ public class WidgetOutils extends CShape {
 	 * @param c : canvas sur lequel on dessinne. 
 	 * @param position : position à laquelle on place le coin supérieur gauche de la première image.
 	 */
-	public WidgetOutils(Canvas c, Point position, Pinceau pinceau, Pot pot, Gomme gomme, Forme forme) {
+//	public WidgetOutils(Canvas c, Point position, Pinceau pinceau, Pot pot, Gomme gomme, Forme forme) {
+	public WidgetOutils(Canvas c, Point position) {
 		this.canvas = c;
 		
 		drag = new CRectangle(position.getX()-padding, position.getY()-padding-15, 80+2*padding, 15);
@@ -97,14 +106,12 @@ public class WidgetOutils extends CShape {
 		position_image_gomme = new Point2D.Double(position.getX(), position.getY()+2*80);
 		position_image_forme = new Point2D.Double(position.getX(), position.getY()+3*80);
 		
-		pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);		
-		pot = new Pot("images/pot.png", position_image_pot, canvas);		
-		gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
-		forme = new Forme("images/forme.png", position_image_forme, canvas);
+		this.pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);		
+		this.pot = new Pot("images/pot.png", position_image_pot, canvas);		
+		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
+		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
-		p = pinceau;
-		
-		smPinceau = p.createPinceauStateMachineDrawing(pinceau, canvas);
+		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
 		smPinceau.attachTo(canvas);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
@@ -115,9 +122,11 @@ public class WidgetOutils extends CShape {
 		choixGomme = new ChoixGomme(canvas, position_image_gomme);		
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		
+		// drag est le parent de tous les widgets annexes
 		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);
 		
 		// Ajout des statesMachines sur les formes.
+		// Si on passe sur un des outils principaux, cela affiche le widget annexe
 		pinceau.addPinceauStateMachine(pinceau, choixPinceau);
 		pot.addPotStateMachine(pot, choixPot);
 		gomme.addGommeStateMachine(gomme, choixGomme);
@@ -138,8 +147,36 @@ public class WidgetOutils extends CShape {
 		this.smPinceau = smPinceau;
 	}
 	
-	public Pinceau getP() {
-		return p;
+	public ChoixPinceau getChoixPinceau() {
+		return choixPinceau;
+	}
+
+	public ChoixPot getChoixPot() {
+		return choixPot;
+	}
+
+	public ChoixFormes getChoixFormes() {
+		return choixFormes;
+	}
+
+	public ChoixGomme getChoixGomme() {
+		return choixGomme;
+	}
+	
+	public Pinceau getPinceau() {
+		return pinceau;
+	}
+
+	public Pot getPot() {
+		return pot;
+	}
+
+	public Gomme getGomme() {
+		return gomme;
+	}
+
+	public Forme getForme() {
+		return forme;
 	}
 
 }

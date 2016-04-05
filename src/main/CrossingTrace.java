@@ -24,7 +24,7 @@ import java.awt.geom.Point2D;
  * @author GABRIEL Damien
  * @author NGUYEN Julie
  */
-class CrossingTrace extends CStateMachine {
+public class CrossingTrace extends CStateMachine {
 
 	/**
 	 * pInit : Point de départ de la PolyLine

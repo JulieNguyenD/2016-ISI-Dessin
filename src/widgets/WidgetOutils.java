@@ -187,7 +187,10 @@ public class WidgetOutils extends CShape {
 		smPinceau.attachTo(canvas);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
-		drag.addChild(outils);		
+		drag.addChild(outils);			
+
+		drag.addTag("NonDrawable");
+		outils.addTag("NonDrawable");
 		
 		choixPinceau = new ChoixPinceau(canvas, position_image_pinceau, pinceau);		
 		choixPot = new ChoixPot(canvas, position_image_pot);		

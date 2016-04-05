@@ -19,9 +19,11 @@ import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.*;
 import fr.lri.swingstates.sm.transitions.Drag;
+import fr.lri.swingstates.sm.transitions.Event;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Lancement;
 import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
@@ -216,46 +218,20 @@ public class Pinceau extends CImage {
 	}
 	
 	
-	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {
-//		smd = new CStateMachine() {
-//			State start = new State() {
-//				Transition press = new Press(BUTTON1, ">> draw") {
-//					public void action() {
-//						//Canvas canvas = (Canvas) getEvent().getSource();
-//						line = canvas.newPolyLine(getPoint());
-//						line.setStroke(new BasicStroke(taille));
-//						line.setOutlinePaint(pinceau.getCouleurPinceau());
-//						line.setFilled(false);
-//					}
-//				};
-//			};
-//			
-//			State draw = new State() {
-//				Transition draw = new Drag(BUTTON1) {
-//					public void action() {
-//						line.lineTo(getPoint());
-//					}
-//				};
-//				Transition stop = new Release(BUTTON1, ">> start") {
-//					public void action() {
-//						line.lineTo(getPoint());
-//						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));
-//					}
-//				};
-//			};
-//		};		
-		
-		// Commencement du nouveu SM===============================
+
+
+	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {		
+
 		smd = new CStateMachine (){
 			public State out = new State() {				
 				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
-				Transition pressOut = new Press (">> disarmed") {
+				Transition pressOut = new Press (BUTTON1,">> disarmed") {
 					public void action() {
-						//Canvas canvas = (Canvas) getEvent().getSource();
 						line = canvas.newPolyLine(getPoint());
-						line.setStroke(new BasicStroke(taille));
+						line.setStroke(new BasicStroke(pinceau.getTaille()));
 						line.setOutlinePaint(pinceau.getCouleurPinceau());
 						line.setFilled(false);
+						line.setPickable(false);
 					}
 				};
 			};
@@ -288,23 +264,12 @@ public class Pinceau extends CImage {
 				};
 
 			};						
-		};
-		
-		// Fin du nouveau SM===============================
-		
-		
-		//smd.attachTo(canvas);
-		//showStateMachine(smd);
+
+		};		
+
+//		smd.attachTo(this);
+//		Lancement.showStateMachine(smd);
 		
 		return smd;
-	}
-	
-	public static void showStateMachine(CStateMachine sm) {
-		JFrame viz = new JFrame();
-		viz.getContentPane().add(new StateMachineVisualization(sm));
-		viz.pack();
-		viz.setVisible(true);
-	}
-	
-	
+	}			
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import elements.BarCouleur;
+import elements.BarTaille;
 import elements.Forme;
 import elements.Gomme;
 import elements.Pinceau;
@@ -85,6 +86,14 @@ public class Application extends JFrame {
 	 */
 	private Point positionWidgetCT;	
 	
+//	/**
+//	 * Le point de positionnement du Widget CouleurTaille.
+//	 * @see Application#Application()
+//	 */
+//	private Point positionWidgetCT_taille;	
+	
+	
+	
 //	private Pinceau pinceau;
 //	
 //	private Pot pot;
@@ -110,6 +119,8 @@ public class Application extends JFrame {
 
 		positionWidgetP = new Point(400, 50);
 		positionWidgetCT = new Point (100, 100);
+//		positionWidgetCT_taille = new Point (100, 300);
+		
 
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
@@ -127,14 +138,21 @@ public class Application extends JFrame {
 		canvas.addShape(widgetOutils);
 		
 		// widgetOutils.addTag("NonDrawable");
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+
+//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
 //		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
-		bc.addTag("BarColor");
-		bc.addTag("NonDrawable");
+//		BarTaille bt = new BarTaille ("images/tailleBar.png", positionWidgetCT_taille, canvas, widgetOutils);
 		
-	
-//		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
-//		 QuitMenu qm = new QuitMenu(canvas);
+//		bc.addTag("BarColor");
+//		bc.addTag("NonDrawable");
+//		bt.addTag("BarTaille");		
+//		bt.addTag("NonDrawable");		
+
+		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
+//		widgetcouleurtaille.addTag("NonDrawable");
+		
+//		QuitMenu_remake qm = new QuitMenu_remake(canvas);
+//		QuitMenu qm = new QuitMenu(canvas);
 		
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);

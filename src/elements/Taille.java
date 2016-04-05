@@ -89,7 +89,7 @@ public class Taille extends CRectangle {
 		sm.attachTo(this);
 	}
 	
-	public double getColor() {
+	public double getTaille() {
 		return this.tailleThis;
 		
 	}

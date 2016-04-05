@@ -89,14 +89,7 @@ public class Application extends JFrame {
 	 * Le point de positionnement du Widget CouleurTaille.
 	 * @see Application#Application()
 	 */
-	private Point positionWidgetCT;
-		
-	/**
-	 * Constructeur de Application.
-	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à
-	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
-	 * On ajoute les widgets de couleur et pinceau.</p>
-	 */
+	private Point positionWidgetCT;	
 	
 	private Pinceau pinceau;
 	
@@ -106,6 +99,12 @@ public class Application extends JFrame {
 	
 	private Forme forme;
 	
+	/**
+	 * Constructeur de Application.
+	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à
+	 * "Application Dessin - A.G.N" et on affiche la fenêtre en plein écran. 
+	 * On ajoute les widgets de couleur et pinceau.</p>
+	 */
 	public Application () throws IOException {
 
 		super("Application Dessin - A.G.N");
@@ -132,8 +131,11 @@ public class Application extends JFrame {
 		pinceau = widgetOutils.getP();
 		canvas.addShape(widgetOutils);
 		
+		// widgetOutils.addTag("NonDrawable");
+		
 		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
 		bc.addTag("BarColor");
+		bc.addTag("NonDrawable");
 		
 		// Test menu radial
 		// TODO : Apparait au coordo de la souris

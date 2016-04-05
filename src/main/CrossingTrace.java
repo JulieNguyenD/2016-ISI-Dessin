@@ -58,7 +58,7 @@ class CrossingTrace extends CStateMachine {
         this.c = ca;
 
         waiting = new State() {
-            Transition press = new Press(BUTTON1, ">> onPress"){
+            Transition press = new Press(BUTTON3, ">> onPress"){
                 public void action(){
                     line = c.newPolyLine(getPoint());
                     line.setFilled(false);
@@ -67,13 +67,13 @@ class CrossingTrace extends CStateMachine {
         };
 
         onPress = new State(){
-            Transition drag = new Drag(BUTTON1){
+            Transition drag = new Drag(BUTTON3){
                 public void action(){
                 	line.setPickable(false);
                     line.lineTo(getPoint());
                 }
             };
-            Transition release = new Release(BUTTON1, ">> waiting"){
+            Transition release = new Release(BUTTON3, ">> waiting"){
                 public void action(){
                 	line.remove();
                     line.setDrawable(false);

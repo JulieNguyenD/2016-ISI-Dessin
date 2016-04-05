@@ -217,9 +217,39 @@ public class Pinceau extends CImage {
 	
 	
 	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {
-		smd = new CStateMachine() {
-			State start = new State() {
-				Transition press = new Press(BUTTON1, ">> draw") {
+//		smd = new CStateMachine() {
+//			State start = new State() {
+//				Transition press = new Press(BUTTON1, ">> draw") {
+//					public void action() {
+//						//Canvas canvas = (Canvas) getEvent().getSource();
+//						line = canvas.newPolyLine(getPoint());
+//						line.setStroke(new BasicStroke(taille));
+//						line.setOutlinePaint(pinceau.getCouleurPinceau());
+//						line.setFilled(false);
+//					}
+//				};
+//			};
+//			
+//			State draw = new State() {
+//				Transition draw = new Drag(BUTTON1) {
+//					public void action() {
+//						line.lineTo(getPoint());
+//					}
+//				};
+//				Transition stop = new Release(BUTTON1, ">> start") {
+//					public void action() {
+//						line.lineTo(getPoint());
+//						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));
+//					}
+//				};
+//			};
+//		};		
+		
+		// Commencement du nouveu SM===============================
+		smd = new CStateMachine (){
+			public State out = new State() {				
+				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
+				Transition pressOut = new Press (">> disarmed") {
 					public void action() {
 						//Canvas canvas = (Canvas) getEvent().getSource();
 						line = canvas.newPolyLine(getPoint());
@@ -229,45 +259,15 @@ public class Pinceau extends CImage {
 					}
 				};
 			};
-			
-			State draw = new State() {
-				Transition draw = new Drag(BUTTON1) {
-					public void action() {
-						line.lineTo(getPoint());
-					}
-				};
-				Transition stop = new Release(BUTTON1, ">> start") {
-					public void action() {
-						line.lineTo(getPoint());
-						//fireEvent(new ShapeCreatedEvent(PathTool.this, line));
-					}
-				};
-			};
-		};		
-		
-		// Commencement du nouveu SM===============================
-		/*smd = new CStateMachine (){
-			public State out = new State() {				
-				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
-				Transition pressOut = new Press (">> disarmed") {
-					public void action() {
-						//Canvas canvas = (Canvas) getEvent().getSource();
-						line = canvas.newPolyLine(getPoint());
-						line.setStroke(new BasicStroke(taille));
-						line.setOutlinePaint(couleur);
-						line.setFilled(false);
-					}
-				};
-			};
 
 			public State over = new State() {				
 				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
-				Transition arm = new Press(BUTTON3, CONTROL">> armed") {};
+				Transition arm = new Press(BUTTON1, ">> armed") {};
 			};
 
 			public State armed = new State() {
 				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
-				Transition act = new Release(BUTTON3, CONTROL ">> over") {};				
+				Transition act = new Release(BUTTON1, ">> over") {};				
 			};
 
 			public State disarmed = new State() {
@@ -276,15 +276,19 @@ public class Pinceau extends CImage {
 						line.lineTo(getPoint());
 					}
 				};
-				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {};
-				Transition cancel = new Release(BUTTON3, CONTROL ">> out") {
+				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {
+					public void action() {
+						line.remove();
+					}
+				};
+				Transition cancel = new Release(BUTTON1, ">> out") {
 					public void action() {
 						line.lineTo(getPoint());
 					}
 				};
 
 			};						
-		};*/
+		};
 		
 		// Fin du nouveau SM===============================
 		

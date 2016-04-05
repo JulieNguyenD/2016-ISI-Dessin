@@ -135,17 +135,7 @@ public class Application extends JFrame {
 //		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
 		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
 //		pinceau = widgetOutils.getP();
-		canvas.addShape(widgetOutils);
-		
-		// widgetOutils.addTag("NonDrawable");
-//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
-//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
-//		BarTaille bt = new BarTaille ("images/tailleBar.png", positionWidgetCT_taille, canvas, widgetOutils);
-		
-//		bc.addTag("BarColor");
-//		bc.addTag("NonDrawable");
-//		bt.addTag("BarTaille");		
-//		bt.addTag("NonDrawable");		
+		canvas.addShape(widgetOutils);		
 
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
 //		widgetcouleurtaille.addTag("NonDrawable");

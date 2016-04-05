@@ -55,12 +55,6 @@ public class Application extends JFrame {
 	 */
 	private Canvas canvas;
 	
-//	/**
-//	 * Le CRectangle blanc qui "remplace" le canvas. On cache les éléments en dessous.
-//	 * @see Application#Application()
-//	 */
-//	private CRectangle hidden;
-	
 	/**
 	 * Le Canvas de crossing.
 	 * @see Application#Application()
@@ -91,13 +85,13 @@ public class Application extends JFrame {
 	 */
 	private Point positionWidgetCT;	
 	
-	private Pinceau pinceau;
-	
-	private Pot pot;
-	
-	private Gomme gomme;
-	
-	private Forme forme;
+//	private Pinceau pinceau;
+//	
+//	private Pot pot;
+//	
+//	private Gomme gomme;
+//	
+//	private Forme forme;
 	
 	/**
 	 * Constructeur de Application.
@@ -114,7 +108,7 @@ public class Application extends JFrame {
 		this.setMinimumSize(minsize);
 		//this.setExtendedState(this.MAXIMIZED_BOTH);
 
-		positionWidgetP = new Point(400, 100);
+		positionWidgetP = new Point(400, 50);
 		positionWidgetCT = new Point (100, 100);
 
 		canvas = new Canvas(minsize.width, minsize.height);	
@@ -127,20 +121,19 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);				
 		
-		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
-		pinceau = widgetOutils.getP();
+//		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
+		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
+//		pinceau = widgetOutils.getP();
 		canvas.addShape(widgetOutils);
 		
 		// widgetOutils.addTag("NonDrawable");
-		
-		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
+		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
+//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
 		bc.addTag("BarColor");
 		bc.addTag("NonDrawable");
 		
-		// Test menu radial
-		// TODO : Apparait au coordo de la souris
-		// mais avec le parent
-		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
+	
+//		 QuitMenu_remake qm = new QuitMenu_remake(canvas);
 //		 QuitMenu qm = new QuitMenu(canvas);
 		
 		this.setGlassPane(canvas);

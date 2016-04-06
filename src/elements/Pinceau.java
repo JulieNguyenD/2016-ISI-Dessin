@@ -25,6 +25,7 @@ import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 import main.Lancement;
 import main.Utilitaires;
+import widgets.WidgetOutils;
 import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
@@ -150,7 +151,7 @@ public class Pinceau extends CImage {
 		this.estActif = estActif;
 	}	
 	
-	public void addPinceauStateMachine(Pinceau pinceau, ChoixPinceau widget) {
+	public void addPinceauStateMachine(Pinceau pinceau, WidgetOutils widget) {
 		sm = new CStateMachine() {
 			
 			State idle = new State() {
@@ -163,7 +164,8 @@ public class Pinceau extends CImage {
 				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.augmente);
-						widget.montrer(true);
+						//widget.montrer(true);
+						widget.getChoixPinceau().montrer(true);
 					}					
 				};
 			};
@@ -171,14 +173,16 @@ public class Pinceau extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
-						widget.montrer(false);
+						//widget.montrer(false);
+						widget.getChoixPinceau().montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.augmente);
-						widget.montrer(true);
+						//widget.montrer(true);
+						widget.getChoixPinceau().montrer(true);
 					}
 				};
 			};
@@ -187,7 +191,8 @@ public class Pinceau extends CImage {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.normal);
-						widget.montrer(false);
+						//widget.montrer(false);
+						widget.getChoixPinceau().montrer(false);
 
 					}
 				};
@@ -195,10 +200,17 @@ public class Pinceau extends CImage {
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.normal);
+						
 						pinceau.setEstActif(true);
+						widget.getGomme().setEstActif(false);
+						widget.getForme().setEstActif(false);
+						widget.getPot().setEstActif(false);
+						
 						boolean b = pinceau.isEstActif();
 						System.out.println("Le pinceau est : " + b);
-						widget.montrer(true);
+						
+						//widget.montrer(true);
+						widget.getChoixPinceau().montrer(true);
 					}
 				};
 			};
@@ -212,7 +224,8 @@ public class Pinceau extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
-						widget.montrer(false);
+						//widget.montrer(false);
+						widget.getChoixPinceau().montrer(false);
 					}
 				};
 			};

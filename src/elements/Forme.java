@@ -7,13 +7,18 @@ import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
+import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Utilitaires;
+import widgets.WidgetOutils;
 import widgets.widget_sous_barre.ChoixFormes;
 
 public class Forme extends CImage {
@@ -33,7 +38,7 @@ public class Forme extends CImage {
 	 * La StateMachine de la Forme. Elle permet le Crossing.
 	 * @see CStateMachine
 	 */
-	private CStateMachine sm;
+	private CStateMachine sm, smd;
 
 	/**
 	 * Constructeur de Forme.
@@ -68,8 +73,9 @@ public class Forme extends CImage {
 		this.estActif = estActif;
 	}
 	
-	public void addFormeStateMachine(CShape image, ChoixFormes widget) {
+	public void addFormeStateMachine(Forme forme, WidgetOutils widget) {
 		sm = new CStateMachine() {
+			
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
@@ -79,8 +85,9 @@ public class Forme extends CImage {
 				
 				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						//image.scaleBy(2.0);
-						widget.montrer(true);
+						forme.setStroke(Utilitaires.augmente);
+						//widget.montrer(true);
+						widget.getChoixFormes().montrer(true);
 					}					
 				};
 			};
@@ -88,14 +95,16 @@ public class Forme extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
-						
+						//widget.montrer(false);
+						widget.getChoixFormes().montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						// image.scaleBy(2.0);
-						widget.montrer(true);
+						forme.setStroke(Utilitaires.augmente);
+						//widget.montrer(true);
+						widget.getChoixFormes().montrer(true);
 					}
 				};
 			};
@@ -103,16 +112,27 @@ public class Forme extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						// image.scaleBy(0.50);
-						widget.montrer(false);
+						forme.setStroke(Utilitaires.normal);
+						//widget.montrer(false);
+						widget.getChoixFormes().montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						// image.scaleBy(0.50);
-						widget.montrer(false);
+						forme.setStroke(Utilitaires.normal);
+						
+						forme.setEstActif(true);
+						widget.getPinceau().setEstActif(false);
+						widget.getGomme().setEstActif(false);
+						widget.getPot().setEstActif(false);
+						
+						boolean b = forme.isEstActif();
+						System.out.println("La forme est : " + b);
+						
+						//widget.montrer(true);
+						widget.getChoixFormes().montrer(true);
 					}
 				};
 			};
@@ -126,12 +146,74 @@ public class Forme extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
+						//widget.montrer(false);
+						widget.getChoixFormes().montrer(false);
 					}
 				};
 			};
 		};
 		
-		sm.attachTo(image);
+		sm.attachTo(forme);
+	}
+	
+	
+
+
+	public CStateMachine createFormeStateMachineDrawing(Forme forme, Canvas canvas) {		
+
+		smd = new CStateMachine (){
+			public State out = new State() {
+				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
+				Transition pressOut = new Press (BUTTON1,">> disarmed") {
+					public boolean guard() {
+						return forme.isEstActif();
+					}
+					public void action() {
+//						line = canvas.newPolyLine(getPoint());
+//						line.setStroke(new BasicStroke(forme.getTaille()));
+//						line.setOutlinePaint(forme.getCouleurPinceau());
+//						line.setFilled(false);
+//						line.setPickable(false);
+						System.out.println("forme ici");
+					}
+				};
+			};
+
+			public State over = new State() {				
+				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
+				Transition arm = new Press(BUTTON1, ">> armed") {};
+			};
+
+			public State armed = new State() {
+				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
+				Transition act = new Release(BUTTON1, ">> over") {};				
+			};
+
+			public State disarmed = new State() {
+				Transition draw = new Drag (BUTTON1){
+					public void action() {
+//						line.lineTo(getPoint());
+					}
+				};
+				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {
+					public void action() {
+//						line.remove();
+					}
+				};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action() {
+//						line.lineTo(getPoint());
+					}
+				};
+
+			};						
+
+		};		
+
+//		smd.attachTo(this);
+//		Utilitaires.showStateMachine(smd);
+		
+		return smd;
 	}
 
 }

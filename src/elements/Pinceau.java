@@ -95,7 +95,7 @@ public class Pinceau extends CImage {
 		super(path, position);
 		this.couleurPinceau = Color.BLACK;
 		this.taille = 1;
-		this.estActif = false;
+		this.estActif = true;
 		this.canvas = canvas;
 		
 		this.addTo(canvas);
@@ -155,13 +155,13 @@ public class Pinceau extends CImage {
 		sm = new CStateMachine() {
 			
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
+				Transition t1 = new Press (BUTTON3, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, ">> debut") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);

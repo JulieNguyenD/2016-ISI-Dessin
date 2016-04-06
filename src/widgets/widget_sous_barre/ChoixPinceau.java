@@ -63,7 +63,7 @@ public class ChoixPinceau extends CRectangle {
 			boolean bdebut = false;
 			
 			State idle = new State() {
-				Transition press = new Press(BUTTON3, CONTROL, ">> crossing") {
+				Transition press = new Press(BUTTON3, ">> crossing") {
 					public void action (){
 //						shape = (CShape) getShape();
 //						if (shape instanceof Couleur) {
@@ -77,7 +77,7 @@ public class ChoixPinceau extends CRectangle {
 					}					
 				};
 				
-				Transition pressTag = new PressOnTag("couleur", BUTTON3, CONTROL, ">> debut") {
+				Transition pressTag = new PressOnTag("couleur", BUTTON3, ">> debut") {
 					public void action (){
 						shape = getShape();
 						bdebut = true;

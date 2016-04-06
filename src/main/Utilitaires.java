@@ -27,7 +27,7 @@ public class Utilitaires {
 	 * 
 	 * @see CStateMachine
 	 * 
-	 * @param sm
+	 * @param sm : CStateMachine que l'on veut afficher
 	 */
 	public static void showStateMachine(CStateMachine sm) {
         JFrame viz = new JFrame();
@@ -42,7 +42,7 @@ public class Utilitaires {
 	 * 
 	 * @see JStateMachine
 	 * 
-	 * @param sm
+	 * @param sm : JStateMachine que l'on veut afficher
 	 */
     public static void showJStateMachine(JStateMachine sm) {
         JFrame viz = new JFrame();

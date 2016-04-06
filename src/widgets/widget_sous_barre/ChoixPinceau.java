@@ -74,7 +74,7 @@ public class ChoixPinceau extends CRectangle {
 //						if (shape instanceof Taille) {
 //							pinceau.setTaille((int) ((Taille) shape).getTaille());
 //						}
-						System.out.println("Etat CROSSING");
+						System.out.println("Etat CROSSING choixPinceau");
 
 					}					
 				};
@@ -113,6 +113,15 @@ public class ChoixPinceau extends CRectangle {
 						shape = getShape();
 						shape.setStroke(Utilitaires.augmente);
 						System.out.println("Etat DEBUT couleurS");
+
+					}
+				};
+				
+				Transition enterPinceau = new EnterOnTag("pinceau", ">> debut") {
+					public void action() {
+						shape = getShape();
+						shape.setStroke(Utilitaires.augmente);
+						System.out.println("Etat DEBUT pinceau");
 
 					}
 				};

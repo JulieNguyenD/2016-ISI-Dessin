@@ -27,7 +27,6 @@ public class Annexe_forme extends CImage {
 
 	public Annexe_forme(String chemin, Point2D position_depart, Canvas canvas, String forme) {
 		super(chemin, position_depart);
-		// TODO Auto-generated constructor stub
 		this.canvas = canvas;
 		this.forme = forme;
 

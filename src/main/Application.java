@@ -85,7 +85,7 @@ public class Application extends JFrame {
 	 * @see Application#Application()
 	 */
 	private Point positionWidgetCT;		
-	
+		
 	/**
 	 * Constructeur de Application.
 	 * <p>A la construction d'un objet Application, on met le titre de la fenêtre à

@@ -97,7 +97,8 @@ public class Pinceau extends CImage {
 		this.estActif = false;
 		this.canvas = canvas;
 		
-		this.addTo(canvas);		
+		this.addTo(canvas);
+		this.addTag("outils");
 	}
 	
 	/**
@@ -270,7 +271,7 @@ public class Pinceau extends CImage {
 		};		
 
 //		smd.attachTo(this);
-//		Lancement.showStateMachine(smd);
+//		Utilitaires.showStateMachine(smd);
 		
 		return smd;
 	}			

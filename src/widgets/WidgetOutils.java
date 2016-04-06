@@ -10,6 +10,17 @@ import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
+import fr.lri.swingstates.canvas.transitions.EnterOnShape;
+import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
+import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.canvas.transitions.PressOnTag;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
+import fr.lri.swingstates.sm.State;
+import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Move;
+import fr.lri.swingstates.sm.transitions.Press;
+import fr.lri.swingstates.sm.transitions.Release;
+import main.Utilitaires;
 import widgets.widget_sous_barre.ChoixFormes;
 import widgets.widget_sous_barre.ChoixGomme;
 import widgets.widget_sous_barre.ChoixPinceau;
@@ -135,7 +146,7 @@ public class WidgetOutils extends CShape {
 	 * @see Pinceau#createPinceauStateMachineDrawing(Pinceau, Canvas)
 	 */
 	private CStateMachine smPinceau;
-		
+			
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
 	 * @see WidgetOutils#outils
@@ -205,11 +216,11 @@ public class WidgetOutils extends CShape {
 		pinceau.addPinceauStateMachine(pinceau, choixPinceau);
 		pot.addPotStateMachine(pot, choixPot);
 		gomme.addGommeStateMachine(gomme, choixGomme);
-		forme.addFormeStateMachine(forme, choixFormes);
-				
+		forme.addFormeStateMachine(forme, choixFormes);	
+		
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");
-		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);				
+		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);		
 	}
 	
 	/**

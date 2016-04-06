@@ -21,13 +21,29 @@ public class Utilitaires {
 	public static BasicStroke normal = new BasicStroke(1);
 	public static BasicStroke augmente = new BasicStroke(2);
 	
-    public static void showStateMachine(CStateMachine sm) {
+	/**
+	 * <b>Affiche la CStateMachine sm.</b>
+	 * <p>Ouvre une nouvelle fenêtre avec l'état de la CStateMachine sm.</p>
+	 * 
+	 * @see CStateMachine
+	 * 
+	 * @param sm
+	 */
+	public static void showStateMachine(CStateMachine sm) {
         JFrame viz = new JFrame();
         viz.getContentPane().add(new StateMachineVisualization(sm));
         viz.pack();
         viz.setVisible(true);
     }
-
+	
+	/**
+	 * <b>Affiche la JStateMachine sm</b>
+	 * <p>Ouvre une nouvelle fenêtre avec l'état de la JStateMachine sm.</p>
+	 * 
+	 * @see JStateMachine
+	 * 
+	 * @param sm
+	 */
     public static void showJStateMachine(JStateMachine sm) {
         JFrame viz = new JFrame();
         viz.getContentPane().add(new StateMachineVisualization(sm));

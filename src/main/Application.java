@@ -102,9 +102,7 @@ public class Application extends JFrame {
 		//this.setExtendedState(this.MAXIMIZED_BOTH);
 
 		positionWidgetP = new Point(400, 50);
-		positionWidgetCT = new Point (100, 100);
-//		positionWidgetCT_taille = new Point (100, 300);
-		
+		positionWidgetCT = new Point (100, 100);		
 
 		canvas = new Canvas(minsize.width, minsize.height);	
 		canvas.setAntialiased(true);
@@ -116,9 +114,7 @@ public class Application extends JFrame {
 		canvas.setVisible(true);
 		canvas.setOpaque(true);				
 		
-//		widgetOutils = new WidgetOutils(canvas, positionWidgetP, pinceau, pot, gomme, forme);
 		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
-//		pinceau = widgetOutils.getP();
 		canvas.addShape(widgetOutils);
 		
 		// widgetOutils.addTag("NonDrawable");
@@ -135,6 +131,7 @@ public class Application extends JFrame {
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
 //		widgetcouleurtaille.addTag("NonDrawable");
 		
+		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);
 //		QuitMenu qm = new QuitMenu(canvas);
 		

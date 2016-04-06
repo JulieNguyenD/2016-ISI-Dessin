@@ -77,13 +77,13 @@ public class Forme extends CImage {
 		sm = new CStateMachine() {
 			
 			State idle = new State() {
-				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
+				Transition t1 = new Press (BUTTON3, ">> press") {
 					public void action() {
 
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
+				Transition t2 = new PressOnShape (BUTTON3, ">> debut") {
 					public void action() {
 						forme.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);

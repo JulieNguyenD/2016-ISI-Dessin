@@ -1,5 +1,6 @@
 package elements;
 
+import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 
 import fr.lri.swingstates.canvas.CImage;
@@ -7,13 +8,18 @@ import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
+import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
+import main.Utilitaires;
+import widgets.WidgetOutils;
 import widgets.widget_sous_barre.ChoixGomme;
 
 /**
@@ -46,6 +52,8 @@ public class Gomme extends CImage {
 	 * @see CStateMachine
 	 */
 	private CStateMachine sm;
+	
+	private CStateMachine smd;
 
 	/**
 	 * Constructeur de Gomme.
@@ -80,8 +88,9 @@ public class Gomme extends CImage {
 		this.estActif = estActif;
 	}
 	
-	public void addGommeStateMachine(Gomme gomme, ChoixGomme widget) {
+	public void addGommeStateMachine(Gomme gomme, WidgetOutils widget) {
 		sm = new CStateMachine() {
+			
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
@@ -91,8 +100,9 @@ public class Gomme extends CImage {
 				
 				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						gomme.scaleBy(2.0);
-						widget.montrer(true);
+						gomme.setStroke(Utilitaires.augmente);
+						//widget.montrer(true);
+						widget.getChoixGomme().montrer(true);
 					}					
 				};
 			};
@@ -100,14 +110,16 @@ public class Gomme extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
-						widget.montrer(false);
+						//widget.montrer(false);
+						widget.getChoixGomme().montrer(false);
 					}
 				};
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						gomme.scaleBy(2.0);
-						widget.montrer(true);
+						gomme.setStroke(Utilitaires.augmente);
+						//widget.montrer(true);
+						widget.getChoixGomme().montrer(true);
 					}
 				};
 			};
@@ -115,15 +127,27 @@ public class Gomme extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						gomme.scaleBy(0.50);
-						widget.montrer(false);
+						gomme.setStroke(Utilitaires.normal);
+						//widget.montrer(false);
+						widget.getChoixGomme().montrer(false);
 
 					}
 				};
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						gomme.scaleBy(0.50);
+						gomme.setStroke(Utilitaires.normal);
+						
+						gomme.setEstActif(true);
+						widget.getPinceau().setEstActif(false);
+						widget.getForme().setEstActif(false);
+						widget.getPot().setEstActif(false);
+						
+						boolean b = gomme.isEstActif();
+						System.out.println("La gomme est : " + b);
+						
+						//widget.montrer(true);
+						widget.getChoixGomme().montrer(true);
 					}
 				};
 			};
@@ -137,7 +161,8 @@ public class Gomme extends CImage {
 				
 				Transition t8 = new Release(">> idle") {
 					public void action() {
-						widget.montrer(false);
+						//widget.montrer(false);
+						widget.getChoixGomme().montrer(false);
 					}
 				};
 			};
@@ -145,5 +170,64 @@ public class Gomme extends CImage {
 		
 		sm.attachTo(gomme);
 	}
+	
+	
 
+
+	public CStateMachine createGommeStateMachineDrawing(Gomme gomme, Canvas canvas) {		
+
+		smd = new CStateMachine (){
+			public State out = new State() {
+				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
+				Transition pressOut = new Press (BUTTON1,">> disarmed") {
+					public boolean guard() {
+						return gomme.isEstActif();
+					}
+					public void action() {
+//						line = canvas.newPolyLine(getPoint());
+//						line.setStroke(new BasicStroke(gomme.getTaille()));
+//						line.setOutlinePaint(gomme.getCouleurPinceau());
+//						line.setFilled(false);
+//						line.setPickable(false);
+						System.out.println("Suppression ici");
+					}
+				};
+			};
+
+			public State over = new State() {				
+				Transition leave = new LeaveOnTag("NonDrawable",">> out") {};
+				Transition arm = new Press(BUTTON1, ">> armed") {};
+			};
+
+			public State armed = new State() {
+				Transition disarm = new LeaveOnTag("NonDrawable", ">> disarmed") {};
+				Transition act = new Release(BUTTON1, ">> over") {};				
+			};
+
+			public State disarmed = new State() {
+				Transition draw = new Drag (BUTTON1){
+					public void action() {
+//						line.lineTo(getPoint());
+					}
+				};
+				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {
+					public void action() {
+//						line.remove();
+					}
+				};
+				Transition cancel = new Release(BUTTON1, ">> out") {
+					public void action() {
+//						line.lineTo(getPoint());
+					}
+				};
+
+			};						
+
+		};		
+
+//		smd.attachTo(this);
+//		Utilitaires.showStateMachine(smd);
+		
+		return smd;
+	}			
 }

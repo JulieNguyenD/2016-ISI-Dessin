@@ -145,7 +145,7 @@ public class WidgetOutils extends CShape {
 	 * @see CStateMachine
 	 * @see Pinceau#createPinceauStateMachineDrawing(Pinceau, Canvas)
 	 */
-	private CStateMachine smPinceau;
+	private CStateMachine smPinceau, smGomme, smPot, smForme;
 			
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
@@ -197,6 +197,9 @@ public class WidgetOutils extends CShape {
 		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
 		smPinceau.attachTo(canvas);
 		
+		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
+		smGomme.attachTo(canvas);
+		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);			
 
@@ -213,9 +216,9 @@ public class WidgetOutils extends CShape {
 		
 		// Ajout des statesMachines sur les formes.
 		// Si on passe sur un des outils principaux, cela affiche le widget annexe
-		pinceau.addPinceauStateMachine(pinceau, choixPinceau);
+		pinceau.addPinceauStateMachine(pinceau, this);
 		pot.addPotStateMachine(pot, choixPot);
-		gomme.addGommeStateMachine(gomme, choixGomme);
+		gomme.addGommeStateMachine(gomme, this);
 		forme.addFormeStateMachine(forme, choixFormes);	
 		
 		choixPinceau.ajouterStateMachineChoixPinceau(pinceau);

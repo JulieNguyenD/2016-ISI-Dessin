@@ -24,6 +24,7 @@ import fr.lri.swingstates.sm.transitions.Move;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 import main.Lancement;
+import main.Utilitaires;
 import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
@@ -150,6 +151,7 @@ public class Pinceau extends CImage {
 	
 	public void addPinceauStateMachine(Pinceau pinceau, ChoixPinceau widget) {
 		sm = new CStateMachine() {
+			
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, CONTROL, ">> press") {
 					public void action() {
@@ -159,7 +161,7 @@ public class Pinceau extends CImage {
 				
 				Transition t2 = new PressOnShape (BUTTON3, CONTROL, ">> debut") {
 					public void action() {
-						pinceau.scaleBy(2.0);
+						pinceau.setStroke(Utilitaires.augmente);
 						widget.montrer(true);
 					}					
 				};
@@ -174,7 +176,7 @@ public class Pinceau extends CImage {
 				
 				Transition t4 = new EnterOnShape (">> debut") {
 					public void action() {
-						pinceau.scaleBy(2.0);
+						pinceau.setStroke(Utilitaires.augmente);
 						widget.montrer(true);
 					}
 				};
@@ -183,7 +185,7 @@ public class Pinceau extends CImage {
 			State debut = new State() {
 				Transition t5 = new Release (">> idle") {
 					public void action() {
-						pinceau.scaleBy(0.50);
+						pinceau.setStroke(Utilitaires.normal);
 						widget.montrer(false);
 
 					}
@@ -191,7 +193,7 @@ public class Pinceau extends CImage {
 				
 				Transition t6 = new LeaveOnShape (">> fin") {
 					public void action() {
-						pinceau.scaleBy(0.50);
+						pinceau.setStroke(Utilitaires.normal);
 						pinceau.setEstActif(true);
 						boolean b = pinceau.isEstActif();
 						System.out.println("Le pinceau est : " + b);

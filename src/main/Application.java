@@ -134,7 +134,7 @@ public class Application extends JFrame {
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);
 //		QuitMenu qm = new QuitMenu(canvas);
-		
+				
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);
 		

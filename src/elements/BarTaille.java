@@ -74,7 +74,7 @@ public class BarTaille extends CImage{
 						double ecart = maxY - thisY;
 						int taille = (int) ((ecart / heightScaled) * widthScaled);
 						
-						widgetPinceau.getPinceau().setEstActif(true);
+//						widgetPinceau.getPinceau().setEstActif(true);
 						widgetPinceau.getPinceau().setTaille(taille);										       
 					}
 				};

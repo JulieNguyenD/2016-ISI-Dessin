@@ -24,7 +24,8 @@ public class Taille extends CRectangle {
 	public Taille (final double taille, Canvas canvas){
 		super (0, 0, 50, 50);
 		rectangle = canvas.newRectangle(5, 25, 40, taille);
-		rectangle.rotateBy(95.0);	
+		rectangle.rotateBy(95.0);
+		tailleThis = taille;
 		
 		rectangle.setStroke(new BasicStroke(0));
 		rectangle.setFillPaint(Color.BLACK);

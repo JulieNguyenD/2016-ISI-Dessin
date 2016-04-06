@@ -192,7 +192,7 @@ public class WidgetOutils extends CShape {
 		this.pinceau = new Pinceau("images/pinceau2.png", position_image_pinceau, canvas);		
 		this.pot = new Pot("images/pot.png", position_image_pot, canvas);		
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
-		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
+		this.forme = new Forme("images/forme.png", position_image_forme, canvas);		
 		
 		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
 		smPinceau.attachTo(canvas);

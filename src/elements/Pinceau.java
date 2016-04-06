@@ -227,9 +227,12 @@ public class Pinceau extends CImage {
 	public CStateMachine createPinceauStateMachineDrawing(Pinceau pinceau, Canvas canvas) {		
 
 		smd = new CStateMachine (){
-			public State out = new State() {				
+			public State out = new State() {
 				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
 				Transition pressOut = new Press (BUTTON1,">> disarmed") {
+					public boolean guard() {
+						return pinceau.isEstActif();
+					}
 					public void action() {
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(pinceau.getTaille()));

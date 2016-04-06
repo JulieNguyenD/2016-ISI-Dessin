@@ -138,7 +138,7 @@ public class Application extends JFrame {
 		this.setGlassPane(canvas);
 		this.getGlassPane().setVisible(true);
 		
-		addDragger(canvas);
+		Utilitaires.addDragger(canvas);
 		
 		pack();
 		this.setVisible(true);
@@ -147,47 +147,6 @@ public class Application extends JFrame {
 		
 	}
 	
-	/**
-	 * Créé un CStateMachine pour les tag "draggable" et l'attache au canvas.
-	 * <p>Les CElements avec un tag "draggable" peuvent être bougé sur le canvas.</p>
-	 *
-	 * @param canvas : canvas sur lequel on attache le CStateMachine
-	 */
-	public static void addDragger(Canvas canvas) {
-
-		// Create the state machine and attach it to the canvas
-		CStateMachine dragger = new CStateMachine(canvas) {
-
-			Point2D pressLocation;
-			Point2D shapeLocation;
-			CShape shape;
-
-			public State idling = new State() {
-				// The mouse button "BUTTON3" is the right mouse button
-				// ("BUTTON1" is the left mouse button)
-				Transition down = new PressOnTag("draggable",
-						CStateMachine.BUTTON3, ">> dragging") {
-					public void action() {
-						pressLocation = getPoint();
-						shape = getShape();
-						shapeLocation = new Point2D.Double(shape.getCenterX(),
-								shape.getCenterY());
-					};
-				};
-			};
-			public State dragging = new State() {
-				Transition move = new Drag() {
-					public void action() {
-						// Translate the shape (use shape.translateTo())
-						pressLocation = getPoint();
-						shape.translateTo(pressLocation.getX(), pressLocation.getY());
-					};
-				};
-				Transition release = new Release(">> idling") {					
-				};
-			};
-		};
-
-	}
+	
 
 }

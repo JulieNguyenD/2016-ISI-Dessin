@@ -198,6 +198,7 @@ public class Pinceau extends CImage {
 						pinceau.setEstActif(true);
 						boolean b = pinceau.isEstActif();
 						System.out.println("Le pinceau est : " + b);
+						widget.montrer(true);
 					}
 				};
 			};

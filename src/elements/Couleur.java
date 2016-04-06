@@ -32,57 +32,59 @@ public class Couleur extends CRectangle {
 		rectangle.setPickable(false);
 		this.addTo(canvas);	
 		
-		this.below(rectangle);		
-				
-		sm = new CStateMachine (){
-			public State out = new State() {
-				public void enter() {					
-					setFillPaint(Color.white);
-				}
-				
-				Transition toOver = new EnterOnShape(">> over") {};
-				Transition pressOut = new Press (">> disarmed") {};
-			};
-
-			public State over = new State() {
-				public void enter() {					
-					setFillPaint(Color.gray);
-				}				
-				
-				Transition leave = new LeaveOnShape(">> out") {};
-				Transition arm = new Press(BUTTON1,">> armed") {};
-
-			};
-
-			public State armed = new State() {
-				public void enter() {
-					setFillPaint(Color.blue);
-				}
-
-				Transition disarm = new LeaveOnShape(">> disarmed") {
-					public void action (){
-						couleur = color;
-						System.out.println("test reussi =========================");
-					}
-				};
-				Transition act = new Release(BUTTON1, ">> over") {};
-				
-			};
-
-			public State disarmed = new State() {
-				public void enter() {
-					setFillPaint(Color.white);
-					// Faire ici les grandes actions
-					// il y a un choix de couleur quelque part qui se fait					
-				}
-
-				Transition rearm = new EnterOnShape(">> armed") {};
-				Transition cancel = new Release(BUTTON1, ">> out") {};
-
-			};
-		};
+		this.below(rectangle);
 		
-		sm.attachTo(this);
+		this.addTag("couleur");
+				
+//		sm = new CStateMachine (){
+//			public State out = new State() {
+//				public void enter() {					
+//					setFillPaint(Color.white);
+//				}
+//				
+//				Transition toOver = new EnterOnShape(">> over") {};
+//				Transition pressOut = new Press (">> disarmed") {};
+//			};
+//
+//			public State over = new State() {
+//				public void enter() {					
+//					setFillPaint(Color.gray);
+//				}				
+//				
+//				Transition leave = new LeaveOnShape(">> out") {};
+//				Transition arm = new Press(BUTTON1,">> armed") {};
+//
+//			};
+//
+//			public State armed = new State() {
+//				public void enter() {
+//					setFillPaint(Color.blue);
+//				}
+//
+//				Transition disarm = new LeaveOnShape(">> disarmed") {
+//					public void action (){
+//						couleur = color;
+//						System.out.println("test reussi =========================");
+//					}
+//				};
+//				Transition act = new Release(BUTTON1, ">> over") {};
+//				
+//			};
+//
+//			public State disarmed = new State() {
+//				public void enter() {
+//					setFillPaint(Color.white);
+//					// Faire ici les grandes actions
+//					// il y a un choix de couleur quelque part qui se fait					
+//				}
+//
+//				Transition rearm = new EnterOnShape(">> armed") {};
+//				Transition cancel = new Release(BUTTON1, ">> out") {};
+//
+//			};
+//		};
+//		
+//		sm.attachTo(this);
 
 	}
 	

@@ -218,6 +218,8 @@ public class WidgetOutils extends CShape {
 		gomme.addGommeStateMachine(gomme, choixGomme);
 		forme.addFormeStateMachine(forme, choixFormes);	
 		
+		choixPinceau.ajouterStateMachineChoixPinceau(pinceau);
+		
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);		

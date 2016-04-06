@@ -10,9 +10,14 @@ import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
+import fr.lri.swingstates.canvas.transitions.EnterOnTag;
+import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Press;
+import fr.lri.swingstates.sm.transitions.Release;
 
 public class ChoixPinceau extends CRectangle {
 	
@@ -20,6 +25,7 @@ public class ChoixPinceau extends CRectangle {
 	private Pinceau pinceau;
 	private Couleur_Widget choixPinceauCouleur;
 	private Taille_Widget choixPinceauTaille;
+	private CStateMachine smWidgetPinceau;
 	private Point2D position_widget;
 	
 	public ChoixPinceau(Canvas canvas, Point2D position, Pinceau pinceau) {
@@ -51,27 +57,67 @@ public class ChoixPinceau extends CRectangle {
 		this.choixPinceauTaille.montrer(b);
 	}
 	
-	public CStateMachine ajouterStateMachineChoixPinceau(Pinceau pinceau) {
-		CStateMachine cm = new CStateMachine() {			
+	public void ajouterStateMachineChoixPinceau(Pinceau pinceau) {
+		smWidgetPinceau = new CStateMachine() {			
+			CShape shape;
+			boolean bdebut = false;
+			
 			State idle = new State() {
-				Transition pressOnShape = new PressOnShape(BUTTON2, CONTROL, ">> debut") {
+				Transition press = new Press(BUTTON3, CONTROL, ">> crossing") {
 					public void action (){
-						CShape shape = getShape();
-						if (shape instanceof Couleur) {
-							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
-						}
-						if (shape instanceof Taille) {
-							pinceau.setTaille((int) ((Taille) shape).getTaille());
-						}
+//						shape = (CShape) getShape();
+//						if (shape instanceof Couleur) {
+//							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
+//						}
+//						if (shape instanceof Taille) {
+//							pinceau.setTaille((int) ((Taille) shape).getTaille());
+//						}
+						System.out.println("Etat CROSSING");
+
 					}					
+				};
+				
+				Transition pressTag = new PressOnTag("couleur", BUTTON3, CONTROL, ">> debut") {
+					public void action (){
+						shape = getShape();
+						bdebut = true;
+						System.out.println("Etat DEBUT");
+
+					}
 				};
 			};
 			
 			State debut = new State() {
+				Transition release = new Release(">> idle") {
+					public void action() {
+						System.out.println("Etat IDLE");
+					}
+				};
+				
+				Transition leaveTag = new LeaveOnTag("couleur", ">> crossing") {
+					public void action() {
+						System.out.println("Etat CROSSING");
+
+						if (bdebut) {
+							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
+						}
+					}
+				};
+			};
+			
+			State crossing = new State() {
+				Transition enterTag = new EnterOnTag("couleur", ">> debut") {
+					public void action() {
+						shape = getShape();
+						bdebut = true;
+						System.out.println("Etat DEBUT");
+
+					}
+				};
 				
 			};
 		};
-		return cm;
+		smWidgetPinceau.attachTo(this);
 	}
 
 }

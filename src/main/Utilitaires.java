@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
@@ -16,7 +17,10 @@ import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Release;
 
 public class Utilitaires {
-
+	
+	public static BasicStroke normal = new BasicStroke(1);
+	public static BasicStroke augmente = new BasicStroke(2);
+	
     public static void showStateMachine(CStateMachine sm) {
         JFrame viz = new JFrame();
         viz.getContentPane().add(new StateMachineVisualization(sm));

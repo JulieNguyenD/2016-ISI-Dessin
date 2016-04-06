@@ -74,7 +74,8 @@ public class Pot extends CImage {
 		this.estActif = false;
 		this.canvas = canvas;
 		
-		this.addTo(canvas);		
+		this.addTo(canvas);	
+		this.addTag("pot");
 	}
 	
 	/**

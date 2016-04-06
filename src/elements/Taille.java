@@ -35,7 +35,9 @@ public class Taille extends CRectangle {
 		rectangle.setPickable(false);
 		this.addTo(canvas);		
 		
-		this.below(rectangle);				
+		this.below(rectangle);			
+		
+		this.addTag("taille");
 		
 //		sm = new CStateMachine (){
 //			public State out = new State() {

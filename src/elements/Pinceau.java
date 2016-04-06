@@ -11,7 +11,7 @@ import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
@@ -99,7 +99,7 @@ public class Pinceau extends CImage {
 		this.canvas = canvas;
 		
 		this.addTo(canvas);
-		this.addTag("outils");
+		this.addTag("pinceau");
 	}
 	
 	/**
@@ -157,11 +157,11 @@ public class Pinceau extends CImage {
 			State idle = new State() {
 				Transition t1 = new Press (BUTTON3, ">> press") {
 					public void action() {
-
+						
 					}					
 				};
 				
-				Transition t2 = new PressOnShape (BUTTON3, ">> debut") {
+				Transition t2 = new PressOnTag ("pinceau", BUTTON3, ">> debut") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);
@@ -173,16 +173,16 @@ public class Pinceau extends CImage {
 			State press = new State() {
 				Transition t3 = new Release (">> idle") {
 					public void action() {
-						//widget.montrer(false);
 						widget.getChoixPinceau().montrer(false);
 					}
 				};
 				
-				Transition t4 = new EnterOnShape (">> debut") {
+				Transition t4 = new EnterOnTag ("pinceau" , ">> debut") {
 					public void action() {
 						pinceau.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);
 						widget.getChoixPinceau().montrer(true);
+						System.out.println("ENTER ON SHAPE");
 					}
 				};
 			};

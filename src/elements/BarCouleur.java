@@ -94,7 +94,8 @@ public class BarCouleur extends CImage {
         
         rectangleTest = new CRectangle (100, 400, 50,50);
         rectangleTest.addTo(canvas);
-		
+        
+        rectangleTest.addTag("NonDrawable");	
 							
         sm = new CStateMachine (){
 			public State out = new State() {				

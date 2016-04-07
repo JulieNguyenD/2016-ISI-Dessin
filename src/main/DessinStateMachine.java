@@ -14,11 +14,13 @@ import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
+import fr.lri.swingstates.canvas.transitions.ClickOnShape;
 import fr.lri.swingstates.canvas.transitions.ClickOnTag;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Click;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
@@ -69,7 +71,19 @@ public class DessinStateMachine extends CStateMachine {
 		
 		draw = new State() {
 			
-			Transition click = new ClickOnTag("dessin", BUTTON1) {
+			Transition clickTag = new ClickOnTag("dessin", BUTTON1) {
+				public void action() {
+					shape = getShape();
+					if (widgetOutils.getPot().isEstActif())	{
+						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
+					}					
+					if (widgetOutils.getGomme().isEstActif()) {
+						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
+					}
+				}
+			};
+			
+			Transition click = new ClickOnShape(BUTTON1) {
 				public void action() {
 					shape = getShape();
 					if (widgetOutils.getPot().isEstActif())	{
@@ -180,17 +194,19 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					shape = getShape();
 					shape.setStroke(Utilitaires.augmente);
+					widgetOutils.getGomme().setEstActif(true);
 					System.out.println("Etat DEBUT gomme");
 					widgetOutils.getChoixGomme().montrer(true);
 					
 					widgetOutils.getPinceau().setEstActif(false);
 					widgetOutils.getPot().setEstActif(false);
-					widgetOutils.getGomme().setEstActif(false);
+					widgetOutils.getForme().setEstActif(false);
 				}
 			};
 			
 			Transition enterChoixGomme = new EnterOnTag("choixGomme", ">> changeGomme") {};
 			
+			// ------------- FORME
 			Transition enterForme = new EnterOnTag("forme", ">> armed") {
 				public void action() {
 					shape = getShape();
@@ -266,7 +282,7 @@ public class DessinStateMachine extends CStateMachine {
 		};	
 		
 		changeGomme = new State() {
-			Transition choixPotCouleur = new EnterOnTag("Annexeforme", ">> changeGomme") {
+			Transition choixGomme = new EnterOnTag("Annexeforme", ">> changeGomme") {
 				public void action() {
 					shape.setStroke(Utilitaires.normal);
 					shape = getShape();
@@ -276,7 +292,7 @@ public class DessinStateMachine extends CStateMachine {
 				}
 			};
 			
-			Transition finPot = new Release("out") {
+			Transition finGomme = new Release("out") {
 				public void action() {
 					shape.setStroke(Utilitaires.normal);
 					widgetOutils.getChoixGomme().montrer(false);

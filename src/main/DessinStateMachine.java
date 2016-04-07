@@ -48,6 +48,30 @@ public class DessinStateMachine extends CStateMachine {
 				}
 			};
 			
+//			Transition clickTag = new ClickOnTag("dessin", BUTTON1) {
+//				public void action() {
+//					shape = getShape();
+//					if (widgetOutils.getPot().isEstActif())	{
+//						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
+//					}					
+//					if (widgetOutils.getGomme().isEstActif()) {
+//						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
+//					}
+//				}
+//			};
+			
+			Transition click = new ClickOnShape(BUTTON1) {
+				public void action() {
+					shape = getShape();
+					if (widgetOutils.getPot().isEstActif())	{
+						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
+					}					
+					if (widgetOutils.getGomme().isEstActif()) {
+						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
+					}
+				}
+			};
+			
 			Transition pressDessin = new Press (BUTTON1, ">> draw") {
 
 				public void action() {
@@ -70,30 +94,6 @@ public class DessinStateMachine extends CStateMachine {
 		};
 		
 		draw = new State() {
-			
-			Transition clickTag = new ClickOnTag("dessin", BUTTON1) {
-				public void action() {
-					shape = getShape();
-					if (widgetOutils.getPot().isEstActif())	{
-						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
-					}					
-					if (widgetOutils.getGomme().isEstActif()) {
-						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
-					}
-				}
-			};
-			
-			Transition click = new ClickOnShape(BUTTON1) {
-				public void action() {
-					shape = getShape();
-					if (widgetOutils.getPot().isEstActif())	{
-						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
-					}					
-					if (widgetOutils.getGomme().isEstActif()) {
-						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
-					}
-				}
-			};
 			
 			Transition drawing = new Drag (BUTTON1){
 				public void action() {

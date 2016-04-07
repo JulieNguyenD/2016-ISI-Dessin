@@ -1,50 +1,79 @@
 package elements;
 
 import java.awt.Color;
-import java.awt.Point;
+
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EventObject;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 import fr.lri.swingstates.canvas.CImage;
-import fr.lri.swingstates.canvas.CNamedTag;
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.EnterOnShape;
-import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
-import fr.lri.swingstates.debug.StateMachineVisualization;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.StateMachine;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
-import main.Application;
-import main.Lancement;
 import widgets.WidgetOutils;
-
-public class BarCouleur extends CImage{
+/**
+ * <b>CImage pour la Barre de Couleur </b>
+ * <p>Cette barre de couleur a sa propre CStateMachine. <br/>
+ * Lorsque l'on crosse la barre, la couleur des autres éléments est changée si l'outils est actif.</p>
+ * 
+ * @see CImage
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
+public class BarCouleur extends CImage {
 	
-	private CStateMachine sm;	
+	/**
+	 * La CStateMachine de BarCouleur.
+	 */
+	private CStateMachine sm;
+	
+	/**
+	 * La couleur que l'on récupère au moment du crossing.
+	 */
 	private Color color;
+	
+	/**
+	 * Le rectangle dans lequel on affiche la couleur que l'on a crossé.
+	 */
 	private CRectangle rectangleTest;
-	// State Machine qui gere le dessin de pinceau 
-	// A mettre dans WidgetCouleurTaille apres
-	private BufferedImage biScaled;
-	private BufferedImage bi;
+	
+	/**
+	 * Les BufferedImage pour la barre. L'original et la re-scaled.
+	 */
+	private BufferedImage biScaled, bi;
+	
+	/**
+	 * Le WidgetOutils, pour pouvoir avoir accès aux autres outils.
+	 * @see WidgetOutils
+	 */
 	private WidgetOutils widgetOutil;
 
+	/**
+	 * Constructeur de BarCouleur.
+	 * <p>A la création de BarCouleur, on initialise l'image avec le path et sa position.<br/>
+	 * On fournit aussi le widgetOutils qui est le widget principal.</p>
+	 * @param path : chemin vers l'image.
+	 * @param position : position de départ de l'image.
+	 * @param canvas : canvas sur lequel on place le CImage.
+	 * @param widgetOutil : le WidgetOutils, widget principal.
+	 * 
+	 * @see WidgetOutils
+	 * 
+	 * @throws IOException
+	 */
 	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetOutil) throws IOException {
 		super(path, position);
 		this.widgetOutil = widgetOutil;
@@ -105,10 +134,7 @@ public class BarCouleur extends CImage{
 				        
 				        
 						color = new Color(biScaled.getRGB(x, y));											
-						rectangleTest.setFillPaint(color);
-						
-//						widgetOutil.getPinceau().setEstActif(true);
-//						widgetOutil.getPinceau().setCouleurPinceau(color);
+						rectangleTest.setFillPaint(color);					
 						
 						if (widgetOutil.getPinceau().isEstActif()) widgetOutil.getPinceau().setCouleurPinceau(color);
 						if (widgetOutil.getForme().isEstActif()) widgetOutil.getForme().setCouleur(color);
@@ -147,16 +173,22 @@ public class BarCouleur extends CImage{
 		};
 		
 		sm.attachTo(this);		
-//		Lancement.showStateMachine(sm);
 	}
 
+	/**
+	 * Getter de Color
+	 * @return : la couleur de BarCouleur.
+	 */
 	public Color getColor (){
 		return this.color;
-	}	
+	}		
 	
-	
-	
-	// Fonction qui fait un scale de BufferImage
+	/**
+	 * Fonction qui fait un scale de BufferImage
+	 * @param bi : l'image de départ
+	 * @param scaleValue : la valeur pour le scale
+	 * @return l'image qui a été redimentionnée
+	 */
 	public static BufferedImage scale(BufferedImage bi, double scaleValue) {
         AffineTransform tx = new AffineTransform();
         tx.scale(scaleValue, scaleValue);

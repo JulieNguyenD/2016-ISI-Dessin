@@ -93,7 +93,7 @@ public class Forme extends CImage {
 			};
 			
 			State press = new State() {
-				Transition t3 = new Release (">> idle") {
+				Transition t3 = new Release (BUTTON3,">> idle") {
 					public void action() {
 						//widget.montrer(false);
 						widget.getChoixFormes().montrer(false);
@@ -110,7 +110,7 @@ public class Forme extends CImage {
 			};
 			
 			State debut = new State() {
-				Transition t5 = new Release (">> idle") {
+				Transition t5 = new Release (BUTTON3,">> idle") {
 					public void action() {
 						forme.setStroke(Utilitaires.normal);
 						//widget.montrer(false);

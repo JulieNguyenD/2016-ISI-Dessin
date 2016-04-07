@@ -147,8 +147,8 @@ public class Application extends JFrame {
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
 //		widgetcouleurtaille.addTag("NonDrawable");
 		
-		dessinSM.addStateMachineListener(smlistener);
-		dessinSM.attachTo(canvas);
+//		dessinSM.addStateMachineListener(smlistener);
+//		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);
@@ -165,7 +165,4 @@ public class Application extends JFrame {
 		canvas.requestFocusInWindow();
 		
 	}
-	
-	
-
 }

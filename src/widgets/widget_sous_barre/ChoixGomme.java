@@ -26,6 +26,8 @@ public class ChoixGomme extends CRectangle {
 		
 		this.setStroke(new BasicStroke(1));
 		
+		this.addTag("choixGomme");
+		
 		gommeWidget = new Gomme_Widget(canvas, position_widget);
 		
 		gommeWidget.setParent(this);	

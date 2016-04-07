@@ -19,6 +19,8 @@ public class ChoixPot extends CRectangle {
 		this.canvas = canvas;
 		this.addTo(canvas);
 		
+		this.addTag("choixPot");
+		
 		choixPinceauCouleur = new Couleur_Widget(canvas, position_widget);
 
 		choixPinceauCouleur.setParent(this);

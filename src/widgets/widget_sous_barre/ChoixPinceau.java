@@ -41,6 +41,8 @@ public class ChoixPinceau extends CRectangle {
 		
 		this.setStroke(new BasicStroke(1));
 		
+		this.addTag("choixPinceau");
+		
 		choixPinceauCouleur = new Couleur_Widget(canvas, position_widget);
 		choixPinceauTaille = new Taille_Widget(canvas, position_widget);
 		choixPinceauTaille.translateBy(70, 0);

@@ -61,7 +61,6 @@ public class ChoixPinceau extends CRectangle {
 	public void ajouterStateMachineChoixPinceau(Pinceau pinceau) {
 		smWidgetPinceau = new CStateMachine() {			
 			CShape shape;
-			boolean bdebut = false;
 			
 			State idle = new State() {
 				Transition press = new Press(BUTTON3, ">> crossing") {
@@ -82,7 +81,6 @@ public class ChoixPinceau extends CRectangle {
 				Transition pressTag = new PressOnTag("couleur", BUTTON3, ">> debut") {
 					public void action (){
 						
-						bdebut = true;
 						System.out.println("Etat DEBUT");
 
 					}
@@ -100,9 +98,8 @@ public class ChoixPinceau extends CRectangle {
 					public void action() {
 						System.out.println("Etat CROSSING SORTIE");
 
-						if (bdebut) {
 							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
-						}
+						
 					}
 				};
 			};
@@ -141,8 +138,14 @@ public class ChoixPinceau extends CRectangle {
 				
 			};
 		};
-		smWidgetPinceau.attachTo(this);
+		smWidgetPinceau.attachTo(this.canvas);
 		Utilitaires.showStateMachine(smWidgetPinceau);
 	}
+
+	public CStateMachine getSmWidgetPinceau() {
+		return smWidgetPinceau;
+	}
+	
+	
 
 }

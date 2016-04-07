@@ -166,6 +166,8 @@ public class Pinceau extends CImage {
 						pinceau.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);
 						widget.getChoixPinceau().montrer(true);
+						widget.getChoixPinceau().getSmWidgetPinceau().setActive(true);
+
 					}					
 				};
 			};
@@ -182,7 +184,8 @@ public class Pinceau extends CImage {
 						pinceau.setStroke(Utilitaires.augmente);
 						//widget.montrer(true);
 						widget.getChoixPinceau().montrer(true);
-						System.out.println("ENTER ON SHAPE");
+						widget.getChoixPinceau().getSmWidgetPinceau().setActive(true);
+						System.out.println("CStateMachine Pinceau ENTER ON SHAPE pinceau");
 					}
 				};
 			};
@@ -211,6 +214,8 @@ public class Pinceau extends CImage {
 						
 						//widget.montrer(true);
 						widget.getChoixPinceau().montrer(true);
+						widget.getChoixPinceau().getSmWidgetPinceau().setActive(true);
+
 					}
 				};
 			};

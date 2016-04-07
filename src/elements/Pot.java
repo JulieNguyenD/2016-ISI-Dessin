@@ -4,23 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import fr.lri.swingstates.canvas.CImage;
-import fr.lri.swingstates.canvas.CShape;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.EnterOnShape;
-import fr.lri.swingstates.canvas.transitions.EnterOnTag;
-import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
-import fr.lri.swingstates.canvas.transitions.PressOnShape;
-import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Drag;
-import fr.lri.swingstates.sm.transitions.Move;
-import fr.lri.swingstates.sm.transitions.Press;
-import fr.lri.swingstates.sm.transitions.Release;
-import main.Utilitaires;
-import widgets.WidgetOutils;
-import widgets.widget_sous_barre.ChoixPot;
 
 /**
  * <b>CImage pour le pot</b>

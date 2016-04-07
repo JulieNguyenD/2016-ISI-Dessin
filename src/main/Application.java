@@ -132,23 +132,11 @@ public class Application extends JFrame {
 		
 		widgetOutils = new WidgetOutils(canvas, positionWidgetP);
 		canvas.addShape(widgetOutils);
-		
-		// widgetOutils.addTag("NonDrawable");
-
-//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils);
-//		BarCouleur bc = new BarCouleur ("images/couleurBar.png", positionWidgetCT, canvas, widgetOutils, pinceau);
-//		BarTaille bt = new BarTaille ("images/tailleBar.png", positionWidgetCT_taille, canvas, widgetOutils);
-		
-//		bc.addTag("BarColor");
-//		bc.addTag("NonDrawable");
-//		bt.addTag("BarTaille");		
-//		bt.addTag("NonDrawable");		
-
+				
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
-//		widgetcouleurtaille.addTag("NonDrawable");
 		
-		dessinSM.addStateMachineListener(smlistener);
-		dessinSM.attachTo(canvas);
+//		dessinSM.addStateMachineListener(smlistener);
+//		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);

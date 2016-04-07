@@ -165,10 +165,14 @@ public class DessinStateMachine extends CStateMachine {
 			Transition notdrawing = new EnterOnTag("NonDrawable", ">> draw") {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.remove();
-					
+					if (widgetOutils.getForme().isEstActif()) {
+						if (widgetOutils.getForme().getFonction() == "rectangle") rect.remove();
+						else if (widgetOutils.getForme().getFonction() == "ligne")seg.remove();
+						else if (widgetOutils.getForme().getFonction() == "ellipse") ell.remove(); 
+					}
 				}
 			};			
-			
+
 			Transition cancel = new Release(BUTTON1, ">> out") {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	{

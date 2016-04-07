@@ -3,31 +3,48 @@ package widgets.widget_sous_barre;
 import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 
-import elements.Annexe_forme;
-import elements.Couleur;
-import elements.Forme;
-import elements.Pinceau;
-import elements.Taille;
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CShape;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.EnterOnTag;
-import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
-import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Press;
-import fr.lri.swingstates.sm.transitions.Release;
-import main.Utilitaires;
 
+/**
+ * <b>CRectangle pour le Choix de la Forme.</b>
+ * <p>C'est un CRectangle qui possède les choix pour la forme..</p>
+ * 
+ * @see CRectangle
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
 public class ChoixFormes extends CRectangle {
 	
+	/**
+	 * Canvas sur lequel on dessine.
+	 */
 	private Canvas canvas;
-	private Couleur_Widget choixCouleurContour;
-	private Forme_Widget choixForme;
-	private Point2D position_widget;
-	private CStateMachine smWidgetForms;
 	
+	/**
+	 * Les choix de couleur du contour.
+	 * @see Couleur_Widget
+	 */
+	private Couleur_Widget choixCouleurContour;
+	
+	/**
+	 * Les choix de forme.
+	 * @see Forme_Widget
+	 */
+	private Forme_Widget choixForme;
+	
+	/**
+	 * La position du widget.
+	 */
+	private Point2D position_widget;
+
+	/**
+	 * Constructeur de ChoixFormes. Au départ, il n'est pas visible.
+	 * @param canvas : canvas sur lequel on dessine, ajoute les éléments.
+	 * @param position : position de départ du widget annexe.
+	 */
 	public ChoixFormes(Canvas canvas, Point2D position) {
 		super(position.getX()-70*2-10*2, position.getY(), 70*2, 290);
 		
@@ -50,116 +67,15 @@ public class ChoixFormes extends CRectangle {
 		this.montrer(false);			
 	}
 	
+	/**
+	 * Fonction qui permet de montrer ou cacher le widget. On ne peut plus récupérer les états avec un CStateMachine.
+	 * @param b : true si on veut montrer. False si on veut cacher.
+	 */
 	public void montrer(boolean b) {
 		this.setDrawable(b);
 		this.setPickable(b);
 		this.choixCouleurContour.montrer(b);
 		this.choixForme.montrer(b);
-	}
-	
-	public void ajouterStateMachineChoixPinceau(Forme forme) {
-		smWidgetForms = new CStateMachine() {			
-			CShape shape;
-			
-			public State out = new State() {
-				Transition toOver = new EnterOnTag("forme", ">> over") {
-					public void action() {
-					}
-				};
-
-				Transition pressOut = new Press (BUTTON3,">> disarmed") {
-//					public boolean guard() {
-//						return forme.isEstActif();
-//					}
-					public void action() {						
-
-					}
-				};
-			};
-
-			public State over = new State() {				
-				Transition leave = new LeaveOnTag("forme",">> out") {};
-				Transition arm = new Press(BUTTON3, ">> armed") {
-				};
-			};
-
-			public State armed = new State() {
-				Transition disarmForm = new LeaveOnTag("forme", ">> disarmed") {
-					public void action() {
-					}
-					
-				};
-				
-				Transition disarmChoix = new LeaveOnTag("choix", ">> disarmed") {
-					public void action() {
-//						Faire ici le choix de la forme a faire
-						String a = ((Annexe_forme) shape).getForme();
-						
-						forme.setForme(a);
-						shape.setStroke(Utilitaires.normal);
-						System.out.println("STRING PRIS LORS DE LA SORTIE !!!!!!!!!!!!!!!!!!!!!!!!!!!" + a );
-						
-					}
-					
-				};
-				
-				Transition disarmCouleur = new LeaveOnTag("couleur", ">> disarmed") {
-					public void action() {
-						forme.setCouleur(((Couleur) shape).getColor());
-						shape.setStroke(Utilitaires.normal);
-						
-					}
-					
-				};
-				
-				Transition act = new Release(BUTTON3, ">> over") {};				
-			};
-
-			public State disarmed = new State() {
-				
-				Transition enterCouleur = new EnterOnTag("couleur", ">> armed") {
-					public void action() {
-						shape = getShape();
-						shape.setStroke(Utilitaires.augmente);
-						System.out.println("Etat DEBUT couleurS");
-
-					}
-				};
-				
-				Transition enterForm = new EnterOnTag("forme", ">> armed") {
-					public void action() {
-						shape = getShape();
-						shape.setStroke(Utilitaires.augmente);
-						System.out.println("Etat DEBUT pinceau");
-
-					}
-				};
-				
-				Transition enterChoix = new EnterOnTag("choix", ">> armed") {
-					public void action() {
-						shape = getShape();
-						shape.setStroke(Utilitaires.augmente);
-						System.out.println("Etat DEBUT taille");
-
-					}
-				};
-				
-				
-				Transition cancel = new Release(BUTTON3, ">> out") {
-					public void action() {
-					}
-				};
-
-			};
-			
-		};
-
-		smWidgetForms.attachTo(canvas);
-		Utilitaires.showStateMachine(smWidgetForms);
-	}
-
-	public CStateMachine getSmWidgetPinceau() {
-		return smWidgetForms;
 	}
 
 }

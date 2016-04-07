@@ -37,9 +37,9 @@ import widgets.WidgetOutils;
  * Elle a :
  * <ul>
  * <li>Un unique Canvas dans lequel on dessine.</li>
- * <li>Un CRectangle de la taille du canvas pour pouvoir cacher les outils dessous</li>
  * <li>Un WidgetOutils qui sont les outils de dessin.</li>
  * <li>Un WidgetCouleurTaille qui est l'outils pour choisir la couleur du pinceau</li>
+ * <li>Une DessinStateMachine qui est la StateMachine pour le widgetOutils.</li>
  * <li>Deux Points pour donner la position des deux widgets</li>
  * </ul>
  * <p>
@@ -47,6 +47,7 @@ import widgets.WidgetOutils;
  * @see Canvas
  * @see WidgetOutils
  * @see WidgetCouleurTaille
+ * @see DessinStateMachine
  * @see Point
  * 
  * @author ANDRIANIRINA Tojo
@@ -86,16 +87,19 @@ public class Application extends JFrame {
 	 */
 	private Point positionWidgetCT;
 	
-	private StateMachineListener smlistener = new StateMachineListener() {
-		public void eventOccured(EventObject e) {
-			ShapeCreatedEvent csce = (ShapeCreatedEvent) e;
-			csce.getShape().addTag("dessin")
-					.setFillPaint(Color.white);
-			new CHierarchyTag(widgetOutils).aboveAll();
-			new CHierarchyTag(widgetcouleurtaille).aboveAll();
-		}
-	};
+//	private StateMachineListener smlistener = new StateMachineListener() {
+//		public void eventOccured(EventObject e) {
+//			ShapeCreatedEvent csce = (ShapeCreatedEvent) e;
+//			csce.getShape().addTag("dessin");
+//			new CHierarchyTag(widgetOutils).aboveAll();
+//			new CHierarchyTag(widgetcouleurtaille).aboveAll();
+//		}
+//	};
 	
+	/**
+	 * Le StateMachine qui est en charge du widget principal 
+	 * @see Application#widgetOutils
+	 */
 	private DessinStateMachine dessinSM;
 		
 	/**
@@ -134,7 +138,7 @@ public class Application extends JFrame {
 		dessinSM = new DessinStateMachine(widgetOutils);
 		Utilitaires.showStateMachine(dessinSM);
 		
-		dessinSM.addStateMachineListener(smlistener);
+//		dessinSM.addStateMachineListener(smlistener);
 		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE

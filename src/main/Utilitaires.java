@@ -16,8 +16,21 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Release;
 
+/**
+ * <b>Classe contenant les éléments utiles</b>
+ * <p>On peut afficher une stateMachine avec, ainsi qu'utiliser le stroke.<p>
+ * 
+ * @see BasicStroke
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
 public class Utilitaires {
 	
+	/**
+	 * Les BasicStroke pour augmenter la bordure des éléments sur lesquel on passe dessus.
+	 */
 	public static BasicStroke normal = new BasicStroke(1);
 	public static BasicStroke augmente = new BasicStroke(2);
 	

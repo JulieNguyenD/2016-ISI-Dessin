@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 
 /**

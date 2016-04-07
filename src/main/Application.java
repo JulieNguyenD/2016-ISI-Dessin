@@ -1,33 +1,12 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.EventObject;
 
 import javax.swing.JFrame;
 
-import elements.BarCouleur;
-import elements.BarTaille;
-import elements.Forme;
-import elements.Gomme;
-import elements.Pinceau;
-import elements.Pot;
-import elements.QuitMenu;
-import elements.QuitMenu_remake;
-import fr.lri.swingstates.canvas.CHierarchyTag;
-import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CShape;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.PressOnTag;
-import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.StateMachineListener;
-import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Drag;
-import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetCouleurTaille;
 import widgets.WidgetOutils;
 

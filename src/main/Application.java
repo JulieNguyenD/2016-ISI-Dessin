@@ -135,8 +135,11 @@ public class Application extends JFrame {
 				
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
 		
-//		dessinSM.addStateMachineListener(smlistener);
-//		dessinSM.attachTo(canvas);
+		dessinSM = new DessinStateMachine(widgetOutils);
+		Utilitaires.showStateMachine(dessinSM);
+		
+		dessinSM.addStateMachineListener(smlistener);
+		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);

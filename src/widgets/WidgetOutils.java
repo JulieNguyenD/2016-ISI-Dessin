@@ -194,8 +194,8 @@ public class WidgetOutils extends CShape {
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
-		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
-		smPinceau.attachTo(canvas);
+//		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
+//		smPinceau.attachTo(canvas);
 		
 		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
 		smGomme.attachTo(canvas);
@@ -219,7 +219,7 @@ public class WidgetOutils extends CShape {
 		
 		// Ajout des statesMachines sur les formes.
 		// Si on passe sur un des outils principaux, cela affiche le widget annexe
-		pinceau.addPinceauStateMachine(pinceau, this);
+//		pinceau.addPinceauStateMachine(pinceau, this);
 		pot.addPotStateMachine(pot, this);
 		gomme.addGommeStateMachine(gomme, this);
 		forme.addFormeStateMachine(forme, this);	

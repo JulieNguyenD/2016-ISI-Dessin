@@ -1,17 +1,21 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 
 import elements.Couleur;
 import elements.Taille;
 import fr.lri.swingstates.canvas.CEllipse;
+import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
+import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
+import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetCouleurTaille;
@@ -22,9 +26,10 @@ public class DessinStateMachine extends CStateMachine {
 	private CShape shape;
 	private CEllipse ell;
 	private CRectangle rec;
+	private CPolyLine line;
 	private Point2D p1;
 	
-	public State out, over, armed, disarmed, changedPinceau, changedForme, changedPot;
+	public State out, over, armed, disarmed, draw;
 	// voir si mettre d'autres état. Genre, armedPinceau, etc.
 	
 	public DessinStateMachine(WidgetOutils widgetOutils) {
@@ -54,6 +59,41 @@ public class DessinStateMachine extends CStateMachine {
 
 				}
 			};
+			
+			Transition pressDessin = new Press (BUTTON1,">> draw") {
+//				public boolean guard() {
+//					return pinceau.isEstActif();
+//				}
+				public void action() {						
+					if (widgetOutils.getPinceau().isEstActif()) {
+						Canvas canvas = (Canvas) getEvent().getSource();
+						line = canvas.newPolyLine(getPoint());
+						line.setStroke(new BasicStroke(widgetOutils.getPinceau().getTaille()));
+						line.setOutlinePaint(widgetOutils.getPinceau().getCouleurPinceau());
+						line.setFilled(false);
+					}
+				}
+			};
+		};
+		
+		draw = new State() {
+			Transition drawing = new Drag (BUTTON1){
+				public void action() {
+					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
+				}
+			};
+			
+			Transition notdrawing = new EnterOnTag("NonDrawable", ">> draw") {
+				public void action() {
+					if (widgetOutils.getPinceau().isEstActif())	line.remove();
+					
+				}
+			};
+			Transition cancel = new Release(BUTTON1, ">> out") {
+				public void action() {
+					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
+				}
+			};
 		};
 
 		over = new State() {				
@@ -65,6 +105,7 @@ public class DessinStateMachine extends CStateMachine {
 		armed = new State() {
 			Transition disarmPinceau = new LeaveOnTag("pinceau", ">> disarmed") {
 				public void action() {
+					widgetOutils.getPinceau().setEstActif(true);
 				}
 				
 			};

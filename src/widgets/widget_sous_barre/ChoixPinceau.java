@@ -154,7 +154,7 @@ public class ChoixPinceau extends CRectangle {
 		};
 
 		smWidgetPinceau.attachTo(canvas);
-		Utilitaires.showStateMachine(smWidgetPinceau);
+//		Utilitaires.showStateMachine(smWidgetPinceau);
 	}
 
 	public CStateMachine getSmWidgetPinceau() {

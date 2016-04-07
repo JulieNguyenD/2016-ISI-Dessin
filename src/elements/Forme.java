@@ -1,8 +1,13 @@
 package elements;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import fr.lri.swingstates.canvas.CEllipse;
 import fr.lri.swingstates.canvas.CImage;
+import fr.lri.swingstates.canvas.CRectangle;
+import fr.lri.swingstates.canvas.CSegment;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
@@ -11,6 +16,7 @@ import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.canvas.transitions.PressOnShape;
+import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
@@ -34,6 +40,44 @@ public class Forme extends CImage {
 	 */
 	private Canvas canvas;
 	
+	/***************************CODE A METTRE EN JAVADOC*******************************************/
+	
+	
+	private  static CSegment seg; // pour ligne 
+	private CRectangle rect; // pour rectangle
+	private CEllipse ell; // pour ellipse
+	private Point2D p1;
+	private int taille;
+	private Color couleur;
+	
+	public int getTaille(){
+		return this.taille;
+	}
+	
+	/**
+	 * Met à jour la taille du Pinceau avec la nouvelle taille.
+	 * @param taille : la nouvelle taille du Pinceau
+	 */
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+	
+	public Color getCouleur (){
+		return this.couleur;
+	}
+	
+	public void setCouleur (Color couleur){
+		this.couleur = couleur;
+	}
+	
+	private String forme;
+	
+	public void setForme (String forme){
+		this.forme = forme;
+	}
+	
+	/***************************************************************************************************/
+	
 	/**
 	 * La StateMachine de la Forme. Elle permet le Crossing.
 	 * @see CStateMachine
@@ -51,10 +95,13 @@ public class Forme extends CImage {
 	 */
 	public Forme(String path, Point2D position, Canvas canvas) {
 		super(path, position);
+		this.canvas = canvas;		
+		this.couleur = Color.black;
+		this.taille = 1;
 		this.estActif = false;
-		this.canvas = canvas;
 		
-		this.addTo(canvas);		
+		this.addTo(canvas);
+		this.addTag("forme");
 	}
 	
 	/**
@@ -160,23 +207,46 @@ public class Forme extends CImage {
 
 
 	public CStateMachine createFormeStateMachineDrawing(Forme forme, Canvas canvas) {		
-
+		String rectangleS = "rectangle";
+		String lineS = "line";
+		String ellipseS = "ellipse";
+		
 		smd = new CStateMachine (){
 			public State out = new State() {
 				Transition toOver = new EnterOnTag("NonDrawable", ">> over") {};							
-				Transition pressOut = new Press (BUTTON1,">> disarmed") {
+				
+				Transition pressForm = new Press (BUTTON1,">> disarmed") {
+					
 					public boolean guard() {
 						return forme.isEstActif();
 					}
-					public void action() {
-//						line = canvas.newPolyLine(getPoint());
-//						line.setStroke(new BasicStroke(forme.getTaille()));
-//						line.setOutlinePaint(forme.getCouleurPinceau());
-//						line.setFilled(false);
-//						line.setPickable(false);
-						System.out.println("forme ici");
+					
+					public void action (){
+						p1 = getPoint();												
+						if (forme.forme.equals(rectangleS)){
+							rect = canvas.newRectangle(p1, 1, 1);
+							rect.setStroke(new BasicStroke(forme.getTaille()));
+							rect.setOutlinePaint(forme.getCouleur());
+							rect.setFilled(false);
+							rect.setPickable(false);
+						} 
+						else if (forme.forme.equals(lineS)){
+							seg = canvas.newSegment(p1, p1);
+							seg.setStroke(new BasicStroke(forme.getTaille()));
+							seg.setOutlinePaint(forme.getCouleur());
+							seg.setFilled(false);
+							seg.setPickable(false);
+						}
+						else if (forme.forme.equals(ellipseS)){
+							ell = canvas.newEllipse(p1, 1, 1);
+							ell.setStroke(new BasicStroke(forme.getTaille()));
+							ell.setOutlinePaint(forme.getCouleur());
+							ell.setFilled(false);
+							ell.setPickable(false);
+						}						
+						
 					}
-				};
+				};										
 			};
 
 			public State over = new State() {				
@@ -192,17 +262,44 @@ public class Forme extends CImage {
 			public State disarmed = new State() {
 				Transition draw = new Drag (BUTTON1){
 					public void action() {
-//						line.lineTo(getPoint());
+						
+						
+						if (forme.forme.equals(rectangleS)){
+							rect.setDiagonal(p1, getPoint());
+						} 
+						else if (forme.forme.equals(lineS)){
+							seg.setPoints(p1, getPoint());
+						}
+						else if (forme.forme.equals(ellipseS)){
+							ell.setDiagonal(p1, getPoint());
+						}												
 					}
 				};
 				Transition rearm = new EnterOnTag("NonDrawable", ">> armed") {
 					public void action() {
-//						line.remove();
+						if (forme.forme.equals(rectangleS)){
+							rect.remove();
+						} 
+						else if (forme.forme.equals(lineS)){
+							seg.remove();
+						}
+						else if (forme.forme.equals(ellipseS)){
+							ell.remove();
+						}
 					}
 				};
 				Transition cancel = new Release(BUTTON1, ">> out") {
 					public void action() {
 //						line.lineTo(getPoint());
+						if (forme.forme.equals(rectangleS)){
+							rect.setDiagonal(p1, getPoint());
+						} 
+						else if (forme.forme.equals(lineS)){
+							seg.setPoints(p1, getPoint());
+						}
+						else if (forme.forme.equals(ellipseS)){
+							ell.setDiagonal(p1, getPoint());
+						}
 					}
 				};
 
@@ -211,7 +308,7 @@ public class Forme extends CImage {
 		};		
 
 //		smd.attachTo(this);
-//		Utilitaires.showStateMachine(smd);
+		Utilitaires.showStateMachine(smd);
 		
 		return smd;
 	}

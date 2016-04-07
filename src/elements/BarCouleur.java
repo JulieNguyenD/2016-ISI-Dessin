@@ -8,6 +8,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EventObject;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CNamedTag;
 import fr.lri.swingstates.canvas.CRectangle;
+import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnShape;
@@ -41,11 +43,11 @@ public class BarCouleur extends CImage{
 	// A mettre dans WidgetCouleurTaille apres
 	private BufferedImage biScaled;
 	private BufferedImage bi;
-	private WidgetOutils widgetPinceau;
+	private WidgetOutils widgetOutil;
 
-	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
+	public BarCouleur(String path, Point2D position, Canvas canvas, WidgetOutils widgetOutil) throws IOException {
 		super(path, position);
-		this.widgetPinceau = widgetPinceau;
+		this.widgetOutil = widgetOutil;
 		
 		this.scaleBy(0.2);
 		
@@ -105,8 +107,31 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
-						widgetPinceau.getPinceau().setEstActif(true);
-						widgetPinceau.getPinceau().setCouleurPinceau(color);
+//						widgetOutil.getPinceau().setEstActif(true);
+//						widgetOutil.getPinceau().setCouleurPinceau(color);
+						
+						ArrayList <CShape> outils = widgetOutil.getOutilsList();
+						for (int i = 0; i < outils.size(); i ++){
+							// Cas pour pinceau
+							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
+								System.out.println ("Jesuis contennt PINCEAU !!!!!!!!!!!!!!!!!!!!!!!");
+								Pinceau pinceau = (Pinceau)outils.get(i);
+								if (pinceau.isEstActif()){
+									pinceau.setCouleurPinceau(color);
+								}
+							}
+							
+							// Cas pour pour formes
+							if (outils.get(i).getClass().getName().equals("elements.Forme")){
+								System.out.println ("Jesuis contennt FORME !!!!!!!!!!!!!!!!!!!!!!!");
+								Forme forme = (Forme)outils.get(i);
+								if (forme.isEstActif()){
+									forme.setCouleur(color);
+								}
+							}
+							
+						}
+						
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};

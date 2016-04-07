@@ -22,6 +22,7 @@ public class Couleur extends CRectangle {
 		super (0, 0, 50, 50);
 		rectangle = canvas.newRectangle(5, 25, 40, 5);
 		rectangle.rotateBy(95.0);	
+		this.couleur = color;
 		
 		rectangle.setStroke(new BasicStroke(0));
 		rectangle.setFillPaint(color);

@@ -95,7 +95,7 @@ public class Pinceau extends CImage {
 		super(path, position);
 		this.couleurPinceau = Color.BLACK;
 		this.taille = 1;
-		this.estActif = true;
+		this.estActif = false;
 		this.canvas = canvas;
 		
 		this.addTo(canvas);

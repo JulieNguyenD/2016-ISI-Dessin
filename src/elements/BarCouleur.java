@@ -105,6 +105,7 @@ public class BarCouleur extends CImage{
 						color = new Color(biScaled.getRGB(x, y));											
 						rectangleTest.setFillPaint(color);
 						
+						widgetPinceau.getPinceau().setEstActif(true);
 						widgetPinceau.getPinceau().setCouleurPinceau(color);
 					}
 				};

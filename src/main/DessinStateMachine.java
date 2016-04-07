@@ -1,10 +1,13 @@
 package main;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import elements.Couleur;
 import elements.Taille;
+import elements.Annexe_forme;
+
 import fr.lri.swingstates.canvas.CEllipse;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CRectangle;
@@ -19,7 +22,6 @@ import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
-import widgets.WidgetCouleurTaille;
 import widgets.WidgetOutils;
 
 public class DessinStateMachine extends CStateMachine {
@@ -30,7 +32,7 @@ public class DessinStateMachine extends CStateMachine {
 	private CPolyLine line;
 	private Point2D p1;
 	
-	public State out, armed, disarmed, draw, changePinceau, changePot;
+	public State out, armed, disarmed, draw, changePinceau, changePot, changeGomme;
 	// voir si mettre d'autres état. Genre, armedPinceau, etc.
 	
 	public DessinStateMachine(WidgetOutils widgetOutils) {
@@ -54,6 +56,13 @@ public class DessinStateMachine extends CStateMachine {
 						line.setOutlinePaint(widgetOutils.getPinceau().getCouleurPinceau());
 						line.setFilled(false);
 					}
+					
+					if (widgetOutils.getGomme().isEstActif()) {
+						line = canvas.newPolyLine(getPoint());
+						line.setStroke(new BasicStroke(widgetOutils.getPinceau().getTaille()));
+						line.setOutlinePaint(Color.WHITE);
+						line.setFilled(false);
+					}
 				}
 			};
 		};
@@ -62,16 +71,20 @@ public class DessinStateMachine extends CStateMachine {
 			
 			Transition click = new ClickOnTag("dessin", BUTTON1) {
 				public void action() {
+					shape = getShape();
 					if (widgetOutils.getPot().isEstActif())	{
-						shape = getShape();
 						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
 					}					
+					if (widgetOutils.getGomme().isEstActif()) {
+						if (widgetOutils.getChoixGomme().getFonction() == "forme") shape.remove();
+					}
 				}
 			};
 			
 			Transition drawing = new Drag (BUTTON1){
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
+					if (widgetOutils.getGomme().isEstActif()) line.lineTo(getPoint());
 				}
 			};
 			
@@ -93,6 +106,8 @@ public class DessinStateMachine extends CStateMachine {
 			Transition disarmPinceau = new LeaveOnTag("pinceau", ">> disarmed") {};
 			
 			Transition disarmPot = new LeaveOnTag("pot", ">> disarmed") {};
+			
+			Transition disarmGomme = new LeaveOnTag("gomme", ">> disarmed") {};
 			
 			Transition disarmTaille = new LeaveOnTag("taille", ">> disarmed") {
 				public void action() {
@@ -167,10 +182,14 @@ public class DessinStateMachine extends CStateMachine {
 					shape.setStroke(Utilitaires.augmente);
 					System.out.println("Etat DEBUT gomme");
 					widgetOutils.getChoixGomme().montrer(true);
+					
+					widgetOutils.getPinceau().setEstActif(false);
+					widgetOutils.getPot().setEstActif(false);
+					widgetOutils.getGomme().setEstActif(false);
 				}
 			};
 			
-			
+			Transition enterChoixGomme = new EnterOnTag("choixGomme", ">> changeGomme") {};
 			
 			Transition enterForme = new EnterOnTag("forme", ">> armed") {
 				public void action() {
@@ -245,6 +264,25 @@ public class DessinStateMachine extends CStateMachine {
 				}
 			};
 		};	
+		
+		changeGomme = new State() {
+			Transition choixPotCouleur = new EnterOnTag("Annexeforme", ">> changeGomme") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					shape = getShape();
+					shape.setStroke(Utilitaires.augmente);
+					System.out.println("changeGomme fonction");
+					widgetOutils.getChoixGomme().setFonction(((Annexe_forme)shape).getForme());
+				}
+			};
+			
+			Transition finPot = new Release("out") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					widgetOutils.getChoixGomme().montrer(false);
+				}
+			};
+		};
 		
 	}
 

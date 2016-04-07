@@ -49,6 +49,7 @@ public class Forme extends CImage {
 		this.canvas = canvas;
 		
 		this.addTo(canvas);		
+		this.addTag("forme");
 	}
 	
 	/**

@@ -61,7 +61,8 @@ public class Gomme extends CImage {
 		this.estActif = false;
 		this.canvas = canvas;
 		
-		this.addTo(canvas);		
+		this.addTo(canvas);	
+		this.addTag("gomme");
 	}
 	
 	/**

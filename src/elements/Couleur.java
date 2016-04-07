@@ -4,20 +4,36 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import fr.lri.swingstates.canvas.CRectangle;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.EnterOnShape;
-import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Press;
-import fr.lri.swingstates.sm.transitions.Release;
 
+/**
+ * <b>CRectangle pour la Couleur </b>
+ * <p>C'est un carré qui possède un CRectangle avec dedans une couleur.</p>
+ * 
+ * @see CRectangle
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
 public class Couleur extends CRectangle {
+	
+	/**
+	 * Couleur dans le CRectangle
+	 */
 	private Color couleur;
+	
+	/**
+	 * Le CRectangle que l'on remplie avec la couleur.
+	 */
 	private CRectangle rectangle;
-//	private CStateMachine sm;
 
+	/**
+	 * Constructeur de Couleur.
+	 * <p>A la création de Couleur, on initialise le rectangle avec la couleur.</p>
+	 * @param color : la couleur du CRectangle rectangle
+	 * @param canvas : le canvas dans lequel on place Couleur.
+	 */
 	public Couleur (final Color color, Canvas canvas){
 		super (0, 0, 50, 50);
 		rectangle = canvas.newRectangle(5, 25, 40, 5);
@@ -36,63 +52,21 @@ public class Couleur extends CRectangle {
 		this.below(rectangle);
 		
 		this.addTag("couleur");
-				
-//		sm = new CStateMachine (){
-//			public State out = new State() {
-//				public void enter() {					
-//					setFillPaint(Color.white);
-//				}
-//				
-//				Transition toOver = new EnterOnShape(">> over") {};
-//				Transition pressOut = new Press (">> disarmed") {};
-//			};
-//
-//			public State over = new State() {
-//				public void enter() {					
-//					setFillPaint(Color.gray);
-//				}				
-//				
-//				Transition leave = new LeaveOnShape(">> out") {};
-//				Transition arm = new Press(BUTTON1,">> armed") {};
-//
-//			};
-//
-//			public State armed = new State() {
-//				public void enter() {
-//					setFillPaint(Color.blue);
-//				}
-//
-//				Transition disarm = new LeaveOnShape(">> disarmed") {
-//					public void action (){
-//						couleur = color;
-//						System.out.println("test reussi =========================");
-//					}
-//				};
-//				Transition act = new Release(BUTTON1, ">> over") {};
-//				
-//			};
-//
-//			public State disarmed = new State() {
-//				public void enter() {
-//					setFillPaint(Color.white);
-//					// Faire ici les grandes actions
-//					// il y a un choix de couleur quelque part qui se fait					
-//				}
-//
-//				Transition rearm = new EnterOnShape(">> armed") {};
-//				Transition cancel = new Release(BUTTON1, ">> out") {};
-//
-//			};
-//		};
-//		
-//		sm.attachTo(this);
 
 	}
 	
+	/**
+	 * Getter de couleur
+	 * @return la couleur de Couleur
+	 */
 	public Color getColor() {
 		return this.couleur;		
 	}
 	
+	/**
+	 * Fonction qui permet de montrer ou cacher l'annexe. On ne peut plus récupérer les états avec un CStateMachine.
+	 * @param b : true si on veut montrer. False si on veut cacher.
+	 */
 	public void montrer(boolean b) {
 		this.setDrawable(b);
 		this.setPickable(b);

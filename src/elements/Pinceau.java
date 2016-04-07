@@ -1,32 +1,10 @@
 package elements;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
-import javax.swing.JFrame;
-
 import fr.lri.swingstates.canvas.CImage;
-import fr.lri.swingstates.canvas.CPolyLine;
-import fr.lri.swingstates.canvas.CShape;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.PressOnTag;
-import fr.lri.swingstates.debug.StateMachineVisualization;
-import fr.lri.swingstates.canvas.transitions.EnterOnShape;
-import fr.lri.swingstates.canvas.transitions.EnterOnTag;
-import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
-import fr.lri.swingstates.sm.*;
-import fr.lri.swingstates.sm.transitions.Drag;
-import fr.lri.swingstates.sm.transitions.Event;
-import fr.lri.swingstates.sm.transitions.Move;
-import fr.lri.swingstates.sm.transitions.Press;
-import fr.lri.swingstates.sm.transitions.Release;
-import main.Lancement;
-import main.Utilitaires;
-import widgets.WidgetOutils;
-import widgets.widget_sous_barre.ChoixPinceau;
 
 /**
  * <b>CImage pour le pinceau</b>

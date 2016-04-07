@@ -6,12 +6,10 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import fr.lri.swingstates.canvas.CImage;
-import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
@@ -22,13 +20,53 @@ import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetOutils;
 
-public class BarTaille extends CImage{
+/**
+ * <b>CImage pour la Barre de Taille </b>
+ * <p>Cette barre de Taille a sa propre CStateMachine. <br/>
+ * Lorsque l'on crosse la barre, la tailles des autres éléments est changée si l'outils est actif.</p>
+ * 
+ * @see CImage
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
+public class BarTaille extends CImage {
+	
+	/**
+	 * La taille que l'on obtient quand on crosse l'image.
+	 */
 	int taille;
-	private BufferedImage biScaled;
-	private BufferedImage bi;
+	
+	/**
+	 * Les BufferedImage pour la barre. L'original et la re-scaled.
+	 */
+	private BufferedImage biScaled, bi;
+	
+	/**
+	 * La CStateMachine de BarTaille.
+	 */
 	private CStateMachine sm;
+	
+	/**
+	 * Le WidgetOutils, pour pouvoir avoir accès aux autres outils.
+	 * @see WidgetOutils
+	 */
 	private WidgetOutils widgetOutil;
 
+	/**
+	 * Constructeur de BarTaille.
+	 * <p>A la création de BarTaille, on initialise l'image avec le path et sa position.<br/>
+	 * On fournit aussi le widgetOutils qui est le widget principal.</p>
+	 * @param path : chemin vers l'image.
+	 * @param position : position de départ de l'image.
+	 * @param canvas : canvas sur lequel on place le CImage.
+	 * @param widgetOutil : le WidgetOutils, widget principal.
+	 * 
+	 * @see WidgetOutils
+	 * 
+	 * @throws IOException
+	 */
 	public BarTaille(String path, Point2D position, Canvas canvas, WidgetOutils widgetOutil) throws IOException {
 		super(path, position);
 		this.widgetOutil = widgetOutil;

@@ -186,11 +186,11 @@ public class WidgetOutils extends CShape {
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
-		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
-		smGomme.attachTo(canvas);
-		
-		smPot = this.pot.createPotStateMachineDrawing(pot, canvas);
-		smPot.attachTo(canvas);
+//		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
+//		smGomme.attachTo(canvas);
+//		
+//		smPot = this.pot.createPotStateMachineDrawing(pot, canvas);
+//		smPot.attachTo(canvas);
 		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);			
@@ -215,22 +215,6 @@ public class WidgetOutils extends CShape {
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);		
-	}
-	
-	/**
-	 * Retourne la CStateMachine smPinceau en attribut.
-	 * @return la CStateMachine smPinceau
-	 */
-	public CStateMachine getSMPinceau(){
-		return smPinceau;
-	}
-	
-	/**
-	 * Mise à jour de la CStateMachine smPinceau avec le paramètre.
-	 * @param smPinceau : la nouvelle CStateMachine pour le pinceau.
-	 */
-	public void setSMPinceau (CStateMachine smPinceau){
-		this.smPinceau = smPinceau;
 	}
 	
 	/**

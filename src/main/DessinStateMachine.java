@@ -4,11 +4,11 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import elements.Annexe_forme;
 import elements.Couleur;
 import elements.Taille;
-import elements.Annexe_forme;
-
 import fr.lri.swingstates.canvas.CEllipse;
+import fr.lri.swingstates.canvas.CImage;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CSegment;
@@ -16,28 +16,62 @@ import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.ClickOnShape;
-import fr.lri.swingstates.canvas.transitions.ClickOnTag;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.State;
 import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Click;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Press;
 import fr.lri.swingstates.sm.transitions.Release;
 import widgets.WidgetOutils;
 
+/**
+ * <b>CStateMachine du WidgetPrincipal.</b>
+ * <p>On peut faire le crossing avec. Lorsque l'on cross un outils, celui-ci est activée.<br/>
+ * On peut ainsi dessiner, supprimer, ou encore faire des formes et remplir.</p>
+ * 
+ * @see CStateMachine
+ * 
+ * @author ANDRIANIRINA Tojo
+ * @author GABRIEL Damien
+ * @author NGUYEN Julie
+ */
 public class DessinStateMachine extends CStateMachine {
 	
+	/**
+	 * La Shape que l'on récupère.
+	 */
 	private CShape shape;
+	
+	/**
+	 * La CEllipse que l'on dessine.
+	 */
 	private CEllipse ell;
+	
+	/**
+	 * Le CRectangle que l'on dessine.
+	 */
 	private CRectangle rect;
+	
+	/**
+	 * Le CSegment que l'on dessine.
+	 */
 	private CSegment seg;
+	
+	/**
+	 * La CPolyline que l'on dessine.
+	 */
 	private CPolyLine line;
+	
+	/**
+	 * Le point de départ pour les formes.
+	 */
 	private Point2D p1;
 	
+	/**
+	 * Les différents états de la stateMachine.
+	 */
 	public State out, armed, disarmed, draw, changePinceau, changePot, changeGomme, changeForme;
-	// voir si mettre d'autres état. Genre, armedPinceau, etc.
 	
 	public DessinStateMachine(WidgetOutils widgetOutils) {
 		out = new State() {
@@ -59,6 +93,7 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					shape = getShape();
 					if (widgetOutils.getPot().isEstActif())	{
+						shape.setFilled(true);
 						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
 					}					
 					if (widgetOutils.getGomme().isEstActif()) {
@@ -92,16 +127,19 @@ public class DessinStateMachine extends CStateMachine {
 							rect.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							rect.setOutlinePaint(widgetOutils.getForme().getCouleur());
 							rect.setFilled(false);
+							rect.setPickable(true);
 						} else if (widgetOutils.getForme().getFonction() == "ligne"){
 							seg = canvas.newSegment(p1, p1);
 							seg.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							seg.setOutlinePaint(widgetOutils.getForme().getCouleur());
 							seg.setFilled(false);
+							seg.setPickable(true);
 						} else if (widgetOutils.getForme().getFonction() == "ellipse") {
 							ell = canvas.newEllipse(p1, 1, 1);
 							ell.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							ell.setOutlinePaint(widgetOutils.getForme().getCouleur());
 							ell.setFilled(false);
+							ell.setPickable(true);
 						}
 					}
 					
@@ -133,11 +171,23 @@ public class DessinStateMachine extends CStateMachine {
 			
 			Transition cancel = new Release(BUTTON1, ">> out") {
 				public void action() {
-					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
+					if (widgetOutils.getPinceau().isEstActif())	{
+						line.lineTo(getPoint());
+//						fireEvent(new ShapeCreatedEvent(this, line));
+					}
 					if (widgetOutils.getForme().isEstActif()) {
-						if (widgetOutils.getForme().getFonction() == "rectangle") rect.setDiagonal(p1, getPoint());
-						else if (widgetOutils.getForme().getFonction() == "ligne") seg.setPoints(p1, getPoint());
-						else if (widgetOutils.getForme().getFonction() == "ellipse") ell.setDiagonal(p1, getPoint());
+						if (widgetOutils.getForme().getFonction() == "rectangle") { 
+							rect.setDiagonal(p1, getPoint());
+//							fireEvent(new ShapeCreatedEvent(this, rect));
+						}
+						else if (widgetOutils.getForme().getFonction() == "ligne") {
+							seg.setPoints(p1, getPoint());
+//							fireEvent(new ShapeCreatedEvent(this, seg));
+						}
+						else if (widgetOutils.getForme().getFonction() == "ellipse") {
+							ell.setDiagonal(p1, getPoint());
+//							fireEvent(new ShapeCreatedEvent(this, ell));
+						}
 					}
 				}
 			};

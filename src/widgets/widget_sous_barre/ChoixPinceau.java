@@ -96,6 +96,7 @@ public class ChoixPinceau extends CRectangle {
 						System.out.println("Etat CROSSING SORTIE");
 						pinceau.setTaille((int)((Taille) shape).getTaille());
 						System.out.println("Taille obtenu =============== "+ ((Taille) shape).getTaille());
+						shape.setStroke(Utilitaires.normal);
 					}
 					
 				};
@@ -105,6 +106,7 @@ public class ChoixPinceau extends CRectangle {
 						System.out.println("Etat CROSSING SORTIE COULEUR ");
 						pinceau.setCouleurPinceau(((Couleur) shape).getColor());
 						System.out.println("Couleur obtenu =============== "+ ((Couleur) shape).getColor());
+						shape.setStroke(Utilitaires.normal);
 					}
 					
 				};
@@ -149,86 +151,6 @@ public class ChoixPinceau extends CRectangle {
 
 			};
 			
-//			
-//			boolean bdebut = false;
-//			
-//			State idle = new State() {
-//				Transition press = new Press(BUTTON3, ">> crossing") {
-//					public void action (){
-////						shape = getParent();
-////						shape.setStroke(Utilitaires.augmente);
-////						if (shape instanceof Couleur) {
-////							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
-////						}
-////						if (shape instanceof Taille) {
-////							pinceau.setTaille((int) ((Taille) shape).getTaille());
-////						}
-//						System.out.println("Etat CROSSING choixPinceau");
-//
-//					}					
-//				};
-//				
-//				Transition pressTag = new PressOnTag("couleur", BUTTON3, ">> debut") {
-//					public void action (){
-//						
-//						bdebut = true;
-//						System.out.println("Etat DEBUT");
-//
-//					}
-//				};
-//			};
-//			
-//			State debut = new State() {
-//				Transition release = new Release(">> idle") {
-//					public void action() {
-//						System.out.println("Etat IDLE");
-//					}
-//				};
-//				
-//				Transition leaveTag = new LeaveOnTag("couleur", ">> crossing") {
-//					public void action() {
-//						System.out.println("Etat CROSSING SORTIE");
-//
-//						if (bdebut) {
-//							pinceau.setCouleurPinceau(((Couleur) shape).getColor());
-//						}
-//					}
-//				};
-//			};
-//			
-//			State crossing = new State() {
-//				Transition enterTag = new EnterOnTag("couleur", ">> debut") {
-//					public void action() {
-//						shape = getShape();
-//						shape.setStroke(Utilitaires.augmente);
-//						System.out.println("Etat DEBUT couleurS");
-//
-//					}
-//				};
-//				
-//				Transition enterPinceau = new EnterOnTag("pinceau", ">> debut") {
-//					public void action() {
-//						shape = getShape();
-//						shape.setStroke(Utilitaires.augmente);
-//						System.out.println("Etat DEBUT pinceau");
-//
-//					}
-//				};
-//				
-//				Transition enterTag1 = new EnterOnTag("taille", ">> debut") {
-//					public void action() {
-//						shape = getShape();
-//						shape.setStroke(Utilitaires.augmente);
-//						System.out.println("Etat DEBUT taille");
-//
-//					}
-//				};
-//				
-//				Transition rel = new Release(">> idle") {
-//					
-//				};
-//				
-//			};
 		};
 
 		smWidgetPinceau.attachTo(canvas);

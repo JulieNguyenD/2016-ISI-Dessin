@@ -11,6 +11,7 @@ import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
+import fr.lri.swingstates.canvas.transitions.ClickOnTag;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
 import fr.lri.swingstates.canvas.transitions.LeaveOnTag;
 import fr.lri.swingstates.sm.State;
@@ -29,28 +30,11 @@ public class DessinStateMachine extends CStateMachine {
 	private CPolyLine line;
 	private Point2D p1;
 	
-	public State out, over, armed, disarmed, draw, changePinceau;
+	public State out, armed, disarmed, draw, changePinceau, changePot;
 	// voir si mettre d'autres état. Genre, armedPinceau, etc.
 	
 	public DessinStateMachine(WidgetOutils widgetOutils) {
 		out = new State() {
-//			Transition toOverPinceau = new EnterOnTag("pinceau", ">> over") {
-//				public void action() {
-//				}
-//			};
-//			
-//			Transition toOverPot = new EnterOnTag("pot", ">> over") {
-//				
-//			};
-//			
-//			Transition toOverGomme = new EnterOnTag("gomme", ">> over") {
-//				
-//			};
-//			
-//			Transition toOverForme = new EnterOnTag("forme", ">> over") {
-//				
-//			};
-
 			Transition pressOut = new Press (BUTTON3,">> disarmed") {
 //				public boolean guard() {
 //					return pinceau.isEstActif();
@@ -60,13 +44,11 @@ public class DessinStateMachine extends CStateMachine {
 				}
 			};
 			
-			Transition pressDessin = new Press (BUTTON1,">> draw") {
-//				public boolean guard() {
-//					return pinceau.isEstActif();
-//				}
-				public void action() {						
-					if (widgetOutils.getPinceau().isEstActif()) {
-						Canvas canvas = (Canvas) getEvent().getSource();
+			Transition pressDessin = new Press (BUTTON1, ">> draw") {
+
+				public void action() {
+					Canvas canvas = (Canvas) getEvent().getSource();
+					if (widgetOutils.getPinceau().isEstActif()) {						
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(widgetOutils.getPinceau().getTaille()));
 						line.setOutlinePaint(widgetOutils.getPinceau().getCouleurPinceau());
@@ -77,6 +59,16 @@ public class DessinStateMachine extends CStateMachine {
 		};
 		
 		draw = new State() {
+			
+			Transition click = new ClickOnTag("dessin", BUTTON1) {
+				public void action() {
+					if (widgetOutils.getPot().isEstActif())	{
+						shape = getShape();
+						shape.setFillPaint(widgetOutils.getPot().getCouleurPot());
+					}					
+				}
+			};
+			
 			Transition drawing = new Drag (BUTTON1){
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
@@ -88,7 +80,8 @@ public class DessinStateMachine extends CStateMachine {
 					if (widgetOutils.getPinceau().isEstActif())	line.remove();
 					
 				}
-			};
+			};			
+			
 			Transition cancel = new Release(BUTTON1, ">> out") {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
@@ -96,14 +89,10 @@ public class DessinStateMachine extends CStateMachine {
 			};
 		};
 
-		over = new State() {				
-			Transition leave = new LeaveOnTag("pinceau",">> out") {};
-			Transition arm = new Press(BUTTON3, ">> armed") {
-			};
-		};
-
 		armed = new State() {
 			Transition disarmPinceau = new LeaveOnTag("pinceau", ">> disarmed") {};
+			
+			Transition disarmPot = new LeaveOnTag("pot", ">> disarmed") {};
 			
 			Transition disarmTaille = new LeaveOnTag("taille", ">> disarmed") {
 				public void action() {
@@ -125,7 +114,7 @@ public class DessinStateMachine extends CStateMachine {
 				
 			};
 			
-			Transition cancel2 = new Release(BUTTON3, ">> over") {				
+			Transition cancel2 = new Release(BUTTON3, ">> out") {				
 				public void action() {
 					widgetOutils.getChoixPinceau().montrer(false);
 					widgetOutils.getChoixPot().montrer(false);
@@ -137,7 +126,7 @@ public class DessinStateMachine extends CStateMachine {
 		};
 
 		disarmed = new State() {
-			
+			// ------------- PINCEAU
 			Transition enterPinceau = new EnterOnTag("pinceau", ">> armed") {
 				public void action() {
 					shape = getShape();
@@ -145,11 +134,33 @@ public class DessinStateMachine extends CStateMachine {
 					System.out.println("Etat DEBUT pinceau");
 					widgetOutils.getPinceau().setEstActif(true);
 					widgetOutils.getChoixPinceau().montrer(true);
+					
+					widgetOutils.getPot().setEstActif(false);
+					widgetOutils.getForme().setEstActif(false);
+					widgetOutils.getGomme().setEstActif(false);
 				}
 			};
 			
 			Transition enterChoixPinceau = new EnterOnTag("choixPinceau", ">> changePinceau") {};
 			
+			// ------------- POT
+			Transition enterPot = new EnterOnTag("pot", ">> armed") {
+				public void action() {
+					shape = getShape();
+					shape.setStroke(Utilitaires.augmente);
+					System.out.println("Etat DEBUT pot");
+					widgetOutils.getPot().setEstActif(true);
+					widgetOutils.getChoixPot().montrer(true);
+					
+					widgetOutils.getPinceau().setEstActif(false);
+					widgetOutils.getForme().setEstActif(false);
+					widgetOutils.getGomme().setEstActif(false);
+				}
+			};
+			
+			Transition enterChoixPot = new EnterOnTag("choixPot", ">> changePot") {};
+			
+			// ------------- GOMME
 			Transition enterGomme = new EnterOnTag("gomme", ">> armed") {
 				public void action() {
 					shape = getShape();
@@ -159,14 +170,7 @@ public class DessinStateMachine extends CStateMachine {
 				}
 			};
 			
-			Transition enterPot = new EnterOnTag("pot", ">> armed") {
-				public void action() {
-					shape = getShape();
-					shape.setStroke(Utilitaires.augmente);
-					System.out.println("Etat DEBUT pot");
-					widgetOutils.getChoixPot().montrer(true);
-				}
-			};
+			
 			
 			Transition enterForme = new EnterOnTag("forme", ">> armed") {
 				public void action() {
@@ -175,10 +179,7 @@ public class DessinStateMachine extends CStateMachine {
 					System.out.println("Etat DEBUT forme");
 					widgetOutils.getChoixFormes().montrer(true);
 				}
-			};
-			
-			
-			
+			};			
 			
 			Transition cancel = new Release(BUTTON3, ">> out") {
 				public void action() {
@@ -197,6 +198,7 @@ public class DessinStateMachine extends CStateMachine {
 			
 			Transition choixPinceauTaille = new EnterOnTag("taille", ">> changePinceau") {
 				public void action() {
+					shape.setStroke(Utilitaires.normal);
 					shape = getShape();
 					shape.setStroke(Utilitaires.augmente);
 					System.out.println("ChangePinceau Taille");
@@ -206,22 +208,43 @@ public class DessinStateMachine extends CStateMachine {
 			
 			Transition choixPinceauCouleur = new EnterOnTag("couleur", ">> changePinceau") {
 				public void action() {
+					shape.setStroke(Utilitaires.normal);
 					shape = getShape();
 					shape.setStroke(Utilitaires.augmente);
 					System.out.println("ChangePinceau Couleur");
 					widgetOutils.getPinceau().setCouleurPinceau(((Couleur) shape).getColor());
 				}
-			};
+			};			
 			
 			Transition fin = new Release("out") {
 				public void action() {
 					shape.setStroke(Utilitaires.normal);
+					widgetOutils.getPinceau().setStroke(Utilitaires.normal);
 					widgetOutils.getChoixPinceau().montrer(false);
 				}
 			};
 			
 		};
 		
+		changePot = new State() {
+			
+			Transition choixPotCouleur = new EnterOnTag("couleur", ">> changePot") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					shape = getShape();
+					shape.setStroke(Utilitaires.augmente);
+					System.out.println("ChangePot Couleur");
+					widgetOutils.getPot().setCouleurPot(((Couleur) shape).getColor());
+				}
+			};
+			
+			Transition finPot = new Release("out") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					widgetOutils.getChoixPot().montrer(false);
+				}
+			};
+		};	
 		
 	}
 

@@ -186,12 +186,6 @@ public class WidgetOutils extends CShape {
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
-//		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
-//		smGomme.attachTo(canvas);
-//		
-//		smPot = this.pot.createPotStateMachineDrawing(pot, canvas);
-//		smPot.attachTo(canvas);
-		
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);			
 
@@ -204,13 +198,7 @@ public class WidgetOutils extends CShape {
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		
 		// drag est le parent de tous les widgets annexes
-		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);
-		
-		// Ajout des statesMachines sur les formes.
-		// Si on passe sur un des outils principaux, cela affiche le widget annexe
-		pot.addPotStateMachine(pot, this);
-		gomme.addGommeStateMachine(gomme, this);
-		forme.addFormeStateMachine(forme, this);	
+		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);	
 				
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");

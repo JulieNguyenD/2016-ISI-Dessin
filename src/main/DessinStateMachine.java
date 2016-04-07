@@ -289,7 +289,7 @@ public class DessinStateMachine extends CStateMachine {
 					widgetOutils.getChoixPot().montrer(false);
 					widgetOutils.getChoixGomme().montrer(false);
 					widgetOutils.getChoixFormes().montrer(false);
-					shape.setStroke(Utilitaires.normal);
+					if (shape != null){ shape.setStroke(Utilitaires.normal); }
 				}
 			};
 

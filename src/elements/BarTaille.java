@@ -79,27 +79,30 @@ public class BarTaille extends CImage{
 //						widgetOutil.getPinceau().setEstActif(true);
 //						widgetOutil.getPinceau().setTaille(taille);
 						
-						ArrayList <CShape> outils = widgetOutil.getOutilsList();
-						for (int i = 0; i < outils.size(); i ++){
-							// Cas pour pinceau
-							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
-								System.out.println ("Jesuis contennt PINCEAU !!!!!!!!!!!!!!!!!!!!!!!");
-								Pinceau pinceau = (Pinceau)outils.get(i);
-								if (pinceau.isEstActif()){
-									pinceau.setTaille(taille);
-								}
-							}
-							
-							// Cas pour pour formes
-							if (outils.get(i).getClass().getName().equals("elements.Forme")){
-								System.out.println ("Jesuis contennt FORME !!!!!!!!!!!!!!!!!!!!!!!");
-								Forme forme = (Forme)outils.get(i);
-								if (forme.isEstActif()){
-									forme.setTaille(taille);
-								}
-							}
-							
-						}
+						if (widgetOutil.getPinceau().isEstActif()) widgetOutil.getPinceau().setTaille(taille);
+						if (widgetOutil.getForme().isEstActif()) widgetOutil.getForme().setTaille(taille);
+												
+//						ArrayList <CShape> outils = widgetOutil.getOutilsList();
+//						for (int i = 0; i < outils.size(); i ++){
+//							// Cas pour pinceau
+//							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
+//								System.out.println ("Jesuis contennt PINCEAU !!!!!!!!!!!!!!!!!!!!!!!");
+//								Pinceau pinceau = (Pinceau)outils.get(i);
+//								if (pinceau.isEstActif()){
+//									pinceau.setTaille(taille);
+//								}
+//							}
+//							
+//							// Cas pour pour formes
+//							if (outils.get(i).getClass().getName().equals("elements.Forme")){
+//								System.out.println ("Jesuis contennt FORME !!!!!!!!!!!!!!!!!!!!!!!");
+//								Forme forme = (Forme)outils.get(i);
+//								if (forme.isEstActif()){
+//									forme.setTaille(taille);
+//								}
+//							}
+//							
+//						}
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};

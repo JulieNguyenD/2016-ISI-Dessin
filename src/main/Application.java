@@ -54,17 +54,13 @@ import widgets.WidgetOutils;
  * @author NGUYEN Julie
  */
 public class Application extends JFrame {
+	
 	/**
 	 * Le Canvas de la fenêtre. On dessine dessus et les CElements sont placés dessus.
 	 * @see Application#Application()
 	 */
 	private Canvas canvas;
 	
-	/**
-	 * Le Canvas de crossing.
-	 * @see Application#Application()
-	 */
-	private Canvas canvas_trace;
 	
 	/**
 	 * Le widget contenant les outils de dessin : pinceau, gomme, pot et formes.
@@ -138,8 +134,8 @@ public class Application extends JFrame {
 		dessinSM = new DessinStateMachine(widgetOutils);
 		Utilitaires.showStateMachine(dessinSM);
 		
-//		dessinSM.addStateMachineListener(smlistener);
-//		dessinSM.attachTo(canvas);
+		dessinSM.addStateMachineListener(smlistener);
+		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);

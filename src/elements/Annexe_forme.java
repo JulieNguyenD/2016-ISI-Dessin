@@ -1,17 +1,9 @@
 package elements;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import fr.lri.swingstates.canvas.CImage;
-import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
-import fr.lri.swingstates.canvas.transitions.EnterOnShape;
-import fr.lri.swingstates.canvas.transitions.LeaveOnShape;
-import fr.lri.swingstates.sm.State;
-import fr.lri.swingstates.sm.Transition;
-import fr.lri.swingstates.sm.transitions.Press;
-import fr.lri.swingstates.sm.transitions.Release;
 
 public class Annexe_forme extends CImage {
 	
@@ -28,8 +20,7 @@ public class Annexe_forme extends CImage {
 		this.canvas = canvas;
 		this.forme = forme;
 
-		this.addTo(canvas);
-		this.addTag("choix");
+		this.addTo(this.canvas);
 		
 		this.addTag("Annexeforme");
 	}

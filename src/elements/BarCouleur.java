@@ -110,25 +110,29 @@ public class BarCouleur extends CImage{
 //						widgetOutil.getPinceau().setEstActif(true);
 //						widgetOutil.getPinceau().setCouleurPinceau(color);
 						
-						ArrayList <CShape> outils = widgetOutil.getOutilsList();
-						for (int i = 0; i < outils.size(); i ++){
-							// Cas pour pinceau
-							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
-								Pinceau pinceau = (Pinceau)outils.get(i);
-								if (pinceau.isEstActif()){
-									pinceau.setCouleurPinceau(color);
-								}
-							}
-							
-							// Cas pour pour formes
-							if (outils.get(i).getClass().getName().equals("elements.Forme")){
-								Forme forme = (Forme)outils.get(i);
-								if (forme.isEstActif()){
-									forme.setCouleur(color);
-								}
-							}
-							
-						}
+						if (widgetOutil.getPinceau().isEstActif()) widgetOutil.getPinceau().setCouleurPinceau(color);
+						if (widgetOutil.getForme().isEstActif()) widgetOutil.getForme().setCouleur(color);
+						if (widgetOutil.getPot().isEstActif()) widgetOutil.getPot().setCouleurPot(color);
+						
+//						ArrayList <CShape> outils = widgetOutil.getOutilsList();
+//						for (int i = 0; i < outils.size(); i ++){
+//							// Cas pour pinceau
+//							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
+//								Pinceau pinceau = (Pinceau)outils.get(i);
+//								if (pinceau.isEstActif()){
+//									pinceau.setCouleurPinceau(color);
+//								}
+//							}
+//							
+//							// Cas pour pour formes
+//							if (outils.get(i).getClass().getName().equals("elements.Forme")){
+//								Forme forme = (Forme)outils.get(i);
+//								if (forme.isEstActif()){
+//									forme.setCouleur(color);
+//								}
+//							}
+//							
+//						}
 						
 					}
 				};

@@ -11,6 +11,7 @@ import elements.Annexe_forme;
 import fr.lri.swingstates.canvas.CEllipse;
 import fr.lri.swingstates.canvas.CPolyLine;
 import fr.lri.swingstates.canvas.CRectangle;
+import fr.lri.swingstates.canvas.CSegment;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
@@ -30,23 +31,17 @@ public class DessinStateMachine extends CStateMachine {
 	
 	private CShape shape;
 	private CEllipse ell;
-	private CRectangle rec;
+	private CRectangle rect;
+	private CSegment seg;
 	private CPolyLine line;
 	private Point2D p1;
 	
-	public State out, armed, disarmed, draw, changePinceau, changePot, changeGomme;
+	public State out, armed, disarmed, draw, changePinceau, changePot, changeGomme, changeForme;
 	// voir si mettre d'autres état. Genre, armedPinceau, etc.
 	
 	public DessinStateMachine(WidgetOutils widgetOutils) {
 		out = new State() {
-			Transition pressOut = new Press (BUTTON3,">> disarmed") {
-//				public boolean guard() {
-//					return pinceau.isEstActif();
-//				}
-				public void action() {						
-
-				}
-			};
+			Transition pressOut = new Press (BUTTON3,">> disarmed") {};
 			
 //			Transition clickTag = new ClickOnTag("dessin", BUTTON1) {
 //				public void action() {
@@ -76,6 +71,8 @@ public class DessinStateMachine extends CStateMachine {
 
 				public void action() {
 					Canvas canvas = (Canvas) getEvent().getSource();
+					p1 = getPoint();
+
 					if (widgetOutils.getPinceau().isEstActif()) {						
 						line = canvas.newPolyLine(getPoint());
 						line.setStroke(new BasicStroke(widgetOutils.getPinceau().getTaille()));
@@ -89,6 +86,26 @@ public class DessinStateMachine extends CStateMachine {
 						line.setOutlinePaint(Color.WHITE);
 						line.setFilled(false);
 					}
+					if (widgetOutils.getForme().isEstActif()) {
+						if (widgetOutils.getForme().getFonction() == "rectangle") {
+							rect = canvas.newRectangle(p1, 1, 1);
+							rect.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
+							rect.setOutlinePaint(widgetOutils.getForme().getCouleur());
+							rect.setFilled(false);
+						} else if (widgetOutils.getForme().getFonction() == "ligne"){
+							seg = canvas.newSegment(p1, p1);
+							seg.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
+							seg.setOutlinePaint(widgetOutils.getForme().getCouleur());
+							seg.setFilled(false);
+						} else if (widgetOutils.getForme().getFonction() == "ellipse") {
+							ell = canvas.newEllipse(p1, 1, 1);
+							ell.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
+							ell.setOutlinePaint(widgetOutils.getForme().getCouleur());
+							ell.setFilled(false);
+						}
+					}
+					
+					
 				}
 			};
 		};
@@ -99,6 +116,11 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
 					if (widgetOutils.getGomme().isEstActif()) line.lineTo(getPoint());
+					if (widgetOutils.getForme().isEstActif()) {
+						if (widgetOutils.getForme().getFonction() == "rectangle") rect.setDiagonal(p1, getPoint());
+						else if (widgetOutils.getForme().getFonction() == "ligne") seg.setPoints(p1, getPoint());
+						else if (widgetOutils.getForme().getFonction() == "ellipse") ell.setDiagonal(p1, getPoint());
+					}
 				}
 			};
 			
@@ -112,6 +134,11 @@ public class DessinStateMachine extends CStateMachine {
 			Transition cancel = new Release(BUTTON1, ">> out") {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	line.lineTo(getPoint());
+					if (widgetOutils.getForme().isEstActif()) {
+						if (widgetOutils.getForme().getFonction() == "rectangle") rect.setDiagonal(p1, getPoint());
+						else if (widgetOutils.getForme().getFonction() == "ligne") seg.setPoints(p1, getPoint());
+						else if (widgetOutils.getForme().getFonction() == "ellipse") ell.setDiagonal(p1, getPoint());
+					}
 				}
 			};
 		};
@@ -123,25 +150,8 @@ public class DessinStateMachine extends CStateMachine {
 			
 			Transition disarmGomme = new LeaveOnTag("gomme", ">> disarmed") {};
 			
-			Transition disarmTaille = new LeaveOnTag("taille", ">> disarmed") {
-				public void action() {
-					System.out.println("Etat CROSSING SORTIE");
-					widgetOutils.getPinceau().setTaille((int)((Taille) shape).getTaille());
-					System.out.println("Taille obtenu =============== "+ ((Taille) shape).getTaille());
-					shape.setStroke(Utilitaires.normal);
-				}
-				
-			};
-			
-			Transition disarmCouleur = new LeaveOnTag("couleur", ">> disarmed") {
-				public void action() {
-					System.out.println("Etat CROSSING SORTIE COULEUR ");
-					widgetOutils.getPinceau().setCouleurPinceau(((Couleur) shape).getColor());
-					System.out.println("Couleur obtenu =============== "+ ((Couleur) shape).getColor());
-					shape.setStroke(Utilitaires.normal);
-				}
-				
-			};
+			Transition disarmForme = new LeaveOnTag("forme", ">> disarmed") {};
+
 			
 			Transition cancel2 = new Release(BUTTON3, ">> out") {				
 				public void action() {
@@ -211,10 +221,17 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					shape = getShape();
 					shape.setStroke(Utilitaires.augmente);
-					System.out.println("Etat DEBUT forme");
+					widgetOutils.getForme().setEstActif(true);
+					System.out.println("Etat DEBUT gomme");
 					widgetOutils.getChoixFormes().montrer(true);
+					
+					widgetOutils.getPinceau().setEstActif(false);
+					widgetOutils.getPot().setEstActif(false);
+					widgetOutils.getGomme().setEstActif(false);
 				}
 			};			
+			
+			Transition enterChoixForme = new EnterOnTag("choixFormes", ">> changeForme") {};
 			
 			Transition cancel = new Release(BUTTON3, ">> out") {
 				public void action() {
@@ -296,6 +313,37 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					shape.setStroke(Utilitaires.normal);
 					widgetOutils.getChoixGomme().montrer(false);
+				}
+			};
+		};
+		
+		changeForme = new State() {			
+			
+			Transition choixFormef = new EnterOnTag("Annexeforme", ">> changeForme") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					shape = getShape();
+					shape.setStroke(Utilitaires.augmente);
+					System.out.println("changeForme Forme");
+					widgetOutils.getForme().setFonction(((Annexe_forme)shape).getForme());
+				}
+			};			
+			
+			Transition choixFormeCouleur = new EnterOnTag("couleur", ">> changeForme") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					shape = getShape();
+					shape.setStroke(Utilitaires.augmente);
+					System.out.println("changeForme Couleur");
+					widgetOutils.getForme().setCouleur(((Couleur) shape).getColor());
+				}
+			};
+			
+			Transition finForme = new Release("out") {
+				public void action() {
+					shape.setStroke(Utilitaires.normal);
+					widgetOutils.getPinceau().setStroke(Utilitaires.normal);
+					widgetOutils.getChoixFormes().montrer(false);
 				}
 			};
 		};

@@ -3,6 +3,7 @@ package widgets;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import elements.*;
 import fr.lri.swingstates.canvas.CImage;
@@ -144,6 +145,12 @@ public class WidgetOutils extends CShape {
 	 * @see WidgetOutils#outils
 	 */
 	private int padding = 10;
+	
+	/**
+	 * Un ArrayListe qui va contenir toute les outils
+	 * Il est utile pour savoir lequel de ces outils sont actif ou non 
+	 */	
+	private ArrayList <CShape> outils_list  = new ArrayList <CShape>();
 
 	/**
 	 * Constructeur de WidgetPinceau.
@@ -186,6 +193,27 @@ public class WidgetOutils extends CShape {
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
+<<<<<<< HEAD
+		// Ajout des outils dans un arraylist
+		outils_list.add(this.pinceau);
+		outils_list.add(this.gomme);
+		outils_list.add(this.pot);
+		outils_list.add(this.forme);
+		
+		smPinceau = this.pinceau.createPinceauStateMachineDrawing(pinceau, canvas);
+		smPinceau.attachTo(canvas);
+		
+		smGomme = this.gomme.createGommeStateMachineDrawing(gomme, canvas);
+		smGomme.attachTo(canvas);
+		
+		smPot = this.pot.createPotStateMachineDrawing(pot, canvas);
+		smPot.attachTo(canvas);
+		
+		smForme = this.forme.createFormeStateMachineDrawing(forme, canvas);
+		smForme.attachTo(canvas);
+		
+=======
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);			
 
@@ -198,8 +226,23 @@ public class WidgetOutils extends CShape {
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		
 		// drag est le parent de tous les widgets annexes
+<<<<<<< HEAD
+		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);
+		
+		// Ajout des statesMachines sur les formes.
+		// Si on passe sur un des outils principaux, cela affiche le widget annexe
+		pinceau.addPinceauStateMachine(pinceau, this);
+		pot.addPotStateMachine(pot, this);
+		gomme.addGommeStateMachine(gomme, this);
+		forme.addFormeStateMachine(forme, this);				
+		
+		choixPinceau.ajouterStateMachineChoixPinceau(pinceau);
+		choixFormes.ajouterStateMachineChoixPinceau(forme);
+		
+=======
 		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);	
 				
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);		
@@ -267,6 +310,14 @@ public class WidgetOutils extends CShape {
 	 */
 	public Forme getForme() {
 		return forme;
+	}
+	
+	/**
+	 * Getter de la liste d'outils
+	 * @return outils_list : l'attribut outils_list 
+	 */	
+	public ArrayList <CShape> getOutilsList (){
+		return this.outils_list;
 	}
 
 }

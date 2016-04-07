@@ -6,10 +6,12 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import fr.lri.swingstates.canvas.CImage;
+import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.EnterOnTag;
@@ -25,11 +27,11 @@ public class BarTaille extends CImage{
 	private BufferedImage biScaled;
 	private BufferedImage bi;
 	private CStateMachine sm;
-	private WidgetOutils widgetPinceau;
+	private WidgetOutils widgetOutil;
 
-	public BarTaille(String path, Point2D position, Canvas canvas, WidgetOutils widgetPinceau) throws IOException {
+	public BarTaille(String path, Point2D position, Canvas canvas, WidgetOutils widgetOutil) throws IOException {
 		super(path, position);
-		this.widgetPinceau = widgetPinceau;
+		this.widgetOutil = widgetOutil;
 		
 		this.setStroke(new BasicStroke(0));
 		this.scaleBy(0.2);
@@ -74,8 +76,30 @@ public class BarTaille extends CImage{
 						double ecart = maxY - thisY;
 						int taille = (int) ((ecart / heightScaled) * widthScaled);
 						
-						widgetPinceau.getPinceau().setEstActif(true);
-						widgetPinceau.getPinceau().setTaille(taille);										       
+//						widgetOutil.getPinceau().setEstActif(true);
+//						widgetOutil.getPinceau().setTaille(taille);
+						
+						ArrayList <CShape> outils = widgetOutil.getOutilsList();
+						for (int i = 0; i < outils.size(); i ++){
+							// Cas pour pinceau
+							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
+								System.out.println ("Jesuis contennt PINCEAU !!!!!!!!!!!!!!!!!!!!!!!");
+								Pinceau pinceau = (Pinceau)outils.get(i);
+								if (pinceau.isEstActif()){
+									pinceau.setTaille(taille);
+								}
+							}
+							
+							// Cas pour pour formes
+							if (outils.get(i).getClass().getName().equals("elements.Forme")){
+								System.out.println ("Jesuis contennt FORME !!!!!!!!!!!!!!!!!!!!!!!");
+								Forme forme = (Forme)outils.get(i);
+								if (forme.isEstActif()){
+									forme.setTaille(taille);
+								}
+							}
+							
+						}
 					}
 				};
 				Transition act = new Release(BUTTON3, ">> over") {};

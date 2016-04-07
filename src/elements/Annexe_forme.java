@@ -29,6 +29,7 @@ public class Annexe_forme extends CImage {
 		this.forme = forme;
 
 		this.addTo(canvas);
+		this.addTag("choix");
 		
 		this.addTag("Annexeforme");
 	}

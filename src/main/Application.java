@@ -138,8 +138,8 @@ public class Application extends JFrame {
 		dessinSM = new DessinStateMachine(widgetOutils);
 		Utilitaires.showStateMachine(dessinSM);
 		
-		dessinSM.addStateMachineListener(smlistener);
-		dessinSM.attachTo(canvas);
+//		dessinSM.addStateMachineListener(smlistener);
+//		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);
@@ -156,7 +156,4 @@ public class Application extends JFrame {
 		canvas.requestFocusInWindow();
 		
 	}
-	
-	
-
 }

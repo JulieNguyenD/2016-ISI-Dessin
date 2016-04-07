@@ -16,7 +16,7 @@ import fr.lri.swingstates.sm.transitions.Release;
 public class Couleur extends CRectangle {
 	private Color couleur;
 	private CRectangle rectangle;
-	private CStateMachine sm;
+//	private CStateMachine sm;
 
 	public Couleur (final Color color, Canvas canvas){
 		super (0, 0, 50, 50);

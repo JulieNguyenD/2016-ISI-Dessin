@@ -1,9 +1,11 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.EventObject;
 
 import javax.swing.JFrame;
 
@@ -15,12 +17,14 @@ import elements.Pinceau;
 import elements.Pot;
 import elements.QuitMenu;
 import elements.QuitMenu_remake;
+import fr.lri.swingstates.canvas.CHierarchyTag;
 import fr.lri.swingstates.canvas.CRectangle;
 import fr.lri.swingstates.canvas.CShape;
 import fr.lri.swingstates.canvas.CStateMachine;
 import fr.lri.swingstates.canvas.Canvas;
 import fr.lri.swingstates.canvas.transitions.PressOnTag;
 import fr.lri.swingstates.sm.State;
+import fr.lri.swingstates.sm.StateMachineListener;
 import fr.lri.swingstates.sm.Transition;
 import fr.lri.swingstates.sm.transitions.Drag;
 import fr.lri.swingstates.sm.transitions.Release;
@@ -84,7 +88,19 @@ public class Application extends JFrame {
 	 * Le point de positionnement du Widget CouleurTaille.
 	 * @see Application#Application()
 	 */
-	private Point positionWidgetCT;		
+	private Point positionWidgetCT;
+	
+	private StateMachineListener smlistener = new StateMachineListener() {
+		public void eventOccured(EventObject e) {
+			ShapeCreatedEvent csce = (ShapeCreatedEvent) e;
+			csce.getShape().addTag("dessin")
+					.setFillPaint(Color.white);
+			new CHierarchyTag(widgetOutils).aboveAll();
+			new CHierarchyTag(widgetcouleurtaille).aboveAll();
+		}
+	};
+	
+	private DessinStateMachine dessinSM;
 		
 	/**
 	 * Constructeur de Application.
@@ -130,6 +146,9 @@ public class Application extends JFrame {
 
 		widgetcouleurtaille = new WidgetCouleurTaille (canvas, positionWidgetCT, widgetOutils);
 //		widgetcouleurtaille.addTag("NonDrawable");
+		
+		dessinSM.addStateMachineListener(smlistener);
+		dessinSM.attachTo(canvas);
 		
 		// MENU RADIAL - ABANDONE
 //		QuitMenu_remake qm = new QuitMenu_remake(canvas);

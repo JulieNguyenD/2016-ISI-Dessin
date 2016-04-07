@@ -24,7 +24,11 @@ public class ChoixGomme extends CRectangle {
 		this.canvas = canvas;	
 		this.addTo(canvas);		
 		
+		this.fonction = "pinceau";
+		
 		this.setStroke(new BasicStroke(1));
+		
+		this.addTag("choixGomme");
 		
 		gommeWidget = new Gomme_Widget(canvas, position_widget);
 		
@@ -33,6 +37,14 @@ public class ChoixGomme extends CRectangle {
 		this.montrer(false);
 	}
 	
+	public String getFonction() {
+		return fonction;
+	}
+
+	public void setFonction(String fonction) {
+		this.fonction = fonction;
+	}
+
 	public void montrer(boolean b) {
 		this.setDrawable(b);
 		this.setPickable(b);

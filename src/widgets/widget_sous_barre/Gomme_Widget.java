@@ -22,8 +22,9 @@ public class Gomme_Widget extends CRectangle {
 		position_init = new Point2D.Double(position.getX()+padding, position.getY()+padding);
 		Point2D pos = new Point2D.Double(0, 0);
 				
-		gommeList = new ArrayList<Annexe_forme>();		
-		gommeList.add(new Annexe_forme ("images/gomme_pot.png", pos, canvas, "pot"));
+		gommeList = new ArrayList<Annexe_forme>();
+		gommeList.add(new Annexe_forme ("images/gomme_pinceau.png", pos, canvas, "pinceau"));
+//		gommeList.add(new Annexe_forme ("images/gomme_pot.png", pos, canvas, "pot"));
 		gommeList.add(new Annexe_forme ("images/gomme_forme.png", pos, canvas, "forme"));
 				
 		for (int i = 0; i < gommeList.size(); i++){

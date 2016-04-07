@@ -139,14 +139,6 @@ public class WidgetOutils extends CShape {
 	 * @see Gomme
 	 */
 	private ChoixGomme choixGomme;
-	
-	/**
-	 * Le CStateMachine pour le pinceau.
-	 * smPinceau permet de dessiner sur le canvas. Sauf si l'on entre dans un élément NonDrawable.
-	 * @see CStateMachine
-	 * @see Pinceau#createPinceauStateMachineDrawing(Pinceau, Canvas)
-	 */
-	private CStateMachine smPinceau, smGomme, smPot, smForme;
 			
 	/**
 	 * padding entre les CImages et le CRectangle outils qui l'entoure.
@@ -201,6 +193,7 @@ public class WidgetOutils extends CShape {
 		this.gomme = new Gomme("images/gomme.png", position_image_gomme, canvas);		
 		this.forme = new Forme("images/forme.png", position_image_forme, canvas);
 		
+<<<<<<< HEAD
 		// Ajout des outils dans un arraylist
 		outils_list.add(this.pinceau);
 		outils_list.add(this.gomme);
@@ -219,18 +212,21 @@ public class WidgetOutils extends CShape {
 		smForme = this.forme.createFormeStateMachineDrawing(forme, canvas);
 		smForme.attachTo(canvas);
 		
+=======
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 		outils.addChild(pinceau).addChild(pot).addChild(gomme).addChild(forme);
 		drag.addChild(outils);			
 
 		drag.addTag("NonDrawable");
 		outils.addTag("NonDrawable");
 		
-		choixPinceau = new ChoixPinceau(canvas, position_image_pinceau, pinceau);		
+		choixPinceau = new ChoixPinceau(canvas, position_image_pinceau);		
 		choixPot = new ChoixPot(canvas, position_image_pot);		
 		choixGomme = new ChoixGomme(canvas, position_image_gomme);		
 		choixFormes = new ChoixFormes(canvas, position_image_forme);
 		
 		// drag est le parent de tous les widgets annexes
+<<<<<<< HEAD
 		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);
 		
 		// Ajout des statesMachines sur les formes.
@@ -243,25 +239,13 @@ public class WidgetOutils extends CShape {
 		choixPinceau.ajouterStateMachineChoixPinceau(pinceau);
 		choixFormes.ajouterStateMachineChoixPinceau(forme);
 		
+=======
+		drag.addChild(choixPinceau).addChild(choixPot).addChild(choixGomme).addChild(choixFormes);	
+				
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 		// drag est draggable. Permet à la stateMachine du Canvas de faire bouger les éléments draggable.
 		drag.addTag("draggable");
 		drag.setOutlinePaint(Color.BLACK).setFillPaint(Color.RED).setTransparencyFill((float) 0.25);		
-	}
-	
-	/**
-	 * Retourne la CStateMachine smPinceau en attribut.
-	 * @return la CStateMachine smPinceau
-	 */
-	public CStateMachine getSMPinceau(){
-		return smPinceau;
-	}
-	
-	/**
-	 * Mise à jour de la CStateMachine smPinceau avec le paramètre.
-	 * @param smPinceau : la nouvelle CStateMachine pour le pinceau.
-	 */
-	public void setSMPinceau (CStateMachine smPinceau){
-		this.smPinceau = smPinceau;
 	}
 	
 	/**

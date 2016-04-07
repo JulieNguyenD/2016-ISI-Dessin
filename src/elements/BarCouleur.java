@@ -114,7 +114,6 @@ public class BarCouleur extends CImage{
 						for (int i = 0; i < outils.size(); i ++){
 							// Cas pour pinceau
 							if (outils.get(i).getClass().getName().equals("elements.Pinceau")){
-								System.out.println ("Jesuis contennt PINCEAU !!!!!!!!!!!!!!!!!!!!!!!");
 								Pinceau pinceau = (Pinceau)outils.get(i);
 								if (pinceau.isEstActif()){
 									pinceau.setCouleurPinceau(color);
@@ -123,7 +122,6 @@ public class BarCouleur extends CImage{
 							
 							// Cas pour pour formes
 							if (outils.get(i).getClass().getName().equals("elements.Forme")){
-								System.out.println ("Jesuis contennt FORME !!!!!!!!!!!!!!!!!!!!!!!");
 								Forme forme = (Forme)outils.get(i);
 								if (forme.isEstActif()){
 									forme.setCouleur(color);

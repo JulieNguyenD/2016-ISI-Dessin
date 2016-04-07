@@ -23,16 +23,13 @@ import main.Utilitaires;
 public class ChoixPinceau extends CRectangle {
 	
 	private Canvas canvas;
-	private Pinceau pinceau;
 	private Couleur_Widget choixPinceauCouleur;
 	private Taille_Widget choixPinceauTaille;
-	private CStateMachine smWidgetPinceau;
 	private Point2D position_widget;
 	
-	public ChoixPinceau(Canvas canvas, Point2D position, Pinceau pinceau) {
+	public ChoixPinceau(Canvas canvas, Point2D position) {
 		super(position.getX()-70*2-10*2, position.getY(), 70*2, 290);
 		this.canvas = canvas;
-		this.pinceau = pinceau;
 		
 		position_widget = new Point2D.Double(position.getX()-70*2-10*2, position.getY());
 		
@@ -40,6 +37,8 @@ public class ChoixPinceau extends CRectangle {
 		this.addTo(canvas);		
 		
 		this.setStroke(new BasicStroke(1));
+		
+		this.addTag("choixPinceau");
 		
 		choixPinceauCouleur = new Couleur_Widget(canvas, position_widget);
 		choixPinceauTaille = new Taille_Widget(canvas, position_widget);
@@ -57,6 +56,7 @@ public class ChoixPinceau extends CRectangle {
 		this.choixPinceauCouleur.montrer(b);
 		this.choixPinceauTaille.montrer(b);
 	}
+<<<<<<< HEAD
 	
 	public void ajouterStateMachineChoixPinceau(Pinceau pinceau) {
 		smWidgetPinceau = new CStateMachine() {			
@@ -162,5 +162,7 @@ public class ChoixPinceau extends CRectangle {
 	}
 	
 	
+=======
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 
 }

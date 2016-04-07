@@ -38,6 +38,8 @@ public class ChoixFormes extends CRectangle {
 		
 		this.setStroke(new BasicStroke(1));
 		
+		this.addTag("choixFormes");
+		
 		choixCouleurContour = new Couleur_Widget(canvas, position_widget);
 		choixForme = new Forme_Widget(canvas, position_widget);
 		choixForme.translateBy(70, 0);

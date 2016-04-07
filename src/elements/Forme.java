@@ -39,6 +39,7 @@ public class Forme extends CImage {
 	 * @see Canvas
 	 */
 	private Canvas canvas;
+<<<<<<< HEAD
 	
 	/***************************CODE A METTRE EN JAVADOC*******************************************/
 	
@@ -83,6 +84,8 @@ public class Forme extends CImage {
 	 * @see CStateMachine
 	 */
 	private CStateMachine sm, smd;
+=======
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 
 	/**
 	 * Constructeur de Forme.
@@ -100,7 +103,11 @@ public class Forme extends CImage {
 		this.taille = 1;
 		this.estActif = false;
 		
+<<<<<<< HEAD
 		this.addTo(canvas);
+=======
+		this.addTo(canvas);		
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 		this.addTag("forme");
 	}
 	
@@ -119,6 +126,7 @@ public class Forme extends CImage {
 	public void setEstActif(boolean estActif) {
 		this.estActif = estActif;
 	}
+<<<<<<< HEAD
 	
 	public void addFormeStateMachine(Forme forme, WidgetOutils widget) {
 		sm = new CStateMachine() {
@@ -312,5 +320,7 @@ public class Forme extends CImage {
 		
 		return smd;
 	}
+=======
+>>>>>>> 058487705edc56009708fb63e961e23e1bc14c47
 
 }

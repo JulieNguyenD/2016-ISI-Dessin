@@ -126,19 +126,21 @@ public class DessinStateMachine extends CStateMachine {
 							rect = canvas.newRectangle(p1, 1, 1);
 							rect.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							rect.setOutlinePaint(widgetOutils.getForme().getCouleur());
-							rect.setFilled(false);
+//							rect.setFilled(false);
+							rect.setFillPaint(Color.WHITE);
 							rect.setPickable(true);
 						} else if (widgetOutils.getForme().getFonction() == "ligne"){
 							seg = canvas.newSegment(p1, p1);
 							seg.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							seg.setOutlinePaint(widgetOutils.getForme().getCouleur());
-							seg.setFilled(false);
+//							seg.setFilled(false);
 							seg.setPickable(true);
 						} else if (widgetOutils.getForme().getFonction() == "ellipse") {
 							ell = canvas.newEllipse(p1, 1, 1);
 							ell.setStroke(new BasicStroke(widgetOutils.getForme().getTaille()));
 							ell.setOutlinePaint(widgetOutils.getForme().getCouleur());
-							ell.setFilled(false);
+//							ell.setFilled(false);
+							ell.setFillPaint(Color.WHITE);
 							ell.setPickable(true);
 						}
 					}
@@ -177,20 +179,20 @@ public class DessinStateMachine extends CStateMachine {
 				public void action() {
 					if (widgetOutils.getPinceau().isEstActif())	{
 						line.lineTo(getPoint());
-//						fireEvent(new ShapeCreatedEvent(this, line));
+//						fireEvent(new ShapeCreatedEvent(DessinStateMachine.this, line));
 					}
 					if (widgetOutils.getForme().isEstActif()) {
 						if (widgetOutils.getForme().getFonction() == "rectangle") { 
 							rect.setDiagonal(p1, getPoint());
-//							fireEvent(new ShapeCreatedEvent(this, rect));
+//							fireEvent(new ShapeCreatedEvent(DessinStateMachine.this, rect));
 						}
 						else if (widgetOutils.getForme().getFonction() == "ligne") {
 							seg.setPoints(p1, getPoint());
-//							fireEvent(new ShapeCreatedEvent(this, seg));
+//							fireEvent(new ShapeCreatedEvent(DessinStateMachine.this, seg));
 						}
 						else if (widgetOutils.getForme().getFonction() == "ellipse") {
 							ell.setDiagonal(p1, getPoint());
-//							fireEvent(new ShapeCreatedEvent(this, ell));
+//							fireEvent(new ShapeCreatedEvent(DessinStateMachine.this, ell));
 						}
 					}
 				}
